@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+
+
+body {
+    background-color: #b1b1b1;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 700,
+        'GRAD' 250,
+        'opsz' 48
+}
+
+.bodyProv {
+    display: flex;
+    justify-self: center;
+    font-family: 'Istok Web';
+
+}
+
+
+
+/*-------- ESTILO FORMULARIO MODAL NUEVO USUARIO -----------------------*/
+
+.Container-New-User {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Container-New-User input {
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 36px;
+    text-align: center;
+    background-color: #EEEEEE;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.Container-New-User .New-User-Form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+    width: 100%;
+}
+
+.Container-New-User .New-User-Form .Foto{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    width: 50%;
+    height: 250px;
+    margin-bottom: 10px;
+    color: #5C5C5C;
+    background-color: #EEEEEE;
+}
+.Container-New-User .New-User-Form .Foto input{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.Container-New-User .New-User-Form .Foto img{
+    width: 100%;
+    height: 100%;
+   position: relative;
+   top: -30%;
+   left: calc(-0% - 30%);
+}
+
+.Container-New-User .New-User-Form label {
+    font-size: 12px;
+    color: #FF8A00;
+    font-weight: bolder;
+    text-align: center;
+}
+.Container-New-User .New-User-Form span{
+    color: #606060;
+}
+
+.Container-New-User .New-User-Form .Cont-Item {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.Container-New-User .New-User-Form .Cont-Item .Item-User {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 5px 10px;
+    width: 100%;
+}
+.Container-New-User .New-User-Form .Cont-Item .Item-User input{
+    border: none;
+        border-radius: 5px;
+        width: 100%;
+        height: 36px;
+        text-align: center;
+        background-color: #EEEEEE;
+        margin-bottom: 10px;
+}
+.Container-New-User .New-User-Form .Cont-Item .Item-User span{
+    color: #ff0000;
+}
+.Container-New-User .New-User-Form .bonotesNewProv {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin: 20px;
+}
+
+.Container-New-User .New-User-Form .bonotesNewProv .btcancelar {
+    border: none;
+    width: 140px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #5E5E5E;
+    color: #ffffff;
+    margin-right: 5px;
+}
+
+.Container-New-User .New-User-Form .bonotesNewProv .btGuardar {
+    border: none;
+    width: 140px;
+    height: 36px;
+    border-radius: 25px;
+    background-color:#683C11;
+    color: #ffffff;
+    margin-left: 5px;
+}
+
+/*----------FIN FORMULARIO MODAL NUEVO USUARIO -------------------------*/
+
+/*-----------------------ALERTA--------------------------*/
+.btCancelar {
+    border: none;
+    width: 120px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #5E5E5E;
+    color: #ffffff;
+    margin-left: 5px;
+}
+
+.btEliminar {
+    border: none;
+    width: 120px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #FF8A00;
+    color: #ffffff;
+    margin-right: 5px;
+}
+
+.titulo-pop {
+    font-size: 24px;
+}
+
+.text-pop {
+    font-size: 10px;
+}
+
+.icon-pop {
+    border: #5E5E5E solid 5px;
+}
+
+/*----------------------------------FIN ALERTAS-----------------------------------*/
+
+/*---------------------------------- VERSION ESCRITORIO --------------------------*/

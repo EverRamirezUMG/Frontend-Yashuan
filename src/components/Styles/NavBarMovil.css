@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@media (min-width:600px) {
+    .NavBarM {
+        display: none;
+    }
+}
+
+@media (max-width:599px) {
+
+
+    img {
+        width: 177px;
+        height: 66px;
+        flex-shrink: 0;
+        position: absolute;
+        top: 3%;
+        left: 10%;
+        z-index: 90;
+        cursor: pointer;
+        transition: 0.3s all ease-out;
+    }
+
+    .NavBarM {
+    display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        height: 75px;
+        min-width: 400px;
+        width: 100%;
+        z-index: 90;
+        align-items: center;
+        /* margin-top: 100px; */
+        background-color: #ffffff;
+        /* background-color: #281400; */
+        font-family: 'Istok Web';
+        font-size: small;
+              color: #5C5C5C;
+        box-shadow: 0px 1px 10px 6px rgba(0, 0, 0, 0.20);
+        transition: 0.3s all ease-out;
+             bottom: 0px;
+       
+    }
+
+    .NavBarM .menuM {
+        display: flex;
+        border: none;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 20px 10px 20px;
+        transition: 0.3s all ease-out;
+
+    }
+
+
+
+    .NavBarM .menuM button {
+        display: flex;
+        border: none;
+        background-color: transparent;
+        color: #898989;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 70px;
+        border-radius: 1px;
+        padding: 10px;
+        transition: 0.3s all ease-out;
+    }
+
+    .NavBarM .menuM button:hover {
+        border: none;
+        background-color: #fdcf9f;
+        color: #ffffff;
+        /* width: 100%;
+            height: 70px; */
+        border-radius: 1px;
+        transition: 0.3s all ease-out;
+    }
+
+    .NavBarM .menuM button.active {
+        border: none;
+        /* background-color: #B17F4A; */
+        color: #ff8400;
+        /* width: 100%;
+        height: 70px; */
+        border-radius: 1px;
+        transition: 0.3s all ease-out;
+    }
+
+    .NavBarM sapn {
+
+        border: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .NavBarM .ReportesM {
+        display: flex;
+        border: none;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+       
+        text-align: center;
+        width: 40px;
+    }
+
+    .material-symbols-outlined {
+        font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+    }
+
+}

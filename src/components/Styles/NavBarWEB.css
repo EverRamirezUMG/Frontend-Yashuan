@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.BodydivWEB {
+    width: 100vw;
+    height: 88px;
+    flex-shrink: 0;
+    position: fixed;
+    z-index: 1000;
+    margin-left: 0px;
+    background: #281400;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    z-index: 9999999;
+}
+
+.BodydivWEB .headerWEB {
+    width: 85%;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 1px;
+}
+
+.BodydivWEB .headerWEB .infoWEB {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.BodydivWEB .headerWEB .infoWEB .moduloWEB {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding-left: 25px;
+
+}
+
+
+.BodydivWEB .headerWEB .infoWEB .moduloWEB img{
+    width: auto;
+    height: 70px;
+    margin-right: 10px;
+}
+
+.BodydivWEB .headerWEB .infoWEB .paginaWEB {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 15px;
+    /* margin-right: 90px; */
+    /* background-color: #FFFFFF; */
+}
+
+.BodydivWEB .headerWEB .infoWEB .paginaWEB button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    border: none;
+    /* background-color: #B17F4A;    */
+    background-color: transparent;  
+    transition: 0.5s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.BodydivWEB .headerWEB .infoWEB .paginaWEB button:hover{
+    background-color: #B17F4A;
+    transition: 0.5s;
+    border-radius: 50px;
+}

@@ -1,0 +1,903 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+.vista {
+    display: flex;
+    width: 99vw;
+    height: 100vh;
+}
+
+/* ---------version escritorio--------- */
+
+@media(min-width: 1201px) {
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.vista .grid-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    border-radius: 4px;
+    text-align: center;
+    font-family: 'Istok Web';
+    font-size: 1, 2rem;
+    /* height: 100%; */
+    width: 100%;
+    background-color: #F2F2F2;
+    transition: 0.3s all ease-out;
+    margin-left: 250px;
+    margin-top: 88px;
+}
+
+.grid-container .main {
+    background-color: #F2F2F2;
+    font-family: 'Istok Web';
+    padding: 5px;
+}
+
+.grid-container .main .resumen-acpio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    color: #000;
+    background-color: #ffffff;
+    font-family: 'Istok Web';
+    padding: 0px;
+    /* min-height: 650px;
+    max-height: 820px; */
+    min-width: 500px;
+    padding: 10px 5px;
+    /* width: 536px;
+    height: 616px; */
+    flex-shrink: 0;
+    margin: 10px;
+
+}
+
+.grid-container .main .resumen-acpio .grafica-pie{
+    width: 80%;
+    height: 250px;
+    margin-left: 10%;
+    margin-top: 0px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.grid-container .main .resumen-acpio .grafica-pie .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.grid-container .main .resumen-acpio .dato-pesaje{
+    width: 100%;
+}
+.grid-container .main .resumen-acpio .dato-pesaje .pesajes{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 120px;
+}
+.grid-container .main .resumen-acpio .dato-pesaje .pesajes .pesaje-dato{
+    width: 160px;
+    height: 100px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #F2F2F2;
+    margin: 5px;
+    padding: 10px;
+    font-family: 'Istok Web';
+    font-style: normal;
+
+}
+
+.grid-container .main .resumen-acpio .dato-pesaje .total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 98%;
+    height: 65px;
+    border-radius: 10px;
+    background: #F2F2F2;
+    margin: 5px;
+    font-family: 'Istok Web';
+    font-style: normal;
+    padding: 20px;
+}
+
+
+
+
+.grid-container .main .compras {
+display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    color: #000;
+    background-color: #ffffff;
+    font-family: 'Istok Web';
+    padding: 0px;
+    min-height: 100px;
+    max-height: 350px;
+    min-width: 500px;
+    padding: 10px 5px;
+    /* width: 536px;
+    height: 616px; */
+    flex-shrink: 0;
+    margin: 10px;
+}
+.grid-container .main .compras .grafica-chart {
+    width: 95%;
+    height: 250px;
+    padding: 10px;
+
+}
+
+
+.grid-container .main2 {
+    background-color: #F2F2F2;
+    font-family: 'Istok Web';
+    padding: 5px;
+    margin-left: -10px;
+}
+
+
+.grid-container .main2 .disponibilidadRendimiento {
+    display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 15px;
+        color: #000;
+        /* background-color: #ffffff; */
+        font-family: 'Istok Web';
+        padding: 0px;
+        /* min-height: 650px;
+        max-height: 820px; */
+        /* min-width: 900px; */
+        /* padding: 10px 5px; */
+        /* width: 536px;
+        height: 616px; */
+        flex-shrink: 0;
+        margin-top: 10px;
+        width: 100%;
+
+}
+
+
+.grid-container .main2 .disponibilidadRendimiento .disponibilidad{
+    display: flex;
+    flex-direction: column;
+width: 450px;
+    height: 345px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background-color: #ffffff;
+
+}
+
+.grid-container .main2 .disponibilidadRendimiento .disponibilidad .DatoPergamino{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px 0px 50px;
+}
+
+.grid-container .main2 .disponibilidadRendimiento .disponibilidad .DatoPergamino h2{
+font-size: 34px;
+    font-weight: 700;
+    line-height: 29px;
+    color: #000000;
+    font-family: 'Istok Web';
+}
+.grid-container .main2 .disponibilidadRendimiento .disponibilidad .piePergamino{
+    display: flex;
+margin-top: -50px;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #f40c0c; */
+    width: 100%;
+    height: 100%;
+}
+
+.grid-container .main2 .disponibilidadRendimiento .rendimiento {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    height: 345px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background-color: #ffffff;
+    margin-left: 10px;
+}
+
+.grid-container .main2 .disponibilidadRendimiento .rendimiento .seleccion{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 20px 50px 0px 50px;
+    /* background-color: antiquewhite; */
+}
+.grid-container .main2 .disponibilidadRendimiento .rendimiento .seleccion .selectP{
+        width: 307px;
+        height: 30px;
+        flex-shrink: 0;
+        border-radius: 100px;
+        background: #F2F2F2;
+        color: rgba(0, 0, 0, 1);
+        border: none;
+        font-family: "Istok Web";
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        padding: 5px 0px 5px 50px;
+    }
+
+.grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* padding: 20px 50px 0px 50px; */
+    /* background-color: aquamarine; */
+    height: 100%;
+}
+
+.grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .datos {
+display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 20%;
+    height: 100%;
+    padding-top: 10px;
+    align-items: start;
+    margin-left: 15px;
+    /* padding: 20px 50px 0px 50px; */
+    /* background-color:burlywood; */
+
+}
+
+.grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .datos .rendimientoP{
+    text-align: center;
+width: 157px;
+    height: 83.62px;
+    flex-shrink: 0;
+    border-radius: 10px;
+        background: #E0FFD2;
+}
+.grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .datos .maduro{
+width: 157px;
+    height: 83.62px;
+    flex-shrink: 0;
+    border-radius: 10px;
+        background: #F2F2F2;
+}
+.grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .datos .pergamino{
+width: 157px;
+    height: 83.62px;
+    flex-shrink: 0;
+    border-radius: 10px;
+        background: #F2F2F2;
+}
+
+.grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .Radar{
+    display: flex;
+    width: 100%;
+    height: 100%;
+        margin-top: -20px;
+        justify-content: center;
+        align-items: center;
+        /* background-color: #f40c0c; */
+        padding: 15px;
+}
+
+.grid-container .main2 .ventas {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    color: #000;
+    background-color: #ffffff;
+    font-family: 'Istok Web';
+    padding: 0px;
+    min-height: 100px;
+   height: 100%;
+   max-height: 470px;
+    min-width: 500px;
+    padding: 10px 5px;
+    /* width: 536px; */
+    height: 616px;
+    flex-shrink: 0;
+    margin-top: 10px;
+}
+
+.grid-container .main2 .ventas .tituloV{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 50px 0px 50px;
+    height: 75px;
+    /* background-color: antiquewhite; */
+}
+
+.grid-container .main2 .ventas .tituloV button{
+    width: 200px;
+    height: 30px;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background:#F2F2F2;
+    color: rgb(93, 93, 93);
+    border: none;
+    font-family: "Istok Web";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 5px 0px 5px 0px;
+}
+.grid-container .main2 .ventas .detalle-venta{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 5px 10px 5px;
+    /* background-color: aquamarine; */
+    height: 100%;
+}
+
+
+
+.grid-container .main2 .ventas .detalle-venta .contenedorV{
+    display: flex;
+    flex-direction: column;
+    justify-content:end;
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    /* align-items: start; */
+    padding: 20px 10px 10px 10px;
+border-radius: 10px;
+    background: #F2F2F2;
+}
+
+.grid-container .main2 .ventas .detalle-venta .contenedorV .venta{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+    padding: 10px 30px 0px 30px;
+ margin-bottom: 2px;
+    background-color: rgb(255, 255, 255);
+}
+
+.grid-container .main2 .ventas .totales{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+
+    height: 100%;
+    padding-top: 0px;
+    align-items: start;
+    padding: 0px 10px 0px 10px;
+    /* background-color:burlywood; */
+}
+
+.grid-container .main2 .ventas .totales .subtotal{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    height: 55%;
+    width: 100%;
+    /* background-color: rgb(43, 181, 255); */
+}
+
+.grid-container .main2 .ventas .totales .subtotal .item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+width: 19%;
+    height: 100px;
+    flex-shrink: 0;
+border-radius: 10px;
+    background: #F2F2F2;
+    padding: 10px 0px 10px 0px;
+}
+
+.grid-container .main2 .ventas .totales .subtotal .item h2{
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 29px;
+    font-weight: bold;
+    color: #000000;
+    font-family: 'Istok Web';
+}
+.grid-container .main2 .ventas .totales .total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    padding: 10px 30px 0px 30px;
+border-radius: 10px;
+    background: #F2F2F2;
+}
+}
+
+@media(max-width: 600px) {
+
+
+.vista .grid-container {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        align-items: start;
+        border-radius: 4px;
+        text-align: center;
+        font-family: 'Istok Web';
+        font-size: 1, 2rem;
+        height: auto;
+        width: 100%;
+        /* background-color: #F2F2F2; */
+        background-color: #3cff00;
+        transition: 0.3s all ease-out;
+    }
+
+
+    .grid-container .main {
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        background-color: #F2F2F2;
+        font-family: 'Istok Web';
+        padding: 5px;
+        height: 100%;
+        width: 100%;
+    }
+
+    .grid-container .main .resumen-acpio {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 15px;
+        color: #000;
+        background-color: #ffffff;
+        font-family: 'Istok Web';
+        padding: 0px;
+        min-height: 550px;
+        min-width: 400px;
+        padding: 10px 5px;
+        margin-bottom: 10px;
+
+    }
+
+    .grid-container .main .resumen-acpio .grafica-pie {
+        width: 80%;
+        min-height: 150px;
+        margin-left: 10%;
+        align-items: center;
+        justify-content: center;
+    }
+.grid-container .main .resumen-acpio .grafica-pie .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+    .grid-container .main .resumen-acpio .dato-pesaje {
+        width: 100%;
+    }
+
+    .grid-container .main .resumen-acpio .dato-pesaje .pesajes {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 120px;
+        justify-content: space-around;
+
+    }
+
+    .grid-container .main .resumen-acpio .dato-pesaje .pesajes .pesaje-dato {
+        width: 125px;
+        height: 100px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: #F2F2F2;
+        margin: 5px;
+        padding: 10px;
+        font-family: 'Istok Web';
+        font-style: normal;
+
+    }
+
+    .grid-container .main .resumen-acpio .dato-pesaje .total {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 98%;
+        height: 65px;
+        border-radius: 10px;
+        background: #F2F2F2;
+        margin: 5px;
+        font-family: 'Istok Web';
+        font-style: normal;
+        padding: 20px;
+    }
+
+
+
+
+    .grid-container .main .compras {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        border-radius: 15px;
+        color: #000;
+        background-color: #ffffff;
+        font-family: 'Istok Web';
+        padding: 0px;
+        min-height: 100px;
+        max-height: 350px;
+        min-width: 400px;
+        padding: 10px 5px;
+        /* width: 536px;
+    height: 616px; */
+        flex-shrink: 0;
+
+    }
+
+    .grid-container .main .compras .grafica-chart {
+        width: 95%;
+        max-height: 200px;
+        padding: 10px;
+
+    }
+
+
+    .grid-container .main2 {
+        background-color: #F2F2F2;
+        font-family: 'Istok Web';
+        padding: 5px;
+        min-width: 400px;
+            width: 100%;
+
+    }
+
+
+    .grid-container .main2 .disponibilidadRendimiento {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 15px;
+        color: #000;
+        /* background-color: #ffffff; */
+        font-family: 'Istok Web';
+        min-width: 400px;
+        width: 100%;
+        width: 100%;
+
+    }
+
+
+    .grid-container .main2 .disponibilidadRendimiento .disponibilidad {
+        display: flex;
+        flex-direction: column;
+        min-width: 400px;
+        max-width: 600px;
+        width: 100%;
+        height: 345px;
+        border-radius: 15px;
+        background-color: #ffffff;
+
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .disponibilidad .DatoPergamino {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px 0px 50px;
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .disponibilidad .DatoPergamino h2 {
+        display: flex;
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 29px;
+        color: #000000;
+        font-family: 'Istok Web';
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .disponibilidad .piePergamino {
+        display: flex;
+        margin-top: -50px;
+        justify-content: center;
+        align-items: center;
+        /* background-color: #ffffffba; */
+        width: 100%;
+        height: 100%;
+        /* min-height: 200px;
+        max-height: 300px; */
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento {
+        display: flex;
+        flex-direction: column;
+        min-width: 400px;
+        width: 100%;
+        height: 475px;
+        flex-shrink: 0;
+        border-radius: 15px;
+        background-color: #ffffff;
+        margin-top: 10px;
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento .seleccion {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+        padding: 20px 50px 0px 50px;
+        /* background-color: antiquewhite; */
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento .seleccion .selectP {
+        width: 200px;
+        height: 30px;
+        flex-shrink: 0;
+        border-radius: 100px;
+        background: #F2F2F2;
+        color: rgba(0, 0, 0, 1);
+        border: none;
+        font-family: "Istok Web";
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        padding: 5px 0px 5px 50px;
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-around;
+        align-items: center;
+        /* padding: 20px 50px 0px 50px; */
+        /* background-color: aquamarine; */
+        height: 100%;
+        min-width: 400px;
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .datos {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        min-width: 390px;
+        width: 90%;
+        align-items: center;    
+        height: 85px;
+        margin: 0px 10px 0px 10px;
+       
+      
+        /* padding: 20px 50px 0px 50px; */
+        /* background-color:burlywood; */
+
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .datos .rendimientoP {
+        text-align: center;
+        width: 30%;
+        height: 100%;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: #E0FFD2;
+        align-items: center ;
+        justify-content: center;
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .datos .maduro {
+        width: 30%;
+        height: 100%;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: #F2F2F2;
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .datos .pergamino {
+        width:30%;
+        height: 100%;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: #F2F2F2;
+    }
+
+    .grid-container .main2 .disponibilidadRendimiento .rendimiento .informacion .Radar {
+        display: flex;
+        width: 100%;
+        height: 300px;
+        margin-top: -20px;
+        justify-content: center;
+        align-items: center;
+        /* background-color: #f40c0c; */
+        padding: 15px;
+    }
+
+    .grid-container .main2 .ventas {
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+        color: #000;
+        background-color: #ffffff;
+        font-family: 'Istok Web';
+        padding: 0px;
+        min-height: 100px;
+        height: 100%;
+        /* max-height: 470px; */
+        min-width: 400px;
+        padding: 10px 5px;
+        width: 100%;
+        height:700px;
+        flex-shrink: 0;
+        margin-top: 10px;
+        margin-bottom: 80px;
+    }
+
+    .grid-container .main2 .ventas .tituloV {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 50px 0px 50px;
+        height: 75px;
+        /* background-color: antiquewhite; */
+    }
+
+    .grid-container .main2 .ventas .tituloV button {
+        width: 200px;
+        height: 30px;
+        flex-shrink: 0;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100px;
+        background: #F2F2F2;
+        color: rgb(93, 93, 93);
+        border: none;
+        font-family: "Istok Web";
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        padding: 5px 0px 5px 0px;
+    }
+
+    .grid-container .main2 .ventas .detalle-venta {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 20px 5px 10px 5px;
+        /* background-color: aquamarine; */
+        height: 100%;
+    }
+
+
+
+    .grid-container .main2 .ventas .detalle-venta .contenedorV {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        width: 100%;
+        height: 100;
+        padding-top: 10px;
+        /* align-items: start; */
+        padding: 20px 10px 10px 10px;
+        border-radius: 10px;
+        background: #F2F2F2;
+    }
+
+    .grid-container .main2 .ventas .detalle-venta .contenedorV .venta {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 30px;
+        width: 100%;
+        padding: 10px 30px 0px 30px;
+        margin-bottom: 2px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .grid-container .main2 .ventas .totales {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+        min-height: 400px;
+        align-items: start;
+        padding: 0px 10px 0px 10px;
+        /* background-color:burlywood; */
+    }
+
+    .grid-container .main2 .ventas .totales .subtotal {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height:300px;
+        width: 100%;
+        /* background-color: rgb(43, 181, 255); */
+    }
+
+    .grid-container .main2 .ventas .totales .subtotal .item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 95%;
+        height: 100px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: #F2F2F2;
+        padding: 10px 0px 10px 0px;
+    }
+
+          .grid-container .main2 .ventas .totales .subtotal .contI {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            height: 90px;
+          }
+
+           .grid-container .main2 .ventas .totales .subtotal .contI .itemV  {
+               display: flex;
+               flex-direction: column;
+               justify-content: space-around;
+               align-items: center;
+               width: 45%;
+               height: 95px;
+               flex-shrink: 0;
+               border-radius: 10px;
+               background: #F2F2F2;
+               padding: 10px 0px 10px 0px;
+           }
+    .grid-container .main2 .ventas .totales .subtotal .item h2 {
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 29px;
+        font-weight: bold;
+        color: #000000;
+        font-family: 'Istok Web';
+    }
+
+    .grid-container .main2 .ventas .totales .total {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+        width: 100%;
+        padding: 10px 30px 0px 30px;
+        border-radius: 10px;
+        background: #F2F2F2;
+    }
+}

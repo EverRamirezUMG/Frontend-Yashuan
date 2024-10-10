@@ -1,0 +1,813 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.vista{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 1201px) {
+
+    .Contenedor{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        margin-left: 250px;
+        margin-top: 88px;
+        background-color:rgba(242, 242, 242, 1);
+        /* background-color:rgb(255, 0, 0); */
+        width: 100%;
+        height: 92%;
+    }
+    .Contenedor .main1{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 10%;
+        /* background-color: #f3a3a3; */
+        font-family: "Istok Web";
+        font-size: 1.2rem;
+        color: #000;
+        padding: 0px 0px 0px 0px;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+
+.Contenedor .main1 .cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+        height: 78px;
+        border-radius: 5px;
+            padding: 0px 10px 0px 10px;
+    font-size: 14px;
+}
+ .Contenedor .main1 .cont .contDato{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    padding: 0px 10px;
+    font-family: "Istok Web";
+    font-size: 1.2rem;
+    color: #000;
+    border-radius: 5px;
+    background: #FFF;
+    /* box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25); */
+    transition: 0.3s all ease-out;
+
+ }
+
+  .Contenedor .main1 .cont .contDato .datoEnc {
+ display: flex;
+ flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 10px 0px 10px;
+        font-size: 14px;
+}
+.Contenedor .main1 .contPrecio{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+    width: 60%;
+    height: auto;
+    /* width: 789px; */
+    border-radius: 5px;
+    background: #FFF;
+}
+
+.Contenedor .main1 .contPrecio .titulo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 33px;
+    /* background-color: #31fe07; */
+   border-bottom: #000 10 px solid;
+   z-index: 1;
+    font-size: 18px;
+}
+.Contenedor .main1 .contPrecio .precios{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 3px solid #F2F2F2;
+        background: #FFF;
+    /* background-color: rgb(52, 160, 255); */
+    width: 100%;
+    height: 45px;
+}
+.Contenedor .main1 .contPrecio .precios .precio{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(21, 255, 0); */
+    width: 24%;
+    height: 30px;
+        font-size: 14px;
+}
+.Contenedor .main1 .contPrecio .precios .precio .contP{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+width: 81px;
+    height: 25px;
+    flex-shrink: 0;
+    border-radius: 50px;
+        background: #F2F2F2;
+        margin-left: 10px;
+            font-size: 18px;
+            font-weight: bold;
+}
+ .Contenedor .main1 .contFecha{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 25%;
+height: 83px;
+border-radius: 5px;
+background: #ffffff;
+margin-left: 10px;
+ }
+
+ .Contenedor .main1 .contFecha .contDato{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0px 10px;
+    font-size: 14px;
+ }
+  .Contenedor .main1 .contFecha button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 206px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 32px;
+    background: #281400;
+    transition: 0.3s all ease-out;
+}
+ .Contenedor .main1 .contFecha button:hover {
+    background-color: #ff9832;
+    color: #ffffff;
+    transition: 0.3s all ease-out;
+ }
+
+    .Contenedor .main2{
+        display: flex;
+        flex-direction: row;
+                justify-content: space-around;
+                    align-items: initial;
+        width: 100%;
+        height: 80%;
+        /* background-color: #ff4646; */
+        font-family: "Istok Web";
+        font-size: 1.2rem;
+        color: #000;
+        position: relative;
+    }
+
+.Contenedor .main2 .cont1{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* justify-content: space-between; */
+    width: 40%;
+    min-width: 600px;
+    height: 100%;
+    border-radius: 5px;
+    padding: 0px 10px 0px 10px;
+    font-size: 14px;
+    /* background-color: rgb(0, 144, 0); */
+}
+        .Contenedor .main2 .cont1 .datoProductor{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: initial;
+        color: rgba(68, 87, 96, 1);
+        background-color: #ffffff;
+        min-height: 500px;
+        height: 75%;
+        width: 100%;
+        min-width: 600px;
+        padding: 10px 0px 20px 0px;
+        border-radius: 15px;
+            min-height: 400px;
+
+        }
+        .Contenedor .main2 .cont1 .datoProductor .datos{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
+        /* background-color: rgb(185, 185, 0); */
+    }
+
+    .Contenedor .main2 .cont1 .datoProductor .datos .dato{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 35px;
+        padding: 0px 50px 0px 50px;
+        font-family: "Istok Web";
+        font-size: 1.2rem;
+        color: #000;
+        border-radius: 5px;
+        /* background-color: #ff0000; */
+        margin-bottom: 10px;
+        transition: 0.3s all ease-out;
+        /* box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25); */
+    }
+                .Contenedor .main2 .cont1 .datoProductor .datos .dato .toggle{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 130px;
+                height: 30px;
+                font-size: 14px;
+                /* background-color: #f3a3a3; */
+                }
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .nombreProd{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            flex-shrink: 0;
+              width:61%;
+              height: 30px;
+              border: 2px solid #CFCFCF;
+              background-color: #EEE;
+              color: #000;
+              border-radius: 30px;
+              padding-left: 15px;
+        }
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .suggestions-list{
+list-style: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    margin: 0;
+    width: 61%;
+    position: absolute;
+    top: calc(10% + 5px);
+    z-index: 9999;
+    background-color: #ffffff;
+}
+
+
+
+
+.Contenedor .main2 .cont1 .datoProductor .datos .dato ul{
+    display: flex;
+                        flex-direction: column;
+                        width: 300px;
+                        position: relative;
+                    list-style: none;
+                        padding: 0;
+                        border: 1px solid #ccc;
+                        max-height: 150px;
+                        overflow-y: auto;
+                        margin: 0;
+                 }
+
+.Contenedor .main2 .cont1 .datoProductor .datos .dato li {
+padding: 8px;
+    cursor: pointer;
+}
+
+.Contenedor .main2 .cont1 .datoProductor .datos .dato li:hover {
+background-color: #f0f0f0;
+}
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .selectRBT{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 30%;
+                    height: 35px;
+                    /* background-color: aqua; */
+                   }
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .selectRBT .radiobt{
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .selectRBT .radiobt input{
+        border: #f2f2f29b 2px solid;
+        width: 18px;
+         height: 18px;
+           background-color: transparent;
+}
+
+
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .botones{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 65%;
+    height: 35px;
+    /* background-color: aqua; */
+}
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .botones select {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+text-align: center;
+width: 41%;
+height: 30px;
+font-size: 14px;
+color: rgba(160, 160, 160, 1);
+border-radius: 65px;
+border: none;
+background-color: #EEE;
+}
+
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .botones button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 32px;
+    background:rgba(80, 160, 70, 1);
+    transition: 0.3s all ease-out;
+}
+.Contenedor .main2 .cont1 .datoProductor .datos .dato .botones button:hover {
+    background: rgb(133, 180, 106);
+}
+
+.Contenedor .main2 .cont1 .datoProductor .pesaje{
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+    align-items: center;
+    width: 95%;
+    height: 70%;
+    border-radius: 10px;
+    padding: 20px 10px 0px 10px;
+    background-color:rgba(242, 242, 242, 1);
+}
+.Contenedor .main2 .cont1 .datoProductor .pesaje .datopesaje{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 93%;
+    height: 40px;
+    /* background-color: aqua; */
+    padding-bottom: 15px;
+    border-bottom: #CFCFCF 1px solid;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.Contenedor .main2 .cont1 .datoProductor .pesaje .datopesaje .datoP{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+width: 25%;
+}
+.Contenedor .main2 .cont1 .datoProductor .pesaje .datopesaje .datoP input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+width: 70%;
+height: 30px;
+border-radius: 29px;
+border: 1px solid #CFCFCF;
+text-align: center;
+font-size: 14px;
+color: #000;
+background-color: #FFF;
+margin-left: 10px;
+}
+.Contenedor .main2 .cont1 .datoProductor .pesaje .datopesaje .borrar{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        height: 30px;
+        border-radius: 29px;
+        background-color:rgb(255, 255, 255);
+        text-align: center;
+        font-size: 14px;
+        color: #CFCFCF;
+        transition: 0.3s all ease-out;
+}
+
+.Contenedor .main2 .cont1 .datoProductor .pesaje .datopesaje .borrar:hover {
+background: rgba(81, 81, 81, 1);
+transition: 0.3s all ease-out;
+color: #FFF;
+}
+        .Contenedor .main2 .cont1 .datoProductor .pesaje .datopesaje .agregar {
+    display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 130px;
+        height: 30px;
+        font-size: 16px;
+        border-radius: 32px;
+        background: rgba(81, 81, 81, 1);
+        transition: 0.3s all ease-out;
+        }
+
+                .Contenedor .main2 .cont1 .datoProductor .pesaje .datopesaje .agregar:hover {
+background: rgb(139, 139, 139);
+color: #FFF;
+
+                }
+                  .Contenedor .main2 .cont1 .datoProductor .pesaje .encabezado{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+                    padding-left: 15px;
+                    padding-right: 20px;
+                    width: 100%;
+                /* background-color: aquamarine; */
+                  }
+
+.Contenedor .main2 .cont1 .datoProductor .pesaje .pesajesD{
+display: flex;
+flex-direction: column;
+/* justify-content: space-between; */
+align-items: center;
+width: 100%;
+height: 77%;
+border-radius: 10px;
+padding: 10px 10px 0px 10px;
+background-color: #ffffff;
+margin-top: 5px;
+overflow-y: auto;
+overflow-x: hidden;
+}
+  .Contenedor .main2 .cont1 .datoProductor .pesaje .pesajesD .datoP{
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center;
+width: 100%;
+height: 25px; 
+border-bottom: #ececec 1px solid;
+/* background-color: aqua;  */
+}
+.Contenedor .main2 .cont1 .datoProductor .pesaje .pesajesD .datoP .eliminar{
+    display: flex;
+    width: 30px;
+    height: 100%;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #BFBFBF;
+    font-size: 1px;
+}
+
+.Contenedor .main2 .cont1 .datoProductor .pesaje .totalesP{
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center;
+width: 100%;
+height: 10%;
+min-height: 30px;
+padding-right: 50px;
+font-size: 16px;
+font-weight: bold;
+/* background-color: aqua; */
+}
+
+
+.Contenedor .main2 .cont1 .datoProductor .totales{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    height: 65px;
+    margin-top: 10px;
+    /* background-color: aqua; */
+}
+.Contenedor .main2 .cont1 .datoProductor .totales .observacion{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.Contenedor .main2 .cont1 .datoProductor .totales .observacion input{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #EEE;
+    border: none;
+    font-size: 14px;
+    color: #000;
+}
+
+.Contenedor .main2 .cont1 .datoProductor .totales .total{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    width: 39%;
+    height: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    padding-right: 40px;
+}
+
+
+.Contenedor .main2 .cont1 .resumen{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 25%;
+    min-height: 200px;
+    border-radius: 15px;
+    padding: 10px 20px 10px 20px;
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);}
+
+.Contenedor .main2 .cont1 .resumen .encR{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    /* background-color: aqua; */
+}
+.Contenedor .main2 .cont1 .resumen .datosR{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 80px;
+    height: 60%;
+    /* background-color: aqua; */
+}
+.Contenedor .main2 .cont1 .resumen .datosR .datoR{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 32%;
+height: 95%;
+/* padding: 10px; */
+border-radius: 10px;
+background-color: #F2F2F2;
+}
+.Contenedor .main2 .cont1 .resumen .total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 38%;
+    border-radius: 10px;
+    padding: 0px 10px;
+    background-color: #F2F2F2;
+    margin-top: 5px;
+}
+.Contenedor .main2 .cont1 .resumen .total .T{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    width: 32%;
+    height: auto;
+    padding: 5px 10px;
+    border-radius: 10px;
+    /* background-color: #b70b0b; */
+}
+
+.Contenedor .main2 .cont2{
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+    width: 60%;
+    height: 100%;
+       min-height: 720px;
+        flex-shrink: 0;
+    border-radius: 15px;
+        background: #FFF;
+    padding: 0px 10px 10px 10px;
+}
+.Contenedor .main2 .cont2 .titulo{
+display: flex;
+flex-direction: row;
+width: 100%;
+height: 10%;
+min-height: 75px;
+justify-content: space-between;
+align-items: center;
+padding: 0px 30px;
+position: relative;
+}
+.Contenedor .main2 .cont2 .titulo .buscador {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    height: 35px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    border: #CFCFCF 1px solid;
+}
+.Contenedor .main2 .cont2 .titulo .buscador input{
+    background-color: transparent;
+    border: none;
+    border-radius: 50px 0px 0px 50px;
+    width: 330px;
+    height: 35px;
+    padding-left: 25px;
+    color: #000;
+}
+.Contenedor .main2 .cont2 .titulo .buscador button {
+background-color: transparent;
+border: none;
+border-radius: 0px 50px 50px 0px;
+width: 70px;
+height: 35px;
+align-items: center;
+justify-content: center;
+padding: 5px 0px 2px 0px ;
+color: #BFBFBF;
+}
+
+.Contenedor .main2 .cont2 .tabla {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    padding: 10px 10px 0px 10px;
+    background-color: #f2f2f2;
+    font-family: "Istok Web";
+    font-size: 14px;
+    position: relative;
+}
+
+.Contenedor .main2 .cont2 .tabla .encabezado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    padding: 0px 10px;
+    /* background-color: #FFF; */
+    border-radius: 15px;
+    margin-bottom: 10px;
+    position:relative;
+}
+
+
+.Contenedor .main2 .cont2 .tabla .encabezado .productor {
+    flex: 2.5;
+  padding-left: 30px;
+}
+
+
+.Contenedor .main2 .cont2 .tabla .datos .dato .productor {
+    flex: 2.5;
+    padding-left: 30px;
+}
+
+.Contenedor .main2 .cont2 .tabla .encabezado span,
+.Contenedor .main2 .cont2 .tabla .datos .dato span {
+    flex: 1;
+    text-align: start;
+    padding-left: 7px;
+}
+
+.Contenedor .main2 .cont2 .tabla .datos {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    min-height: 350px;
+    max-height: 500px;
+    background-color: #FFF;
+    border-radius: 10px;
+    overflow: auto;
+    position: relative;
+}
+
+.Contenedor .main2 .cont2 .tabla .datos .dato {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    padding: 0px 10px;
+    background-color: transparent;
+    border-bottom: #CFCFCF 1px solid;
+    margin-bottom: 10px;
+}
+
+.Contenedor .main2 .cont2 .tabla .datos .dato .botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95px;
+    height: 32px;
+    /* padding-right: 20px; */
+    flex-shrink: 0;
+}
+
+.Contenedor .main2 .cont2 .tabla .datos .dato .editar {
+    display: flex;
+    width: 40px;
+    height: 30px;
+    border-radius: 15px 0px 0px 15px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(177, 127, 74, 1);
+    font-size: 1px;
+}
+
+.Contenedor .main2 .cont2 .tabla .datos .dato .eliminar {
+    display: flex;
+    width: 40px;
+    height: 30px;
+    border-radius: 0px 15px 15px 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: rgba(40, 20, 0, 1);
+    font-size: 1px;
+}
+
+
+.Contenedor .main2 .cont2 .tabla .totalcompra {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height:7.5%;
+    padding: 0px 50px;
+    background-color: #FFF;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+}
+
+
+
