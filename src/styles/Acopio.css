@@ -642,15 +642,16 @@ background-color: #F2F2F2;
     padding: 0px 10px 10px 10px;
 }
 .Contenedor .main2 .cont2 .titulo{
-display: flex;
-flex-direction: row;
-width: 100%;
-height: 10%;
-min-height: 75px;
-justify-content: space-between;
-align-items: center;
-padding: 0px 30px;
-position: relative;
+    display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        min-height: 75px;
+        max-height: 80px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 30px;
+        position: relative;
 }
 .Contenedor .main2 .cont2 .titulo .buscador {
     display: flex;
@@ -687,17 +688,17 @@ color: #BFBFBF;
 
 .Contenedor .main2 .cont2 .tabla {
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
-    padding: 10px 10px 0px 10px;
-    background-color: #f2f2f2;
-    font-family: "Istok Web";
-    font-size: 14px;
-    position: relative;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        height: 90%;
+        border-radius: 15px;
+        padding: 10px 10px 0px 10px;
+        background-color: #f2f2f2;
+        font-family: "Istok Web";
+        font-size: 14px;
+        position: relative;
 }
 
 .Contenedor .main2 .cont2 .tabla .encabezado {
@@ -735,17 +736,17 @@ color: #BFBFBF;
 
 .Contenedor .main2 .cont2 .tabla .datos {
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    width: 100%;
-    height: 80%;
-    min-height: 350px;
-    max-height: 500px;
-    background-color: #FFF;
-    border-radius: 10px;
-    overflow: auto;
-    position: relative;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        min-height: 350px;
+        /* max-height: 50%px; */
+        background-color: #FFF;
+        border-radius: 10px;
+        overflow: auto;
+        position: relative;
 }
 
 .Contenedor .main2 .cont2 .tabla .datos .dato {
@@ -797,15 +798,17 @@ color: #BFBFBF;
 
 .Contenedor .main2 .cont2 .tabla .totalcompra {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height:7.5%;
-    padding: 0px 50px;
-    background-color: #FFF;
-    border-radius: 10px;
-    margin-top: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        max-height: 80px;
+        padding: 0px 50px;
+        background-color: #FFF;
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
 }
 }
 

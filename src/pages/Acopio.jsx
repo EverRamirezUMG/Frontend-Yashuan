@@ -464,7 +464,7 @@ export const Acopio = () => {
 
   const handleCloseModal1 = () => {
     cambiarEstadoModal1(!estadoModal1);
-
+    setActivo(true);
     precios();
   };
 

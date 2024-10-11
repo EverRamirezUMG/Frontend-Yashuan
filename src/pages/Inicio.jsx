@@ -40,7 +40,6 @@ function Inicio() {
       })
     : "Sin fecha";
 
-  console.log(semana);
   const ResumenAcopio = async () => {
     try {
       const acopioData = await fetch(`${URL}acopio/total`, {
@@ -61,7 +60,6 @@ function Inicio() {
       const resData = await resumen.json();
       setResumenAcopio(datos);
       setResumen(resData);
-      console.log(datos);
     } catch {}
   };
 
@@ -72,16 +70,6 @@ function Inicio() {
     }, 5000);
     return () => clearInterval(interval);
   }, [token]);
-
-  //sumatoria de datos para calcular total de cafe comprado
-  let productor = datosAcopio.productor;
-  let socio = datosAcopio.socio;
-  let recolectado = datosAcopio.recolector;
-  let acopio = datosAcopio.compra;
-
-  let consignado = datosAcopio.consignado;
-
-  let rtotal = acopio + consignado + recolectado;
 
   //sumatoria de datos para cantidad de cafe pergamino disponible
   let lavado = pergamino.Lavado;
