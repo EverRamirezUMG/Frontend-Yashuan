@@ -12,6 +12,8 @@ import Temporada from "./pages/Temporada";
 import NotFound from "./pages/NotFound";
 import MiPerfil from "./pages/MiPerfil";
 import Resumen from "./pages/Resumen";
+import Productores from "./pages/Productores";
+import Inventario from "./pages/Inventario";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/Admin/Inicio/Temporada" element={<Temporada />} />
           <Route path="/Admin/Acopio" element={<Acopio />} />
           <Route path="/Admin/Acopio/Resumen" element={<Resumen />} />
+          <Route path="/Admin/Acopio/Productores" element={<Productores />} />
+          <Route path="/Admin/Inventario" element={<Inventario />} />
           <Route path="/Admin/Usuario" element={<Usuario />} />
           <Route path="/Admin/Usuario/Inactivo" element={<UsuarioInactivo />} />
           <Route path="/Admin/Usuario/Perfil" element={<MiPerfil />} />

@@ -5,7 +5,9 @@ import Swal from "sweetalert2";
 import { IniciarCompra } from "../components/mod/IniciarCompra";
 import ToggleSwitch2 from "../components/BotonToggle2";
 import Comprobante from "../components/PDF/comprobante";
-import { set } from "react-hook-form";
+import UpdateComprobante from "../components/mod/UpdateComprobante";
+import { Navigate, useNavigate } from "react-router-dom";
+import GenerarComprobante from "../components/PDF/GenerarComprobante";
 
 export const Acopio = () => {
   const URL = import.meta.env.VITE_URL;
@@ -22,7 +24,7 @@ export const Acopio = () => {
   const [estadocompra, setActivo] = useState(false);
   const [conflete, setConFlete] = useState(false);
   const [consignar, setConsignar] = useState(false);
-  const [nombreproductor, setNombreProductor] = useState("");
+  const [nombreproductor, setNombreProductor] = useState(null);
   const [observacion, setObservacion] = useState("");
   const [codigoProductor, setCodigoProductor] = useState(null);
   const [selectedOption, setSelectedOption] = useState(1);
@@ -36,14 +38,21 @@ export const Acopio = () => {
   const precioEspecial = preciodia?.especial || 0;
   const pFlete = precioFlete?.precio || 0;
   const costo = resumenAcopio.costo || 0;
+  const pago = resumenAcopio.pago || 0;
 
   const [estadoModal1, cambiarEstadoModal1] = useState(false);
+  const [estadoModal2, cambiarEstadoModal2] = useState(false);
+  const [idcomprobante, setIdcomprobante] = useState("");
   const [currentDate, setCurrentDate] = useState("");
   const [currentTime, setCurrentTime] = useState("");
   const [peso, setPeso] = useState(0);
   const [tara, setTara] = useState(0);
   const [filas, setFilas] = useState([]);
 
+  if (!token) {
+    return <Navigate to="/Admin" />;
+  }
+  const navigate = useNavigate();
   const handleInputChangeProductor = (event) => {
     const value = event.target.value;
     setNombreProductor(value);
@@ -99,9 +108,7 @@ export const Acopio = () => {
       });
       const datos = await response.json();
       const datosVehiculo = await resVehiculo.json();
-      console.log("Datos recibidos de la API:", datos); // Verifica la estructura aquí
 
-      // Desestructurar los datos recibidos en tres variables distintas
       setVehiculos(datosVehiculo);
       const { precioDia, precioFlete, partida } = datos;
       setPreciodia(precioDia);
@@ -124,7 +131,6 @@ export const Acopio = () => {
       });
       const datos = await acopioData.json();
       setResumenAcopio(datos);
-      console.log(datos);
     } catch {}
   };
 
@@ -274,7 +280,6 @@ export const Acopio = () => {
         },
       });
       const datos = await response.json();
-      console.log("Datos recibidos de la API:", datos); // Verifica la estructura aquí
       setProductores(datos);
     } catch (err) {
       console.error(err);
@@ -292,7 +297,6 @@ export const Acopio = () => {
         },
       });
       const datos = await response.json();
-      console.log("Datos recibidos de la API:", datos);
       setCompra(datos); // Verifica la estructura aquí
     } catch (err) {
       console.error(err);
@@ -326,8 +330,6 @@ export const Acopio = () => {
       console.error(err);
     }
   };
-
-  console.log(comprobanteP);
 
   //-------------- FINANLIZAR COMPRA ---------------------
   const finalizarCompra = async () => {
@@ -390,7 +392,10 @@ export const Acopio = () => {
       if (response.ok) {
         comprobnte;
         compras();
+        verificarCompra();
+        precios();
         ResumenAcopio();
+        productor();
         setFilas([]);
         setObservacion("");
         setNombreProductor("");
@@ -399,12 +404,12 @@ export const Acopio = () => {
         setSelectedOption(1);
         setVehiculoSeleccionado("");
         setCodigoProductor(null);
-        productor();
         mostrarAlerta(
           "success",
           "Compra realizada",
           "Compra realizada con éxito",
-          "Imprimir"
+          "Aceptar",
+          `<h3>Total a pagar: Q.${totales.toLocaleString()}</h3>`
         );
       } else {
         const errorData = await response.json();
@@ -426,20 +431,19 @@ export const Acopio = () => {
 
   //------------------------ mostrar alerta
 
-  const mostrarAlerta = (icon, title, text, confirmButton) => {
+  const mostrarAlerta = (icon, title, text, confirmButton, htmls) => {
     Swal.fire({
       title: title,
       icon: icon,
       text: text,
       confirmButtonText: confirmButton,
       confirmButtonColor: "#FF8A00",
-      showCancelButton: true,
+      showCancelButton: false,
       cancelButtonText: "Cancelar",
       cancelButtonColor: "#5E5E5E",
       buttonsStyling: false,
       showCloseButton: true,
-      html: `<Comprobante onClick={comprar} data={comprobanteP} />
-`,
+      html: htmls,
       customClass: {
         confirmButton: "btEliminar",
         cancelButton: "btCancelar",
@@ -451,7 +455,13 @@ export const Acopio = () => {
       },
     }).then((response) => {
       if (response.isConfirmed) {
-        console.log("print");
+        compras();
+        verificarCompra();
+        precios();
+        compras();
+        ResumenAcopio();
+        productor();
+        comprobante();
       }
     });
   };
@@ -464,15 +474,14 @@ export const Acopio = () => {
 
   const handleCloseModal1 = () => {
     cambiarEstadoModal1(!estadoModal1);
-    setActivo(true);
     precios();
+    estadocompra ? setActivo(true) : setActivo(false);
   };
 
   //------------busqueda inteligente -----------------
   const [search, setSearch] = useState("");
   const searcher = (e) => {
     setSearch(e.target.value);
-    console.log(e.target.value);
   };
   //----metodod de filtrado de busqueda-----
   let result = [];
@@ -540,7 +549,7 @@ export const Acopio = () => {
                 <div className="precio">
                   <span>Flete:</span>{" "}
                   <div className="contP">
-                    <h4>{estadocompra ? precioFlete.precio : "--"}</h4>
+                    <h4>{estadocompra ? precioFlete?.precio : "--"}</h4>
                   </div>
                 </div>
               </div>
@@ -568,6 +577,8 @@ export const Acopio = () => {
                       }).then((result) => {
                         if (result.isConfirmed) {
                           finalizarCompra();
+
+                          navigate("/Admin/Acopio/Resumen");
                         }
                       })
                     }
@@ -858,10 +869,26 @@ export const Acopio = () => {
                   <span>Tara</span>
                   <span>Peso neto</span>
                   <span>Costo</span>
+                  <span>Pago</span>
                   <div></div>
                   <span>Acciones</span>
                 </div>
                 <div className="datos">
+                  <UpdateComprobante
+                    estado2={estadoModal2}
+                    cambiarEstado2={() => {
+                      cambiarEstadoModal2(!estadoModal2);
+                      verificarCompra();
+                      precios();
+                      compras();
+                      ResumenAcopio();
+                      productor();
+                    }}
+                    titulo2={"Actualizar compra"}
+                    idcomprobante={idcomprobante}
+                    setCompras={setCompra}
+                    compras={compra}
+                  />
                   {estadocompra ? (
                     result.map((item, index) => (
                       <div className="dato" key={index}>
@@ -870,8 +897,18 @@ export const Acopio = () => {
                         <span>{item.tara}</span>
                         <span>{item.pesoneto}</span>
                         <span>Q. {Number(item.total).toLocaleString()}</span>
+                        <span>Q. {Number(item.pago).toLocaleString()}</span>
                         <div className="botones">
-                          <button className="editar">
+                          <GenerarComprobante
+                            idcomprobante={item.pk_comprobante}
+                          />
+                          <button
+                            className="editar"
+                            onClick={() =>
+                              cambiarEstadoModal2(!estadoModal2) &
+                              setIdcomprobante(item.pk_comprobante)
+                            }
+                          >
                             <span className="material-symbols-outlined">
                               edit
                             </span>
@@ -891,7 +928,7 @@ export const Acopio = () => {
                 <div className="totalcompra">
                   <h2>Total:</h2>
                   <h2>
-                    Q. {estadocompra ? Number(costo).toLocaleString() : "--"}
+                    Q. {estadocompra ? Number(pago).toLocaleString() : "--"}
                   </h2>
                 </div>
               </div>

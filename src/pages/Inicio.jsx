@@ -7,17 +7,10 @@ import PieResumenAcopio from "../components/chart/Pie-resumen-acopio";
 import PiePergamino from "../components/chart/PiePergamino";
 import RadarChart from "../components/chart/radar1";
 import "../styles/Inicio.css";
+import Swal from "sweetalert2";
 // import "../styles/InicioMovil.css";
 import ProgressBar from "../components/chart/progressoBar";
 import { NavBarMovil } from "../components/NavBarMovil";
-
-//Datos simulados de disponibilidad de cafe pergamino
-const pergamino = {
-  Lavado: 75.3,
-  Honey: 24,
-  Natural: 12,
-  Subproducto: 5,
-};
 
 function Inicio() {
   const [content, setContent] = useState("");
@@ -25,6 +18,11 @@ function Inicio() {
   const token = localStorage.getItem("token");
   const [datosAcopio, setResumenAcopio] = useState([]);
   const [resumenAcopio, setResumen] = useState([]);
+  const [disponibilidad, setDisponibilidad] = useState([]);
+  const [cantidad, setCantidad] = useState([]);
+  const [partidas, setPartidas] = useState([]);
+  const [partida, setPartida] = useState([]);
+  const [partidaSeleccionada, setPartidaSeleccionada] = useState(null);
 
   if (!token) {
     return <Navigate to="/Admin" />;
@@ -63,23 +61,106 @@ function Inicio() {
     } catch {}
   };
 
+  const disponibilidadPergamino = async () => {
+    try {
+      const response = await fetch(`${URL}inventario/disponibilidad`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+
+      const cantidad = await fetch(`${URL}inventario/stock`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+
+      const partidas = await fetch(`${URL}inventario/partidas`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+      const cantidadData = await cantidad.json();
+      const data = await response.json();
+      const partidaData = await partidas.json();
+
+      setDisponibilidad(data);
+      setCantidad(cantidadData);
+      setPartidas(partidaData);
+    } catch (err) {
+      console.error(err);
+
+      Swal.fire({
+        icon: "error",
+
+        title: "Error en la solicitud",
+        text: err.message,
+      });
+    }
+  };
+
+  const getRendimiento = async (partida) => {
+    try {
+      const partida = await fetch(
+        `${URL}inventario/partida/${partidaSeleccionada}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+          },
+        }
+      );
+
+      if (!partida.ok) {
+        throw new Error("Error en la solicitud");
+      }
+      const partData = await partida.json();
+      setPartida(partData);
+    } catch (err) {
+      console.error(err);
+
+      Swal.fire({
+        icon: "error",
+
+        title: "Error en la solicitud",
+        text: err.message,
+      });
+    }
+  };
+
   useEffect(() => {
     ResumenAcopio();
+    disponibilidadPergamino();
     const interval = setInterval(() => {
       ResumenAcopio();
     }, 5000);
     return () => clearInterval(interval);
   }, [token]);
 
-  //sumatoria de datos para cantidad de cafe pergamino disponible
-  let lavado = pergamino.Lavado;
-  let honey = pergamino.Honey;
-  let natural = pergamino.Natural;
-  let subproducto = pergamino.Subproducto;
+  useEffect(() => {
+    if (partidaSeleccionada) {
+      getRendimiento();
+    }
+  }, [partidaSeleccionada]);
 
-  let DisponibilidadP = lavado + honey + natural + subproducto;
+  const handlePartidaChange = (event) => {
+    setPartidaSeleccionada(event.target.value);
+  };
 
   // const total = rtotal.toFixed(2);
+
+  console.log(partida[0]);
 
   return (
     <>
@@ -143,13 +224,13 @@ function Inicio() {
                     <h3>Disponibilidad</h3>
                   </span>
                   <span>
-                    <h2>{DisponibilidadP}</h2>
+                    <h2>{cantidad?.cantidad}</h2>
 
                     <h5>Quintales</h5>
                   </span>
                 </div>
                 <div className="piePergamino">
-                  <PiePergamino data={pergamino} />
+                  <PiePergamino data={disponibilidad} />
                 </div>
 
                 {/* <ProgressBar progreso={DisponibilidadP} /> */}
@@ -161,31 +242,35 @@ function Inicio() {
                   </div>
                   <select
                     className="selectP"
-                    name="rendimiento"
-                    id="rendimiento"
-                    // value={selectedOption}
-                    onChange={(e) => setSelectedOption(e.target.value)}
+                    name="partida"
+                    id="partida"
+                    value={partidaSeleccionada}
+                    onChange={handlePartidaChange}
                   >
-                    <option value="opcion1">Partida #35</option>
-                    <option value="opcion2">Opción 2</option>
-                    <option value="opcion3">Opción 3</option>
+                    <option value={null}>Seleccione una partida</option>
+                    {partidas.map((p, index) => (
+                      <option key={index} value={p.id}>
+                        Partida #{p.partida} -{" "}
+                        {new Date(p.fecha).toLocaleDateString("es-ES")}
+                      </option>
+                    ))}
                   </select>
                   {/* <p>Opción seleccionada: {selectedOption}</p> */}
                 </div>
                 <div className="informacion">
                   <div className="datos">
                     <div className="rendimientoP">
-                      <h2>4.6676</h2>
+                      <h2>{partida[0]?.rendimiento || "--"}</h2>
                       <h4>Rendimiento</h4>
                     </div>
                     <div className="maduro">
                       <h4>cafe maduro</h4>
-                      <h2>33.14 </h2>
+                      <h2>{partida[0]?.maduro || "--"} </h2>
                       <h5>Quintales</h5>
                     </div>
                     <div className="pergamino">
                       <h4>cafe pergamino</h4>
-                      <h2>7.10</h2>
+                      <h2>{partida[0]?.pergamino || "--"}</h2>
                       <h5>Quintales</h5>
                     </div>
                   </div>

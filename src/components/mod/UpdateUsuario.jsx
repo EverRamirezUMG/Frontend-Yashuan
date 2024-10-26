@@ -181,6 +181,7 @@ const UpdateUsuario = ({
                       value={usuarioUP.cargo}
                       onChange={onChangeData}
                     >
+                      {/* <option value={usuario.fk_cargo}>Seleccione cargo</option> */}
                       {roles.map((rol) => (
                         <option key={rol.idcargo} value={rol.idcargo}>
                           {rol.cargo}

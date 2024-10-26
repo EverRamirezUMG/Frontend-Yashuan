@@ -157,8 +157,8 @@ function Login() {
               <button
                 className="registrar"
                 id="btn-login"
-                type="button" // Cambié a 'button' para que no envíe el formulario
-                onClick={() => navigate("/Registrarse")} // Ruta para registrarse
+                type="button"
+                onClick={() => navigate("/Registrarse")}
               >
                 Registrarse
               </button>

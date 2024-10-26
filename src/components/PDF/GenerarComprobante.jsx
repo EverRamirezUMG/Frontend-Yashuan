@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const Comprobante = ({ data }) => {
+const GenerarComprobante = ({ idcomprobante }) => {
+  const URL = import.meta.env.VITE_URL;
+  const token = localStorage.getItem("token");
+  const [comprobante, setComprobante] = useState({});
+  const data = comprobante;
+  const comprobanteid = idcomprobante;
+
+  console.log(comprobante);
+  const getDataUp = async () => {
+    try {
+      const response = await fetch(
+        `${URL}acopio/comprobante/${comprobanteid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const resComprobante = await response.json();
+      setComprobante(resComprobante);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const handleGenerarPDF = () => {
     const doc = new jsPDF({
       orientation: "p",
@@ -20,10 +44,10 @@ const Comprobante = ({ data }) => {
       doc.setFontSize(11);
       doc.text("Compra de café maduro", 40, 25, null, null, "center");
       doc.setFont("helvetica", "bold");
-      doc.text(`${data[0].pk_comprobante}`, 40, 30, null, null, "center");
+      doc.text(`${data?.pk_comprobante}`, 40, 30, null, null, "center");
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
-      const fecha = new Date(data[0].fecha);
+      const fecha = new Date(data?.fecha);
       const opciones = {
         weekday: "long",
         year: "numeric",
@@ -32,14 +56,14 @@ const Comprobante = ({ data }) => {
       };
       const fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
       doc.text(`${fechaFormateada}`, 40, 35, null, null, "center");
-      doc.text(`${data[0].hora}`, 40, 40, null, null, "center");
+      doc.text(`${data?.hora}`, 40, 40, null, null, "center");
 
       // Información del productor
-      doc.text(`Nombre: ${data[0].nombre}`, 10, 55);
-      doc.text(`ID: ${data[0].pk_productor}`, 10, 60);
-      doc.text(`Tipo: ${data[0].tipo}`, 10, 65);
-      doc.text(`Consignado: ${data[0].consignar ? "Sí" : "No"}`, 10, 70);
-      doc.text(`Precio del día: Q.${data[0].preciobase}`, 10, 75);
+      doc.text(`Nombre: ${data?.nombre}`, 10, 55);
+      doc.text(`ID: ${data?.pk_productor}`, 10, 60);
+      doc.text(`Tipo: ${data?.tipo}`, 10, 65);
+      doc.text(`Consignado: ${data?.consignar ? "Sí" : "No"}`, 10, 70);
+      doc.text(`Precio del día: Q.${data?.preciobase}`, 10, 75);
 
       // Peso
       doc.text("Datos de pesaje", 40, 85, null, null, "center");
@@ -49,9 +73,7 @@ const Comprobante = ({ data }) => {
         startY: 90,
         startX: startX,
         head: [["Peso bruto", "Tara", "Peso neto"]],
-        body: [
-          [`${data[0].pesobruto}`, `${data[0].tara}`, `${data[0].pesoneto}`],
-        ],
+        body: [[`${data?.pesobruto}`, `${data?.tara}`, `${data?.pesoneto}`]],
         theme: "grid",
         headStyles: {
           fillColor: [220, 220, 220],
@@ -78,10 +100,10 @@ const Comprobante = ({ data }) => {
         },
       });
 
-      const flete = (data[0].flete * -1).toFixed(2);
+      const flete = (data?.flete * -1).toFixed(2);
       doc.text(`Flete: - Q.${flete}`, 10, 110);
       doc.setFont("helvetica", "bold");
-      const total = Number(data[0].total).toFixed(2);
+      const total = Number(data?.total).toFixed(2);
       doc.text(`Total: Q. ${total}`, 40, 120, "center");
       doc.setFont("helvetica", "normal");
 
@@ -90,7 +112,7 @@ const Comprobante = ({ data }) => {
       const observacionX = 10; // Margen izquierdo
       const observacionY = 135; // Altura inicial
       const maxWidth = 70; // Ancho máximo para el texto de observación
-      const observacionText = ` ${data[0].observacion}`;
+      const observacionText = ` ${data?.observacion}`;
       const lines = doc.splitTextToSize(observacionText, maxWidth); // Dividir texto en líneas
       doc.text(lines, observacionX, observacionY); // Ajustar texto a múltiples líneas
 
@@ -109,17 +131,19 @@ const Comprobante = ({ data }) => {
       doc.setTextColor(0, 0, 0);
 
       // Guardar el PDF
-      doc.save(`${data[0].pk_comprobante}-${data[0].nombre}.pdf`);
+      doc.save(`${data?.pk_comprobante}-${data?.nombre}.pdf`);
     };
 
     img.onerror = () => {
       console.error("Error al cargar la imagen.");
     };
   };
-
+  useEffect(() => {
+    getDataUp();
+  }, []);
   return (
     <span
-      style={{ cursor: "pointer" }}
+      style={{ cursor: "pointer", marginRight: "10px", marginLeft: "-30px" }}
       onClick={handleGenerarPDF}
       class="material-symbols-outlined"
     >
@@ -128,4 +152,4 @@ const Comprobante = ({ data }) => {
   );
 };
 
-export default Comprobante;
+export default GenerarComprobante;

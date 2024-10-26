@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import swal from "sweetalert2";
 import "./styles/IniciarCompra.css";
@@ -8,7 +8,11 @@ export const IniciarCompra = ({ children, estado, cambiarEstado, titulo }) => {
   const token = localStorage.getItem("token");
   const codigo = localStorage.getItem("codigo");
   const URL = import.meta.env.VITE_URL;
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = handleSubmit((data) => {
     fetch(`${URL}acopio/iniciar/${codigo}`, {
@@ -21,9 +25,9 @@ export const IniciarCompra = ({ children, estado, cambiarEstado, titulo }) => {
     })
       .then((response) => {
         if (!response.ok) {
+          cambiarEstado(false);
           return response.json().then((errorData) => {
             throw new Error(errorData.message || "Error desconocido");
-            cambiarEstado(false);
           });
         }
         return response.json();
@@ -61,6 +65,45 @@ export const IniciarCompra = ({ children, estado, cambiarEstado, titulo }) => {
       });
   });
 
+  const [partida, setPartida] = useState({});
+  const [preciodia, setPreciodia] = useState({});
+  const [precioFlete, setPrecioFlete] = useState({});
+
+  const precios = async () => {
+    try {
+      const response = await fetch(URL + "acopio", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+
+      const datos = await response.json();
+
+      // Desestructurar los datos recibidos en tres variables distintas
+
+      const { precioDia, precioFlete, partida } = datos;
+      setPreciodia(precioDia);
+      setPrecioFlete(precioFlete);
+      setPartida(partida);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    precios();
+  }, []);
+  useEffect(() => {
+    if (estado === "false") {
+      const form = document.getElementById("FormularioP");
+      if (form) {
+        form.reset();
+      }
+    }
+  }, [estado]);
+
   return (
     <>
       {estado && (
@@ -73,6 +116,17 @@ export const IniciarCompra = ({ children, estado, cambiarEstado, titulo }) => {
               <span className="material-symbols-outlined">close</span>
             </BotonCerrar>
             <div className="containerNewProv">
+              <div className="Datos-anteriores">
+                <h3>Datos anteriores</h3>
+                <br />
+                <div className="precios">
+                  <p>Partida anterior: #{partida?.partida}</p>
+                  <p>Precio base: Q.{preciodia?.preciobase}</p>
+                  <p>Flete: Q.{precioFlete?.precio}</p>
+                </div>
+                <br />
+                <h2>Datos de compra</h2>
+              </div>
               <form
                 className="nuevoProvForm"
                 id="FormularioP"
@@ -81,69 +135,138 @@ export const IniciarCompra = ({ children, estado, cambiarEstado, titulo }) => {
                 <div className="datos">
                   <div className="gropu">
                     <div className="itemProv">
-                      <label>Partida: </label>
-                      <input
-                        {...register("partida")}
-                        type="number"
-                        step="0.01"
-                        id="partida"
-                        placeholder="Numero de partida"
-                      ></input>
+                      <div className="entrada">
+                        <label>Partida: </label>
+                        <input
+                          {...register("partida", {
+                            required: "Este campo es requerido",
+                            pattern: {
+                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
+                              message: "El valor no debe ser nulo ni menor a 0",
+                            },
+                          })}
+                          type="number"
+                          step="0.01"
+                          id="partida"
+                          placeholder="Partida"
+                        ></input>
+                      </div>
+                      {errors.partida && (
+                        <p className="error-message">
+                          {errors.partida.message}
+                        </p>
+                      )}
                     </div>
 
                     <div className="itemProv">
-                      <label>Precio base: </label>
-                      <input
-                        {...register("base")}
-                        type="number"
-                        step="0.01"
-                        id="base"
-                        placeholder="Precio base"
-                      ></input>
+                      <div className="entrada">
+                        <label>Precio base: </label>
+                        <input
+                          {...register("base", {
+                            required: "Este campo es requerido",
+                            pattern: {
+                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
+                              message: "El valor no debe ser nulo ni menor a 0",
+                            },
+                          })}
+                          type="number"
+                          step="0.01"
+                          id="base"
+                          placeholder="Precio base"
+                        ></input>
+                      </div>
+                      {errors.base && (
+                        <p className="error-message">{errors.base.message}</p>
+                      )}
                     </div>
 
                     <div className="itemProv">
-                      <label>Socio: </label>
-                      <input
-                        {...register("socio")}
-                        type="number"
-                        step="0.01"
-                        id="socio"
-                        placeholder="Socio"
-                      ></input>
+                      <div className="entrada">
+                        <label>Socio: </label>
+                        <input
+                          {...register("socio", {
+                            pattern: {
+                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
+                              message: "El valor no debe ser nulo ni menor a 0",
+                            },
+                          })}
+                          type="number"
+                          step="0.01"
+                          id="socio"
+                          placeholder="Socio"
+                        ></input>
+                      </div>
+                      {errors.socio && (
+                        <p className="error-message">{errors.socio.message}</p>
+                      )}
                     </div>
                   </div>
                   <div className="gropu">
                     <div className="itemProv">
-                      <label>Recolector: </label>
-                      <input
-                        {...register("recolector")}
-                        type="number"
-                        step="0.01"
-                        id="recolector"
-                        placeholder="Recolector"
-                      ></input>
+                      <div className="entrada">
+                        <label>Recolector: </label>
+                        <input
+                          {...register("recolector", {
+                            pattern: {
+                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
+                              message: "El valor no debe ser nulo ni menor a 0",
+                            },
+                          })}
+                          type="number"
+                          step="0.01"
+                          id="recolector"
+                          placeholder="Recolector"
+                        ></input>
+                      </div>
+                      {errors.recolector && (
+                        <p className="error-message">
+                          {errors.recolector.message}
+                        </p>
+                      )}
                     </div>
                     <div className="itemProv">
-                      <label>Especial: </label>
-                      <input
-                        {...register("especial")}
-                        type="number"
-                        step="0.01"
-                        id="especial"
-                        placeholder="Especial"
-                      ></input>
+                      <div className="entrada">
+                        <label>Especial: </label>
+                        <input
+                          {...register("especial", {
+                            pattern: {
+                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
+                              message: "El valor no debe ser nulo ni menor a 0",
+                            },
+                          })}
+                          type="number"
+                          step="0.01"
+                          id="especial"
+                          placeholder="Especial"
+                        ></input>
+                      </div>
+                      {errors.especial && (
+                        <p className="error-message">
+                          {errors.especial.message}
+                        </p>
+                      )}
                     </div>
 
                     <div className="itemProv">
-                      <label>Flete: </label>
-                      <input
-                        {...register("flete")}
-                        type="number"
-                        step="0.01"
-                        id="flete"
-                        placeholder="Flete"
-                      ></input>
+                      <div className="entrada">
+                        <label>Flete: </label>
+                        <input
+                          {...register("flete", {
+                            required: "Este campo es requerido",
+                            pattern: {
+                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
+                              message: "El valor no debe ser nulo ni menor a 0",
+                            },
+                          })}
+                          type="number"
+                          step="0.01"
+                          id="flete"
+                          placeholder="Flete"
+                        ></input>
+                      </div>
+                      {errors.flete && (
+                        <p className="error-message">{errors.flete.message}</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -152,13 +275,13 @@ export const IniciarCompra = ({ children, estado, cambiarEstado, titulo }) => {
                     <button
                       type="button"
                       onClick={() => cambiarEstado(false)}
-                      className="btcancelar"
+                      className="btcancelari"
                     >
                       Cancelar
                     </button>
                   </div>
                   <div>
-                    <button type="submit" className="btGuardar">
+                    <button type="submit" className="btGuardari">
                       Guardar
                     </button>
                   </div>
@@ -187,7 +310,7 @@ const Overlay = styled.div`
 `;
 
 const ContenedorModal = styled.div`
-  width: 450px;
+  width: 500px;
   min-height: 100px;
   background: #f5f5f5;
   position: relative;

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
 
-.vista-resumen {
+.vista-productores {
     display:flex;
     width: 99vw;
     height: 100vh;
@@ -17,7 +17,7 @@
 }
 
 /* --------------------------- CONTENDEOR PRINCIPAL -------------------*/
-.vista-resumen .container-resumen {
+.vista-productores .container-productores {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,7 +36,7 @@
 }
 
 /*------------------------ CONTNEDOR ENCABEZADO ---------------------------*/
-.vista-resumen .container-resumen .main-encabezado {
+.vista-productores .container-productores .main-encabezado-p {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -53,7 +53,7 @@
 
 }
 
-.vista-resumen .container-resumen .main-encabezado .Rango-fecha{
+.vista-productores .container-productores .main-encabezado-p .Rango-fecha{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -66,7 +66,7 @@
     margin-right: 10px;
     z-index: 899;
 }
-.vista-resumen .container-resumen .main-encabezado .Rango-fecha2{
+.vista-productores .container-productores .main-encabezado-p .Rango-fecha2{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -80,7 +80,7 @@
     z-index: 899;
 }
 
-.vista-resumen .container-resumen .main-encabezado .Rango-fecha2 select {
+.vista-productores .container-productores .main-encabezado-p .Rango-fecha2 select {
     background-color: #EEEEEE;
     color: #000;
     border: none;
@@ -91,7 +91,7 @@
 
 }
 
-.vista-resumen .container-resumen .main-encabezado .Rango-fecha2 button {
+.vista-productores .container-productores .main-encabezado-p .Rango-fecha2 button {
     background-color: #515151;
     color: #ffffff;
     border: none;
@@ -101,7 +101,7 @@
     padding: 0px 20px;
     margin-left: 15px;
 }
-.vista-resumen .container-resumen .main-encabezado .Rango-fecha .calendario-b{
+.vista-productores .container-productores .main-encabezado-p .Rango-fecha .calendario-b{
     display: flex;
     border-radius: 50px;
     border: none;
@@ -117,7 +117,7 @@
     font-size: 15px;
 }
 
-.vista-resumen .container-resumen .main-encabezado .Rango-fecha button{
+.vista-productores .container-productores .main-encabezado-p .Rango-fecha button{
     display: flex;
         border-radius: 50px;
         border: none;
@@ -132,7 +132,7 @@
 }
 
 /*---------------------------- CONTENEDOR DE DATOS DE COMPRAS */
-.vista-resumen .container-resumen  .main-datos  {
+.vista-productores .container-productores  .main-datos  {
 display:flex;
 flex-direction: row;
 width: 99%;
@@ -140,7 +140,7 @@ height: 90vh;
 position: relative;
 }
 
-.vista-resumen .container-resumen .main-datos .main-acopio {
+.vista-productores .container-productores .main-datos .main-acopio {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -157,7 +157,7 @@ position: relative;
 }
 /* -------------------------- grafica -------------------------*/
 
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio {
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio {
     display: flex;
     flex-direction: column;
     justify-content: initial;
@@ -171,7 +171,7 @@ position: relative;
     z-index: 1;
 }
 
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .grafica-pie{
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio .grafica-pie{
 width: 80%;
 height: auto;
     max-height: 400px;
@@ -181,7 +181,7 @@ height: auto;
     justify-content: center;
     padding: 10px;
 }
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .grafica-pie .chart-container{
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio .grafica-pie .chart-container{
 
 display: flex;
     justify-content: center;
@@ -192,7 +192,7 @@ display: flex;
     min-height: 280px;
     position: relative;
 }
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje {
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio .dato-pesaje {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -203,7 +203,7 @@ display: flex;
 }
 
 
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje .indicadores{
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio .dato-pesaje .indicadores{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -217,14 +217,14 @@ display: flex;
     padding: 0px 20px ;
 }
 
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje .pesajes {
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio .dato-pesaje .pesajes {
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 120px;
     margin-top: 5px;
 }
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje .pesajes .pesaje-dato {
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio .dato-pesaje .pesajes .pesaje-dato {
     width: 31%;
     height: 100px;
     flex-shrink: 0;
@@ -237,7 +237,7 @@ display: flex;
 
 }
 
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje .total {
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio .dato-pesaje .total {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -254,15 +254,15 @@ display: flex;
 
 
 
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio h1 {
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio h1 {
     color: #000;
     font-size: 100px;
 }
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio h3 {
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio h3 {
     color: #000;
 }
 
-.vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio img{
+.vista-productores .container-productores .main-datos .main-acopio .resumen-acpio img{
     position: relative;
     width: 300px;
     height: auto;
@@ -275,14 +275,14 @@ display: flex;
 /*------------------- SECCION DE COMPRAS RALIZADAS ------------------*/
 
 
-.vista-resumen .container-resumen .main-datos .main-compras  {
+.vista-productores .container-productores .main-datos .main-compras  {
     display: flex;
     flex-direction: column;
     justify-content: initial;
     align-items: center;
     background-color: #ffffff;
     font-family: 'Istok Web';
-    width: 78%;
+    width: 100%;
     height: 98%;
     padding: 5px;
     margin: 10px 0px 10px 0px;
@@ -292,7 +292,7 @@ display: flex;
 
 
 
-.vista-resumen .container-resumen .main-datos .main-compras .titulo {
+.vista-productores .container-productores .main-datos .main-compras .titulo {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -305,7 +305,7 @@ display: flex;
     position: relative;
 }
 
-.vista-resumen .container-resumen .main-datos .main-compras .titulo .buscador {
+.vista-productores .container-productores .main-datos .main-compras .titulo .buscador {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -320,7 +320,7 @@ display: flex;
 
 
 
-.vista-resumen .container-resumen .main-datos .main-compras  .titulo .buscador input {
+.vista-productores .container-productores .main-datos .main-compras  .titulo .buscador input {
     background-color: transparent;
     border: none;
     border-radius: 50px 0px 0px 50px;
@@ -330,7 +330,7 @@ display: flex;
     color: #000;
 }
 
-.vista-resumen .container-resumen .main-datos .main-compras  .titulo .buscador button {
+.vista-productores .container-productores .main-datos .main-compras  .titulo .buscador button {
     background-color: transparent;
     border: none;
     border-radius: 0px 50px 50px 0px;
@@ -344,7 +344,7 @@ display: flex;
 
 
 
-.vista-resumen .container-resumen .main-datos .main-compras  .tabla {
+.vista-productores .container-productores .main-datos .main-compras  .tabla {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -359,7 +359,7 @@ display: flex;
     position: relative;
 }
 
-.vista-resumen .container-resumen .main-datos .main-compras  .tabla .encabezado {
+.vista-productores .container-productores .main-datos .main-compras  .tabla .encabezado {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -374,25 +374,26 @@ display: flex;
 }
 
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .encabezado .productor {
-    flex: 2.5;
-    padding-left: 30px;
+.vista-productores .container-productores .main-datos .main-compras .tabla .encabezado .productor {
+    flex: 1.7;
+    padding-left: 0px;
 }
 
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato .productor {
-    flex: 2.5;
-    padding-left: 30px;
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos .dato .productor {
+    flex: 1.7;
+    padding-left: 00px;
+    margin-left: -20px;
 }
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .encabezado span,
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato span {
+.vista-productores .container-productores .main-datos .main-compras .tabla .encabezado span,
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos .dato span {
     flex: 1;
     text-align: start;
     padding-left: 7px;
 }
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .datos {
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -408,7 +409,7 @@ display: flex;
     padding: 0px 15px 0px 15px;
 }
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato {
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos .dato {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -421,17 +422,42 @@ display: flex;
     margin-bottom: 10px;
 }
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato .botones {
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos .dato .botones {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 95px;
+    width: 120px;
     height: 32px;
     padding-right: 20px;
     flex-shrink: 0;
 }
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos .dato .btPagar {
+    display: flex;
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: rgb(0, 94, 177);
+    font-size: 12px;
+    margin-right: 5px;
+}
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato .editar {
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos .dato .pagado {
+    display: flex;
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: rgb(20, 255, 0);
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos .dato .editar {
     display: flex;
     width: 40px;
     height: 30px;
@@ -442,7 +468,7 @@ display: flex;
     font-size: 1px;
 }
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato .eliminar {
+.vista-productores .container-productores .main-datos .main-compras .tabla .datos .dato .eliminar {
     display: flex;
     width: 40px;
     height: 30px;
@@ -455,7 +481,7 @@ display: flex;
 }
 
 
-.vista-resumen .container-resumen .main-datos .main-compras .tabla .totalcompra {
+.vista-productores .container-productores .main-datos .main-compras .tabla .totalcompra {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

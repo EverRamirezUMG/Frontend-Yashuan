@@ -10,9 +10,9 @@ import PieResumenAcopio from "../components/chart/Pie-resumen-acopio";
 import Swal from "sweetalert2";
 import GenerarReporte from "../components/PDF/ResumenAcopio";
 import ExcelGenerator from "../components/EXCEL/ResumenAcopioExcel";
-import "../styles/Resumen.css";
+import "../styles/Productores.css";
 
-function Resumen() {
+function Productores() {
   const [content, setContent] = useState("");
   const URL = import.meta.env.VITE_URL;
   const token = localStorage.getItem("token");
@@ -23,6 +23,7 @@ function Resumen() {
   const [compraSeleccionada, setCompraSeleccionada] = useState(false);
   const [fecha1, setFecha1] = useState("");
   const [fecha2, setFecha2] = useState("");
+  const [idcomprobante, setIdcomprobante] = useState("");
   console.log(compra);
 
   if (!token) {
@@ -38,6 +39,7 @@ function Resumen() {
       })
     : "Sin fecha";
 
+  //--------------- obtencion de lista de compras realizadas ----------------
   const ResumenAcopio = async () => {
     try {
       const compra = await fetch(`${URL}resumen/lista`, {
@@ -52,6 +54,22 @@ function Resumen() {
 
       setListaCompra(resCompra);
     } catch {}
+  };
+
+  //----------------------- PAGO DE CONSIGANCION -----------------------
+
+  const PagarConsignado = async () => {
+    try {
+      const response = await fetch(`${URL}productores/pagar/${idcomprobante}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   //--------------------- capturar los compras ---------------------
@@ -229,11 +247,11 @@ function Resumen() {
     : datosAcopio.encargado;
   return (
     <>
-      <div className="vista-resumen">
+      <div className="vista-productores">
         <NavBar />
         <NavBarMovil />
-        <Encabezado titulo="Resumen acopio" />
-        <div className="container-resumen">
+        <Encabezado titulo="Productores" />
+        <div className="container-productores">
           {loading ? (
             <div
               className="loader"
@@ -257,7 +275,7 @@ function Resumen() {
             </div>
           ) : (
             <>
-              <div className="main-encabezado">
+              <div className="main-encabezado-p">
                 <div className="Rango-fecha">
                   <p>Rango:</p>
                   <input
@@ -305,129 +323,96 @@ function Resumen() {
                   <button onClick={compras}>Cargar</button>
                 </div>
                 <div className="Rango-fecha2">
-                  <p>Encargado:</p>
-                  <h3>{encargado || 0}</h3>
+                  <ExcelGenerator data={compra} head={datosAcopio} />
+                  <GenerarReporte data={compra} head={datosAcopio} />
                 </div>
               </div>
               <div className="main-datos">
-                <section className="main-acopio">
-                  <article className="resumen-acpio">
-                    <h3> Resumen acopio</h3>
-                    <h4>{fechacompra || "sin fecha"}</h4>
-                    <div className="grafica-pie">
-                      <PieResumenAcopio data={resumenAcopio} />
-                    </div>
-                    <div className="dato-pesaje">
-                      <div>
-                        <div className="indicadores">
-                          <p>Compras realizadas</p>
-                          <h3>{datosAcopio.compras || 0}</h3>
-                        </div>
-                        <div className="indicadores">
-                          <p>Productores atendidos</p>
-                          <h3>{datosAcopio.productores || 0}</h3>
-                        </div>
-                        <div className="indicadores">
-                          <p>Costo estimado: </p>
-                          <h3> Q. {formatNumber(datosAcopio.costo) || 0}</h3>
-                        </div>
-                        <div className="indicadores">
-                          <p>Costo real: </p>
-                          <h3> Q. {formatNumber(datosAcopio.pago) || 0}</h3>
-                        </div>
-                      </div>
-                      <div className="pesajes">
-                        <div className="pesaje-dato">
-                          <span>Compra</span>
-                          <h2>{datosAcopio.compra || 0}</h2>
-                          <span>Quintales</span>
-                        </div>
-                        <div className="pesaje-dato">
-                          <span>Consignado</span>
-                          <h2>{datosAcopio.consignado || 0} </h2>
-                          <span>Quintales</span>
-                        </div>
-                        <div className="pesaje-dato">
-                          <span>Recolectado</span>
-                          <h2>{datosAcopio.recolector || 0}</h2>
-
-                          <span>Quintales</span>
-                        </div>
-                      </div>
-                      <div className="total">
-                        <span>
-                          <h2>Total</h2>
-                        </span>
-
-                        <span>
-                          <h2>{formatNumber(datosAcopio.total) || 0}</h2>
-                          <h5>Quintales</h5>
-                        </span>
-                      </div>
-                    </div>
-                  </article>
-                </section>
                 <section className="main-compras">
-                  <div className="titulo">
-                    <h3>Compras realizadas</h3>
-                    <div className="buscador">
-                      <input
-                        type="text"
-                        placeholder="Buscar productor"
-                        onChange={searcher}
-                      />
-                      <button>
-                        <span className="material-symbols-outlined">
-                          search
-                        </span>
-                      </button>
-                    </div>
-                    <ExcelGenerator data={compra} head={datosAcopio} />
-                    <GenerarReporte data={compra} head={datosAcopio} />
+                  <div className="totalcompra">
+                    <h2>Productores:</h2>
                   </div>
-
                   <div className="tabla">
+                    <div className="titulo">
+                      <h3>Compras realizadas</h3>
+                      <div className="buscador">
+                        <input
+                          type="text"
+                          placeholder="Buscar productor"
+                          onChange={searcher}
+                        />
+                        <button>
+                          <span className="material-symbols-outlined">
+                            search
+                          </span>
+                        </button>
+                      </div>
+                    </div>
                     <div className="encabezado">
+                      <span>Codigo</span>
                       <span className="productor">Productor</span>
-                      <span>Peso bruto</span>
-                      <span>Tara</span>
+                      <span>Tipo</span>
+                      <span>Fecha</span>
                       <span>Peso neto</span>
+                      <span>Flete</span>
                       <span>Costo</span>
+                      <span>Consignar</span>
+                      <span>Comprobante</span>
                       <span>Pago</span>
+                      <span>Acciones</span>
                     </div>
                     <div className="datos">
                       {result.length > 0 ? (
                         result.map((item, index) => (
                           <div className="dato" key={index}>
+                            <span>{item.pk_productor}</span>
                             <span className="productor">{item.nombre}</span>
-                            <span>{item.pesobruto}</span>
-                            <span>{item.tara}</span>
+                            <span>{item.tipo}</span>
+                            <span>
+                              {new Date(item.fecha).toLocaleDateString("es-ES")}
+                            </span>
                             <span>{item.pesoneto}</span>
+                            <span>
+                              Q. {Number(item.flete).toLocaleString()}
+                            </span>
                             <span>
                               Q. {Number(item.total).toLocaleString()}
                             </span>
+                            <span>{item.consignar ? "Consignado" : "No"}</span>
+                            <span>{item.pk_comprobante}</span>
                             <span>Q. {Number(item.pago).toLocaleString()}</span>
-                            {/* <div className="botones">
+                            <div className="botones">
+                              {item.pago != 0 ? (
+                                <h3 className="pagado">Pagado</h3>
+                              ) : (
+                                <button
+                                  onClick={async () => {
+                                    setIdcomprobante(item.pk_comprobante);
+                                    await PagarConsignado();
+                                  }}
+                                  className="btPagar"
+                                >
+                                  {" "}
+                                  Pagar{" "}
+                                </button>
+                              )}
+
                               <button className="editar">
-                              <span className="material-symbols-outlined">
-                                edit
-                              </span>
-                            </button>
-                            <button className="eliminar">
-                              <span className="material-symbols-outlined">
-                                delete
-                              </span>
-                            </button>
-                            </div> */}
+                                <span className="material-symbols-outlined">
+                                  edit
+                                </span>
+                              </button>
+                              <button className="eliminar">
+                                <span className="material-symbols-outlined">
+                                  delete
+                                </span>
+                              </button>
+                            </div>
                           </div>
                         ))
                       ) : (
                         <p>No hay datos</p>
                       )}
-                    </div>
-                    <div className="totalcompra">
-                      <h2>Total:</h2>
-                      {/* <h2>Q. {Number(costo).toLocaleString()}</h2> */}
                     </div>
                   </div>
                 </section>
@@ -439,4 +424,4 @@ function Resumen() {
     </>
   );
 }
-export default Resumen;
+export default Productores;

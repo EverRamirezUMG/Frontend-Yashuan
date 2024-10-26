@@ -1,0 +1,44 @@
+.progress-container {
+    width: 100%;
+    height: auto; /* Ajusta la altura automáticamente */
+    /* background-color: #f0f0f0; */
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column-reverse; /* Cambia la dirección del flex a columna */
+    align-items: center; /* Alinea los elementos al inicio del contenedor */
+    padding: 0 80px;
+    box-sizing: border-box;
+}
+
+.progress-label {
+    font-size: 12px;
+    font-weight: lighter;
+    color: #333;
+    margin-top: 8px; /* Añade un margen superior para separar del progress-bar */
+}
+
+.progress-bar {
+    width: 100%; /* Asegura que la barra de progreso ocupe todo el ancho */
+    height: 8px;
+    background-color: #EDEDED;
+    border-radius: 8px;
+    margin-top: 8px; /* Añade un margen superior para separar del contenedor */
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #93DFFF;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    transition: width 0.3s ease;
+}
+
+.progress-value {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    margin-right: 8px;
+}
