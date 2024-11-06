@@ -223,6 +223,12 @@ function Resumen() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (compraSeleccionada) {
+      compras();
+    }
+  }, [compraSeleccionada]);
+
   //--------------- verificacion de encargados ----------------
   const encargado = Array.isArray(datosAcopio.encargado)
     ? datosAcopio.encargado.map((p) => p.usuario).join(", ")
@@ -285,24 +291,24 @@ function Resumen() {
                   </button>
                 </div>
                 <div className="Rango-fecha2">
+                  <p>Seleccionar por: </p>
                   <select
                     name="compras"
                     id="compras"
                     onChange={handleCompraChange}
                   >
-                    <option value="">Ultima compra</option>
                     {listaCompra.map((compra, index) => (
                       <option key={index} value={compra.idcompra}>
+                        Partida #{compra?.partida || "N/A"}
+                        {" - "}
                         {new Date(compra.fecha).toLocaleDateString("es-ES", {
-                          weekday: "long",
                           day: "numeric",
-                          month: "long",
+                          month: "short",
                           year: "numeric",
                         })}
                       </option>
                     ))}
                   </select>
-                  <button onClick={compras}>Cargar</button>
                 </div>
                 <div className="Rango-fecha2">
                   <p>Encargado:</p>
@@ -425,10 +431,9 @@ function Resumen() {
                         <p>No hay datos</p>
                       )}
                     </div>
-                    <div className="totalcompra">
+                    {/* <div className="totalcompra">
                       <h2>Total:</h2>
-                      {/* <h2>Q. {Number(costo).toLocaleString()}</h2> */}
-                    </div>
+                    </div> */}
                   </div>
                 </section>
               </div>

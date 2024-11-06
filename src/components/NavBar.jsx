@@ -17,6 +17,7 @@ export const NavBar = () => {
   const [isSalesMenuOpen, setIsSalesMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isAcopioMenuOpen, setIsAcopioMenuOpen] = useState(false);
+  const [isCostoMenuOpen, setIsCostoMenuOpen] = useState(false);
 
   //------ Permisos de usuario------
   const Superusuario = localStorage.getItem("superusuario");
@@ -54,6 +55,9 @@ export const NavBar = () => {
 
   const toggleAcopioMenu = () => {
     setIsAcopioMenuOpen(!isAcopioMenuOpen);
+  };
+  const toggleCostoMenu = () => {
+    setIsCostoMenuOpen(!isCostoMenuOpen);
   };
 
   const handleLogout = () => {
@@ -213,6 +217,24 @@ export const NavBar = () => {
               )}
             </div>
           ) : null}
+          {/* Botón de Inventario */}
+          {Superusuario === true ||
+          Cargo === "Administrador" ||
+          Cargo === "Encargado venta" ||
+          Inventario === "true" ? (
+            <button
+              type="button"
+              className={`navA ${
+                location.pathname === "/Admin/Inventario" ? "active" : ""
+              }`}
+              onClick={() => handleButtonClick("/Admin/Inventario")}
+            >
+              <div className="Reportes">
+                <span className="material-symbols-outlined">deployed_code</span>
+                <span> Inventario</span>
+              </div>
+            </button>
+          ) : null}
 
           {/* Botón de Ventas con submenú */}
           {Superusuario === true ||
@@ -241,21 +263,36 @@ export const NavBar = () => {
                   <button
                     type="button"
                     className={`navA ${
-                      location.pathname === "/Admin/Muestra" ? "active" : ""
+                      location.pathname === "/Admin/Ventas/Muestra"
+                        ? "active"
+                        : ""
                     }`}
-                    onClick={() => handleButtonClick("/Admin/Muestra")}
+                    onClick={() => handleButtonClick("/Admin/Ventas/Muestra")}
                   >
                     <div className="Reportes">
                       <span> Muestra</span>
+                    </div>
+                  </button>
+                  <button
+                    type="button"
+                    className={`navA ${
+                      location.pathname === "/Admin/Ventas" ? "active" : ""
+                    }`}
+                    onClick={() => handleButtonClick("/Admin/Ventas")}
+                  >
+                    <div className="Reportes">
+                      <span> Ventas</span>
                     </div>
                   </button>
 
                   <button
                     type="button"
                     className={`navA ${
-                      location.pathname === "/Admin/Cliente" ? "active" : ""
+                      location.pathname === "/Admin/Ventas/Clientes"
+                        ? "active"
+                        : ""
                     }`}
-                    onClick={() => handleButtonClick("/Admin/Cliente")}
+                    onClick={() => handleButtonClick("/Admin/Ventas/Clientes")}
                   >
                     <div className="Reportes">
                       <span> Cliente </span>
@@ -278,41 +315,76 @@ export const NavBar = () => {
             </div>
           ) : null}
 
-          {/* Botón de Inventario */}
-          {Superusuario === true ||
-          Cargo === "Administrador" ||
-          Cargo === "Encargado venta" ||
-          Inventario === "true" ? (
-            <button
-              type="button"
-              className={`navA ${
-                location.pathname === "/Admin/Inventario" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("/Admin/Inventario")}
-            >
-              <div className="Reportes">
-                <span className="material-symbols-outlined">deployed_code</span>
-                <span> Inventario</span>
-              </div>
-            </button>
-          ) : null}
-
           {/* Botón de Costo de producción */}
           {Superusuario === true ||
           Cargo === "Administrador" ||
           CostoProduccion === "true" ? (
-            <button
-              type="button"
-              className={`navA ${
-                location.pathname === "/Admin/Costo" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("/Admin/Costo")}
-            >
-              <div className="Reportes">
-                <span className="material-symbols-outlined">manufacturing</span>
-                <span> Costo de producción</span>
-              </div>
-            </button>
+            <div className="navA">
+              <button
+                type="button"
+                className={`navA ${
+                  location.pathname.startsWith("/Admin/CostoProduccion")
+                    ? "active"
+                    : ""
+                }`}
+                onClick={toggleCostoMenu}
+              >
+                <div className="Reportes">
+                  <span class="material-symbols-outlined">manufacturing</span>
+                  <span> Costo de producción</span>
+                  <span className="material-symbols-outlined">
+                    {isCostoMenuOpen ? "expand_less" : "expand_more"}
+                  </span>
+                </div>
+              </button>
+
+              {isCostoMenuOpen && (
+                <div className="dropdown-menu">
+                  <button
+                    type="button"
+                    className={`navA ${
+                      location.pathname === "/Admin/CostoProduccion"
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() => handleButtonClick("/Admin/CostoProduccion")}
+                  >
+                    <span> Costo de produccion</span>
+                  </button>
+                  <button
+                    type="button"
+                    className={`navA ${
+                      location.pathname === "/Admin/CostoProduccion/Flete"
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      handleButtonClick("/Admin/CostoProduccion/Flete")
+                    }
+                  >
+                    <div className="Reportes">
+                      <span> Flete</span>
+                    </div>
+                  </button>
+                  <button
+                    type="button"
+                    className={`navA ${
+                      location.pathname ===
+                      "/Admin/CostoProduccion/Mantenimiento"
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      handleButtonClick("/Admin/CostoProduccion/Mantenimiento")
+                    }
+                  >
+                    <div className="Reportes">
+                      <span> Mantenimiento</span>
+                    </div>
+                  </button>
+                </div>
+              )}
+            </div>
           ) : null}
 
           {/* Botón de Usuarios con submenú */}
@@ -347,7 +419,10 @@ export const NavBar = () => {
                     }`}
                     onClick={() => handleButtonClick("/Admin/Usuario")}
                   >
-                    Usuarios Activos
+                    {" "}
+                    <div className="Reportes">
+                      <span>Activos</span>
+                    </div>
                   </button>
                   <button
                     type="button"
@@ -358,7 +433,10 @@ export const NavBar = () => {
                     }`}
                     onClick={() => handleButtonClick("/Admin/Usuario/Inactivo")}
                   >
-                    Usuarios Inactivos
+                    {" "}
+                    <div className="Reportes">
+                      <span>Inactivos</span>
+                    </div>
                   </button>
                   <button
                     type="button"

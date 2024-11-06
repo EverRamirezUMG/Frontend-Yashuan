@@ -18,7 +18,7 @@ function NotFound() {
       <div className="vista">
         <NavBar />
         <NavBarMovil />
-        <Encabezado titulo="Inicio" />
+        <Encabezado titulo="No encontrado" />
         <div className="grid-container404">
           <section className="main404">
             <div className="contenidoN">

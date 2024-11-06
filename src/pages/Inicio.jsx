@@ -1,20 +1,18 @@
 import { Encabezado, NavBar } from "../components";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import ChartDias from "../components/chart/chart1";
 import PieResumenAcopio from "../components/chart/Pie-resumen-acopio";
 import PiePergamino from "../components/chart/PiePergamino";
-import RadarChart from "../components/chart/radar1";
-import "../styles/Inicio.css";
 import Swal from "sweetalert2";
-// import "../styles/InicioMovil.css";
 import ProgressBar from "../components/chart/progressoBar";
 import { NavBarMovil } from "../components/NavBarMovil";
+import RadarCatacion from "../components/chart/RadarCatacion";
+import "../styles/Inicio.css";
 
 function Inicio() {
-  const [content, setContent] = useState("");
   const URL = import.meta.env.VITE_URL;
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [datosAcopio, setResumenAcopio] = useState([]);
   const [resumenAcopio, setResumen] = useState([]);
@@ -22,7 +20,25 @@ function Inicio() {
   const [cantidad, setCantidad] = useState([]);
   const [partidas, setPartidas] = useState([]);
   const [partida, setPartida] = useState([]);
+  const [catacion, setCatacion] = useState([]);
+  const [precio, setPrecio] = useState([]);
+  const [ventas, setVentas] = useState([]);
+  const [venta, setVenta] = useState([]);
+  const [totales, setTotales] = useState("");
+
   const [partidaSeleccionada, setPartidaSeleccionada] = useState(null);
+
+  const { aroma, apreciacion, acidez, cuerpo, sabor, posgusto, balance } =
+    catacion;
+  const datocatacion = {
+    aroma,
+    apreciacion,
+    acidez,
+    cuerpo,
+    sabor,
+    posgusto,
+    balance,
+  };
 
   if (!token) {
     return <Navigate to="/Admin" />;
@@ -79,7 +95,7 @@ function Inicio() {
         },
       });
 
-      const partidas = await fetch(`${URL}inventario/partidas`, {
+      const partidas = await fetch(`${URL}rendimiento/partidas`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +128,7 @@ function Inicio() {
   const getRendimiento = async (partida) => {
     try {
       const partida = await fetch(
-        `${URL}inventario/partida/${partidaSeleccionada}`,
+        `${URL}rendimiento/partida/${partidaSeleccionada}`,
         {
           method: "GET",
           headers: {
@@ -139,18 +155,105 @@ function Inicio() {
     }
   };
 
+  const obtenerPartida = async () => {
+    try {
+      const partida = await fetch(
+        `${URL}rendimiento/partida/${partidaSeleccionada}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+          },
+        }
+      );
+      const catacion = await fetch(
+        `${URL}rendimiento/catacion/${partidaSeleccionada}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+          },
+        }
+      );
+      const respuesta = await partida.json();
+      const catacionRespuesta = await catacion.json();
+      setCatacion(catacionRespuesta);
+      setPartida(respuesta);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const obtenerVentas = async () => {
+    try {
+      const ventas = await fetch(`${URL}ventas`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+
+      const cantidad = await fetch(`${URL}inventario/stock`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+      const totales = await fetch(`${URL}ventas/totales`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+      const precio = await fetch(`${URL}muestras/precio`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+      if (!ventas.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      const pergaminoData = await ventas.json();
+      const cantidadData = await cantidad.json();
+      const totalesData = await totales.json();
+      const precioData = await precio.json();
+
+      setVentas(pergaminoData);
+      setCantidad(cantidadData);
+      setTotales(totalesData);
+      setPrecio(precioData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     ResumenAcopio();
     disponibilidadPergamino();
-    const interval = setInterval(() => {
-      ResumenAcopio();
-    }, 5000);
+    obtenerPartida();
+    obtenerVentas();
+    const interval = setInterval(() => {}, 5000);
     return () => clearInterval(interval);
   }, [token]);
 
   useEffect(() => {
+    if (partidas.length > 0) {
+      setPartidaSeleccionada(partidas[0].id);
+    }
+  }, [partidas]);
+
+  useEffect(() => {
     if (partidaSeleccionada) {
       getRendimiento();
+      obtenerPartida();
     }
   }, [partidaSeleccionada]);
 
@@ -160,7 +263,12 @@ function Inicio() {
 
   // const total = rtotal.toFixed(2);
 
-  console.log(partida[0]);
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat("es-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number);
+  };
 
   return (
     <>
@@ -173,7 +281,10 @@ function Inicio() {
             <article className="resumen-acpio">
               <h3> Resumen acopio</h3>
               <h4>{fechacompra || "sin fecha"}</h4>
-              <div className="grafica-pie">
+              <div
+                className="grafica-pie"
+                onClick={() => navigate("/Admin/Acopio/Resumen")}
+              >
                 <PieResumenAcopio data={resumenAcopio} />
               </div>
               <div className="dato-pesaje">
@@ -224,12 +335,17 @@ function Inicio() {
                     <h3>Disponibilidad</h3>
                   </span>
                   <span>
-                    <h2>{cantidad?.cantidad}</h2>
+                    <h2 onClick={() => navigate("/Admin/Inventario")}>
+                      {cantidad?.cantidad || 0}
+                    </h2>
 
                     <h5>Quintales</h5>
                   </span>
                 </div>
-                <div className="piePergamino">
+                <div
+                  className="piePergamino"
+                  onClick={() => navigate("/Admin/Inventario")}
+                >
                   <PiePergamino data={disponibilidad} />
                 </div>
 
@@ -247,7 +363,6 @@ function Inicio() {
                     value={partidaSeleccionada}
                     onChange={handlePartidaChange}
                   >
-                    <option value={null}>Seleccione una partida</option>
                     {partidas.map((p, index) => (
                       <option key={index} value={p.id}>
                         Partida #{p.partida} -{" "}
@@ -259,23 +374,35 @@ function Inicio() {
                 </div>
                 <div className="informacion">
                   <div className="datos">
-                    <div className="rendimientoP">
-                      <h2>{partida[0]?.rendimiento || "--"}</h2>
+                    <div
+                      className="rendimientoP"
+                      onClick={() => navigate("/Admin/Inicio/Rendimiento")}
+                    >
+                      <h2>{partida?.rendimiento || "--"}</h2>
                       <h4>Rendimiento</h4>
                     </div>
-                    <div className="maduro">
+                    <div
+                      className="maduro"
+                      onClick={() => navigate("/Admin/Inicio/Rendimiento")}
+                    >
                       <h4>cafe maduro</h4>
-                      <h2>{partida[0]?.maduro || "--"} </h2>
+                      <h2>{partida?.maduro || "--"} </h2>
                       <h5>Quintales</h5>
                     </div>
-                    <div className="pergamino">
+                    <div
+                      className="pergamino"
+                      onClick={() => navigate("/Admin/Inicio/Rendimiento")}
+                    >
                       <h4>cafe pergamino</h4>
-                      <h2>{partida[0]?.pergamino || "--"}</h2>
+                      <h2>{partida?.cantidad || "--"}</h2>
                       <h5>Quintales</h5>
                     </div>
                   </div>
-                  <div className="Radar">
-                    <RadarChart />
+                  <div
+                    className="Radar"
+                    onClick={() => navigate("/Admin/Inicio/Rendimiento")}
+                  >
+                    <RadarCatacion datos={datocatacion} />
                   </div>
                 </div>
               </div>
@@ -283,40 +410,35 @@ function Inicio() {
 
             <article className="ventas">
               <div className="tituloV">
-                <h3>Resumen de ventas </h3>
-                <button> Ver completo</button>
+                <h3>Ventas</h3>
+                <button onClick={() => navigate("/Admin/Ventas")}>
+                  Ver completo
+                </button>
               </div>
 
               <div className="detalle-venta">
                 <div className="contenedorV">
-                  <div className="venta">
-                    <h4>venta #1</h4>
-                    <h5>fecha</h5>
-                    <h5>cliente</h5>
-                    <h5>cantidad</h5>
-                    <h5>total</h5>
-                  </div>
-                  <div className="venta">
-                    <h4>venta #2</h4>
-                    <h5>fecha</h5>
-                    <h5>cliente</h5>
-                    <h5>cantidad</h5>
-                    <h5>total</h5>
-                  </div>
-                  <div className="venta">
-                    <h4>venta #3</h4>
-                    <h5>fecha</h5>
-                    <h5>cliente</h5>
-                    <h5>cantidad</h5>
-                    <h5>total</h5>
-                  </div>
-                  <div className="venta">
-                    <h4>venta #4</h4>
-                    <h5>fecha</h5>
-                    <h5>cliente</h5>
-                    <h5>cantidad</h5>
-                    <h5>total</h5>
-                  </div>
+                  {ventas.length > 0 ? (
+                    ventas.slice(0, 3).map((item, index) => (
+                      <div className="venta" key={index}>
+                        <h4>{item.id}</h4>
+                        <h5>
+                          {" "}
+                          {new Date(item.fecha).toLocaleDateString("es-ES", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </h5>
+                        <h5> {item.nombre}</h5>
+                        <h5>{item.pesoneto} qq</h5>
+                        <h5>{item.proceso}</h5>
+                        <h5>Q. {formatNumber(item.total)}</h5>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No hay datos</p>
+                  )}
                 </div>
               </div>
               <div className="totales">
@@ -329,30 +451,31 @@ function Inicio() {
                   <div className="contI">
                     <div className="itemV">
                       <p>lavado</p>
-                      <h2>15.2</h2>
+                      <h2>{totales?.peso_lavado || 0}</h2>
                       <p>Quintales</p>
                     </div>
                     <div className="itemV">
                       <p>honey</p>
-                      <h2>15.2</h2>
+                      <h2>{totales?.peso_honey || 0}</h2>
                       <p>Quintales</p>
                     </div>
                   </div>
                   <div className="contI">
                     <div className="itemV">
                       <p>natural</p>
-                      <h2>15.2</h2>
+                      <h2>{totales?.peso_natural || 0}</h2>
                       <p>Quintales</p>
                     </div>
                     <div className="itemV">
                       <p>Subproducto</p>
-                      <h2>15.2</h2>
+                      <h2>{totales?.peso_subproducto || 0}</h2>
                       <p>Quintales</p>
                     </div>
                   </div>
                 </div>
                 <div className="total">
                   <h2>Total</h2>
+                  <h3>{totales?.peso_total || 0} qq.</h3>
                 </div>
               </div>
             </article>

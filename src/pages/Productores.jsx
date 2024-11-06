@@ -30,15 +30,6 @@ function Productores() {
     return <Navigate to="/Admin" />;
   }
 
-  const fechacompra = datosAcopio.fecha
-    ? new Date(datosAcopio.fecha).toLocaleDateString("es-ES", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
-    : "Sin fecha";
-
   //--------------- obtencion de lista de compras realizadas ----------------
   const ResumenAcopio = async () => {
     try {
@@ -86,6 +77,17 @@ function Productores() {
           },
         }
       );
+
+      const datos = await response.json();
+
+      setCompra(datos); // Verifica la estructura aquí
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const resumen_acopio = async () => {
+    try {
       const resumenAcopio = await fetch(
         URL +
           `resumen/resumenid?idcompra=${encodeURIComponent(
@@ -99,6 +101,15 @@ function Productores() {
           },
         }
       );
+
+      const resResumen = await resumenAcopio.json();
+      setResumen(resResumen);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const resumen_total = async () => {
+    try {
       const resumenTotal = await fetch(
         URL +
           `resumen/totalid?idcompra=${encodeURIComponent(compraSeleccionada)}`,
@@ -110,13 +121,8 @@ function Productores() {
           },
         }
       );
-
-      const datos = await response.json();
-      const resResumen = await resumenAcopio.json();
       const resTotal = await resumenTotal.json();
 
-      setCompra(datos); // Verifica la estructura aquí
-      setResumen(resResumen);
       setResumenAcopio(resTotal);
     } catch (err) {
       console.error(err);
@@ -126,6 +132,8 @@ function Productores() {
   useEffect(() => {
     compras();
     ResumenAcopio();
+    resumen_acopio();
+    resumen_total();
   }, []);
 
   //--------------------- COMPRA POR RANGO DE FECHA ---------------------
@@ -241,6 +249,31 @@ function Productores() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (idcomprobante) {
+      PagarConsignado();
+      compras();
+      ResumenAcopio();
+      resumen_acopio();
+      resumen_total();
+      rangoCompras();
+      setIdcomprobante("");
+      setCompraSeleccionada(false);
+    }
+  }, [idcomprobante]);
+
+  useEffect(() => {
+    if (compraSeleccionada) {
+      setFecha2("");
+      setFecha1("");
+      PagarConsignado();
+      resumen_acopio();
+      resumen_total();
+      compras();
+      setIdcomprobante();
+    }
+  }, [compraSeleccionada]);
+
   //--------------- verificacion de encargados ----------------
   const encargado = Array.isArray(datosAcopio.encargado)
     ? datosAcopio.encargado.map((p) => p.usuario).join(", ")
@@ -323,8 +356,8 @@ function Productores() {
                   <button onClick={compras}>Cargar</button>
                 </div>
                 <div className="Rango-fecha2">
-                  <ExcelGenerator data={compra} head={datosAcopio} />
-                  <GenerarReporte data={compra} head={datosAcopio} />
+                  <ExcelGenerator data={result} head={datosAcopio} />
+                  <GenerarReporte data={result} head={datosAcopio} />
                 </div>
               </div>
               <div className="main-datos">
@@ -388,7 +421,6 @@ function Productores() {
                                 <button
                                   onClick={async () => {
                                     setIdcomprobante(item.pk_comprobante);
-                                    await PagarConsignado();
                                   }}
                                   className="btPagar"
                                 >

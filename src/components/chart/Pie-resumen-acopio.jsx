@@ -5,8 +5,6 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function PieResumenAcopio({ data: datosAcopio }) {
-  console.log(datosAcopio);
-
   // Desestructuración y almacenamiento en una nueva variable
   let labels = datosAcopio || {}; // Asegúrate de que labels sea un objeto
 

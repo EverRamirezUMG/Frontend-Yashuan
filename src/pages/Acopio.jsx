@@ -8,6 +8,7 @@ import Comprobante from "../components/PDF/comprobante";
 import UpdateComprobante from "../components/mod/UpdateComprobante";
 import { Navigate, useNavigate } from "react-router-dom";
 import GenerarComprobante from "../components/PDF/GenerarComprobante";
+import swal from "sweetalert2";
 
 export const Acopio = () => {
   const URL = import.meta.env.VITE_URL;
@@ -429,6 +430,59 @@ export const Acopio = () => {
     }
   };
 
+  //-------------------- eliminar compra ---------------------
+  const eliminarCompra = async (id) => {
+    try {
+      const response = await fetch(URL + `acopio/eliminar/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Compra eliminada",
+          text: "La compra se eliminó con éxito.",
+        });
+        compras();
+        verificarCompra();
+        precios();
+        ResumenAcopio();
+        productor();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo eliminar la compra.",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  ///-----------------------------
+  useEffect(() => {
+    if (estadoModal1 === true || estadoModal1 === false) {
+      precios();
+      compras();
+      ResumenAcopio();
+      productor();
+      setFilas([]);
+      setObservacion("");
+      setNombreProductor("");
+      setConFlete(false);
+      setConsignar(false);
+      setSelectedOption(1);
+      setVehiculoSeleccionado("");
+      setCodigoProductor(null);
+      verificarCompra();
+    }
+  }, [estadoModal1]);
+
   //------------------------ mostrar alerta
 
   const mostrarAlerta = (icon, title, text, confirmButton, htmls) => {
@@ -465,6 +519,39 @@ export const Acopio = () => {
       }
     });
   };
+
+  //--------------------- mostrar alerta para eliminar compra ---------------------
+
+  const mostrarAlerta2 = (codigo) => {
+    swal
+      .fire({
+        title: "¿Desea eliminar?",
+        icon: "question",
+        text: "La compra sera eliminada de manera permanente",
+        confirmButtonText: "Eliminar",
+        confirmButtonColor: "#FF8A00",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        cancelButtonColor: "#5E5E5E",
+        buttonsStyling: false,
+        showCloseButton: true,
+        customClass: {
+          confirmButton: "btEliminar",
+          cancelButton: "btCancelar",
+          popup: "popus-class",
+          title: "titulo-pop",
+          text: "text-pop",
+          icon: "icon-pop",
+          container: "contenedor-alert",
+        },
+      })
+      .then((response) => {
+        if (response.isConfirmed) {
+          eliminarCompra(codigo);
+        }
+      });
+  };
+
   // Eliminar una fila de la tabla de pesajes
 
   const eliminarFila = (index) => {
@@ -913,7 +1000,10 @@ export const Acopio = () => {
                               edit
                             </span>
                           </button>
-                          <button className="eliminar">
+                          <button
+                            className="eliminar"
+                            onClick={() => mostrarAlerta2(item.pk_comprobante)}
+                          >
                             <span className="material-symbols-outlined">
                               delete
                             </span>

@@ -6,272 +6,406 @@ import ChartDias from "../components/chart/chart1";
 import PieResumenAcopio from "../components/chart/Pie-resumen-acopio";
 import PiePergamino from "../components/chart/PiePergamino";
 import RadarChart from "../components/chart/radar1";
-import "../styles/Inicio.css";
+import RadarCatacion from "../components/chart/RadarCatacion";
+import IngresarCatacion from "../components/mod/IngresarCatacion";
+import "../styles/Rendimiento.css";
 // import "../styles/InicioMovil.css";
 import ProgressBar from "../components/chart/progressoBar";
 import { NavBarMovil } from "../components/NavBarMovil";
+import { set } from "react-hook-form";
 
 //Datos simulados de comrpa de cafe maduro
-const DatosC = {
-  acopio: 37.83,
-  productor: 3.9,
-  socio: 2.4,
-  recolectado: 102.91,
-};
-
-//datos simulados de compra semanal
-const SemanaD = {
-  lunes: 10,
-  martes: 20,
-  miercoles: 30,
-  jueves: 40,
-  viernes: 50,
-  sabado: 60,
-};
-
-//Datos simulados de disponibilidad de cafe pergamino
-const pergamino = {
-  Lavado: 75.3,
-  Honey: 24,
-  Natural: 12,
-  Subproducto: 5,
-};
 
 function Rendimiento() {
-  const [content, setContent] = useState("");
   const URL = import.meta.env.VITE_URL;
   const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(URL + "home", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setContent(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    if (token) fetchData();
-  }, [token]);
+  const [fecha1, setFecha1] = useState("");
+  const [fecha2, setFecha2] = useState("");
+  const [partidas, setPartidas] = useState([]);
+  const [catacion, setCatacion] = useState([]);
+  const [allparitdas, setAllPartidas] = useState([]);
+  const [estadoModal1, cambiarEstadoModal1] = useState(false);
+  const { aroma, apreciacion, acidez, cuerpo, sabor, posgusto, balance } =
+    catacion;
+  const datocatacion = {
+    aroma,
+    apreciacion,
+    acidez,
+    cuerpo,
+    sabor,
+    posgusto,
+    balance,
+  };
+  const [partida, setPartida] = useState([]);
+  const [partidaSeleccionada, setPartidaSeleccionada] = useState();
 
   if (!token) {
     return <Navigate to="/Admin" />;
   }
 
-  //sumatoria de datos para calcular total de cafe comprado
-  let productor = DatosC.productor;
-  let socio = DatosC.socio;
-  let recolectado = DatosC.recolectado;
-  let acopio = DatosC.acopio;
+  console.log(datocatacion);
+  //------------------ CONSULTA DE PARTIDAS ------------ */
 
-  let consignado = productor + socio;
+  const obtenerPartidas = async () => {
+    try {
+      const partidas = await fetch(`${URL}rendimiento/partidas`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+      const allpartidas = await fetch(`${URL}rendimiento/allpartidas`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+      const respuesta = await partidas.json();
+      const allrespuesta = await allpartidas.json();
+      setPartidas(respuesta);
+      setAllPartidas(allrespuesta);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  let rtotal = acopio + consignado + recolectado;
+  //---------- OBTENER UNA PARTIDA ESPECIFICA ------------ */
 
-  //sumatoria de datos para cantidad de cafe pergamino disponible
-  let lavado = pergamino.Lavado;
-  let honey = pergamino.Honey;
-  let natural = pergamino.Natural;
-  let subproducto = pergamino.Subproducto;
+  const obtenerPartida = async () => {
+    try {
+      const partida = await fetch(
+        `${URL}rendimiento/partida/${partidaSeleccionada}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+          },
+        }
+      );
+      const catacion = await fetch(
+        `${URL}rendimiento/catacion/${partidaSeleccionada}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+          },
+        }
+      );
+      const respuesta = await partida.json();
+      const catacionRespuesta = await catacion.json();
+      setCatacion(catacionRespuesta);
+      setPartida(respuesta);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  let DisponibilidadP = lavado + honey + natural + subproducto;
+  //------------ obtener partodas por rango de feca ------------
+  const rangoPartidas = async () => {
+    try {
+      const response = await fetch(
+        `${URL}rendimiento/rangopartidas?fecha1=${encodeURIComponent(
+          fecha1
+        )}&fecha2=${encodeURIComponent(fecha2)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  const total = rtotal.toFixed(2);
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      const data = await response.json();
+
+      setAllPartidas(data);
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Error en la solicitud",
+        text: err.message,
+      });
+    }
+  };
+
+  useEffect(() => {
+    obtenerPartidas();
+    // obtenerPartida();
+  }, []);
+
+  useEffect(() => {
+    if (partidaSeleccionada) {
+      obtenerPartida();
+    }
+  }, [partidaSeleccionada]);
+
+  useEffect(() => {
+    if (partidas.length > 0) {
+      setPartidaSeleccionada(partidas[0].id);
+    }
+  }, [partidas]);
+
+  //------------------ BUSQUEDA INTELIGENTE------------ */
+  const [search, setSearch] = useState("");
+  const searcher = (e) => {
+    setSearch(e.target.value);
+    console.log(e.target.value);
+  };
+  //----metodo de filtrado de busqueda-----
+  let result = [];
+  if (!search) {
+    result = allparitdas;
+  } else {
+    result = allparitdas.filter(
+      (datos) =>
+        datos.partida.toString().includes(search) ||
+        datos.proceso.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+
+  //-------- seleccinar partida ---------
+  const handlePartidaChange = (event) => {
+    setPartidaSeleccionada(event.target.value);
+  };
+
+  //------------------ FORMATO DE NUMEROS ------------ */
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat("es-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number);
+  };
+
+  const handleCloseModal1 = () => {
+    cambiarEstadoModal1(!estadoModal1);
+  };
 
   return (
     <>
-      <div className="vista">
+      <div className="vista-rendimiento">
         <NavBar />
         <NavBarMovil />
         <Encabezado titulo="Rendimiento" />
-        <div className="grid-container">
-          <section className="main">
-            <article className="resumen-acpio">
-              <h3> Resumen acopio</h3>
-              <h4>{content}</h4>
-              <div className="grafica-pie">
-                <PieResumenAcopio data={DatosC} />
+        <div className="contenedor-rendimiento">
+          <section className="main-1-rendimento">
+            <div className="datos-rendimiento">
+              <div className="encabezado">
+                <h2>Rendimiento</h2>
+                <select
+                  name="partida"
+                  id="partida"
+                  value={partidaSeleccionada}
+                  onChange={handlePartidaChange}
+                >
+                  {partidas.map((p, index) => (
+                    <option key={index} value={p.id}>
+                      Partida #{p.partida} -{" "}
+                      {new Date(p.fecha).toLocaleDateString("es-ES")}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <div className="dato-pesaje">
-                <div className="pesajes">
-                  <div className="pesaje-dato">
-                    <span>Compra</span>
-                    <h2>{acopio}</h2>
-                    <span>Quintales</span>
+              <div className="dato-rendimiento">
+                <div className="contenedor-dato">
+                  <div className="dato">
+                    <p>Cafe de primera</p>
+                    <h3>{partida?.cantidad || 0}</h3>
+                    <p>Quintales</p>
                   </div>
-                  <div className="pesaje-dato">
-                    <span>Consignado</span>
-                    <h2>{consignado} </h2>
-                    <span>Quintales</span>
-                  </div>
-                  <div className="pesaje-dato">
-                    <span>Recolectado</span>
-                    <h2>{recolectado}</h2>
-                    <span>Quintales</span>
+                  <div className="dato">
+                    <p>Cafe maduro</p>
+                    <h3>{partida?.maduro || 0}</h3>
+                    <p>Quintales</p>
                   </div>
                 </div>
-                <div className="total">
-                  <span>
-                    <h2>Total</h2>
-                  </span>
-
-                  <span>
-                    <h2>{total}</h2>
-                    <h5>Quintales</h5>
-                  </span>
+                <div className="rendimiento">
+                  <h1>{partida?.rendimiento || 0}</h1>
+                  <p>Rendimiento</p>
                 </div>
               </div>
-            </article>
-
-            <article className="compras">
-              <div className="grafica-chart">
-                <h6>Compra de los ultimos 6 dias </h6>
-                <ChartDias data={SemanaD} />
+              <div className="precio-dia">
+                <p>Precio del dia</p>
+                <h3>Q. {partida?.precio || 0}</h3>
               </div>
-            </article>
+              <div className="datos-fecha">
+                <div className="dato">
+                  <p>
+                    Compra:{" "}
+                    {new Date(partida?.fecha).toLocaleDateString("es-ES")}
+                  </p>
+                </div>
+                <div className="dato">
+                  <p>
+                    Bodega:{" "}
+                    {new Date(partida?.fecha_bodega).toLocaleDateString(
+                      "es-ES"
+                    )}
+                  </p>
+                </div>
+                <div className="dato">
+                  <p>Producto: {partida?.proceso}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="radar">
+              <div className="encabezado">
+                <h2>Resumen de calidad</h2>
+                <div className="puntuacion">
+                  {" "}
+                  <p>Puntuación</p>
+                  <h3>{catacion?.puntuacion}</h3>
+                </div>
+              </div>
+
+              <div className="botones">
+                <IngresarCatacion
+                  estado={estadoModal1}
+                  cambiarEstado={handleCloseModal1}
+                  idpartida={partidaSeleccionada}
+                  titulo="Ingresar datos de catación"
+                />
+                <button
+                  type="button"
+                  className="btAgregar"
+                  onClick={() => cambiarEstadoModal1(!estadoModal1)}
+                >
+                  Agregar +
+                </button>
+
+                {/* <button className="btEditar">
+                  <span className="material-symbols-outlined">edit</span>
+                </button> */}
+              </div>
+              <RadarCatacion datos={datocatacion} />
+              <div className="notas">
+                <div className="nota">
+                  <p>Aroma: </p> <h4> {catacion?.aroma}</h4>
+                </div>
+                <div className="nota">
+                  <p>Sabor: </p> <h4> {catacion?.sabor}</h4>
+                </div>
+                <div className="nota">
+                  <p>Posgusto: </p> <h4> {catacion?.posgusto}</h4>
+                </div>
+                <div className="nota">
+                  <p>Acidez: </p> <h4> {catacion?.acidez}</h4>
+                </div>
+                <div className="nota">
+                  <p>Cuerpo: </p> <h4> {catacion?.cuerpo}</h4>
+                </div>
+                <div className="nota">
+                  <p>Balance: </p> <h4> {catacion?.balance}</h4>
+                </div>
+                <div className="nota">
+                  <p>Apreciacion: </p> <h4> {catacion?.apreciacion}</h4>
+                </div>
+              </div>
+            </div>
           </section>
-
-          <section className="main2">
-            <article className="disponibilidadRendimiento">
-              <div className="disponibilidad">
-                <div className="DatoPergamino">
-                  <span>
-                    <h3>Disponibilidad</h3>
-                  </span>
-                  <span>
-                    <h2>{DisponibilidadP}</h2>
-
-                    <h5>Quintales</h5>
-                  </span>
-                </div>
-                <div className="piePergamino">
-                  <PiePergamino data={pergamino} />
-                </div>
-
-                {/* <ProgressBar progreso={DisponibilidadP} /> */}
+          <section className="main-2-partida">
+            <h3>Partidas ingresadas</h3>
+            <div className="titulo">
+              <div className="Rango-fecha">
+                <p>Rango:</p>
+                <input
+                  type="date"
+                  className="calendario-b"
+                  max={new Date().toISOString().split("T")[0]}
+                  onChange={(e) => {
+                    setFecha1(e.target.value);
+                    if (new Date(e.target.value) > new Date(fecha2)) {
+                      setFecha2("");
+                    }
+                  }}
+                  value={fecha1}
+                />
+                <input
+                  type="date"
+                  className="calendario-b"
+                  min={fecha1}
+                  max={new Date().toISOString().split("T")[0]}
+                  onChange={(e) => setFecha2(e.target.value)}
+                  value={fecha2}
+                />
+                <button type="button" onClick={rangoPartidas}>
+                  Aceptar
+                </button>
               </div>
-              <div className="rendimiento">
-                <div className="seleccion">
-                  <div className="titulo">
-                    <h3>Rendimiento</h3>
-                  </div>
-                  <select
-                    className="selectP"
-                    name="rendimiento"
-                    id="rendimiento"
-                    // value={selectedOption}
-                    onChange={(e) => setSelectedOption(e.target.value)}
-                  >
-                    <option value="opcion1">Partida #35</option>
-                    <option value="opcion2">Opción 2</option>
-                    <option value="opcion3">Opción 3</option>
-                  </select>
-                  {/* <p>Opción seleccionada: {selectedOption}</p> */}
-                </div>
-                <div className="informacion">
-                  <div className="datos">
-                    <div className="rendimientoP">
-                      <h2>4.6676</h2>
-                      <h4>Rendimiento</h4>
-                    </div>
-                    <div className="maduro">
-                      <h4>cafe maduro</h4>
-                      <h2>33.14 </h2>
-                      <h5>Quintales</h5>
-                    </div>
-                    <div className="pergamino">
-                      <h4>cafe pergamino</h4>
-                      <h2>7.10</h2>
-                      <h5>Quintales</h5>
-                    </div>
-                  </div>
-                  <div className="Radar">
-                    <RadarChart />
-                  </div>
-                </div>
+              <div className="buscador">
+                <input
+                  type="text"
+                  placeholder="Buscar partida o proceso"
+                  onChange={searcher}
+                />
+                <button>
+                  <span className="material-symbols-outlined">search</span>
+                </button>
               </div>
-            </article>
+            </div>
 
-            <article className="ventas">
-              <div className="tituloV">
-                <h3>Resumen de ventas </h3>
-                <button> Ver completo</button>
+            <div className="tabla">
+              <div className="encabezado">
+                <span className="productor">Partida</span>
+                <span>Proceso</span>
+                <span>Cantidad</span>
+                <span>Fecha ingreso en bodega</span>
+                <span>Maduro</span>
               </div>
-
-              <div className="detalle-venta">
-                <div className="contenedorV">
-                  <div className="venta">
-                    <h4>venta #1</h4>
-                    <h5>fecha</h5>
-                    <h5>cliente</h5>
-                    <h5>cantidad</h5>
-                    <h5>total</h5>
-                  </div>
-                  <div className="venta">
-                    <h4>venta #2</h4>
-                    <h5>fecha</h5>
-                    <h5>cliente</h5>
-                    <h5>cantidad</h5>
-                    <h5>total</h5>
-                  </div>
-                  <div className="venta">
-                    <h4>venta #3</h4>
-                    <h5>fecha</h5>
-                    <h5>cliente</h5>
-                    <h5>cantidad</h5>
-                    <h5>total</h5>
-                  </div>
-                  <div className="venta">
-                    <h4>venta #4</h4>
-                    <h5>fecha</h5>
-                    <h5>cliente</h5>
-                    <h5>cantidad</h5>
-                    <h5>total</h5>
-                  </div>
-                </div>
+              <div className="datos">
+                {result.length > 0 ? (
+                  result.map((item, index) => (
+                    <div className="dato" key={index}>
+                      <span className="productor">
+                        Partida <h3> #{item.partida}</h3> -{" "}
+                        {new Date(item.fecha).toLocaleDateString("es-ES", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                      <span>{item.proceso}</span>
+                      <span>qq {formatNumber(item.cantidad)}</span>
+                      <span>
+                        {" "}
+                        {new Date(item.fecha).toLocaleDateString("es-ES", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                      <span>{item.maduro}</span>
+                      {/* <span>{item.observacion}</span> */}
+                      {/* <span>
+                              Q. {Number(item.total).toLocaleString()}
+                            </span>
+                            <span>Q. {Number(item.pago).toLocaleString()}</span> */}
+                      {/* <div className="botones">
+                              <button className="editar">
+                              <span className="material-symbols-outlined">
+                                edit
+                              </span>
+                            </button>
+                            <button className="eliminar">
+                              <span className="material-symbols-outlined">
+                                delete
+                              </span>
+                            </button>
+                            </div> */}
+                    </div>
+                  ))
+                ) : (
+                  <p>No hay datos</p>
+                )}
               </div>
-              <div className="totales">
-                <div className="subtotal">
-                  <div className="item">
-                    <p>muestras</p>
-                    <h2>15.2</h2>
-                    <p>Enviadas</p>
-                  </div>
-                  <div className="contI">
-                    <div className="itemV">
-                      <p>lavado</p>
-                      <h2>15.2</h2>
-                      <p>Quintales</p>
-                    </div>
-                    <div className="itemV">
-                      <p>honey</p>
-                      <h2>15.2</h2>
-                      <p>Quintales</p>
-                    </div>
-                  </div>
-                  <div className="contI">
-                    <div className="itemV">
-                      <p>natural</p>
-                      <h2>15.2</h2>
-                      <p>Quintales</p>
-                    </div>
-                    <div className="itemV">
-                      <p>Subproducto</p>
-                      <h2>15.2</h2>
-                      <p>Quintales</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="total">
-                  <h2>Total</h2>
-                </div>
-              </div>
-            </article>
+            </div>
           </section>
         </div>
       </div>

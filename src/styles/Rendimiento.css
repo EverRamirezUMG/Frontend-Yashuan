@@ -1,0 +1,622 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+.vista-rendimiento {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ---------version escritorio--------- */
+
+@media(min-width: 1201px) {
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.vista-rendimiento .contenedor-rendimiento {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    text-align: center;
+    font-family: 'Istok Web';
+    font-size: 14px;
+    /* height: 100%; */
+    width: 100%;
+    background-color: #F2F2F2;
+    transition: 0.3s all ease-out;
+    margin-left: 250px;
+    margin-top: 88px;
+    padding: 10px;
+}
+
+.contenedor-rendimiento .main-1-rendimento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    font-family: 'Istok Web';
+    width: 40%;
+    min-width: 550px;
+    height: 100%;
+    padding: 5px;
+    color: #000;
+    border-radius: 15px;
+    margin-right: 5px;
+}
+
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento{
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+    align-items: center;
+    /* background-color: #b53d3d; */
+    font-family: 'Istok Web';
+    width: 100%;
+    height: 75%;
+    padding: 15px 50px;
+    color: #000;
+    z-index: 1;
+}
+
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .encabezado{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    font-family: 'Istok Web';
+    font-weight: bolder;
+    width: 100%;
+}
+
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .encabezado select{
+    background-color: #EEEEEE;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    height: 30px;
+    width: 250px;
+    padding: 0px 20px;
+}
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .dato-rendimiento{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    /* background-color: #c76161; */
+    font-family: 'Istok Web';
+    width: 100%;
+    margin-top: 10px;
+}
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .dato-rendimiento .contenedor-dato{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #F2F2F2; */
+    font-family: 'Istok Web';
+    width: 35%;
+    margin-right: 10px;
+    
+}
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .dato-rendimiento .contenedor-dato .dato{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F2F2;
+    font-family: 'Istok Web';
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .dato-rendimiento .contenedor-dato .dato p{
+    font-size: 14px;
+}
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .dato-rendimiento .contenedor-dato .dato h3{
+    font-size: 22px;
+    font-weight:bolder;
+    margin: -7px;
+}
+
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .dato-rendimiento .rendimiento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #E0FFD2;
+    font-family: 'Istok Web';
+    width: 65%;
+    height: 95%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .dato-rendimiento .rendimiento h1{
+    font-size: 60px;
+    font-weight:bolder;
+    /* margin: 10px; */
+}
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .dato-rendimiento .rendimiento p{
+    font-size: 20px;
+    font-weight:lighter;
+    /* margin: 10px; */
+}
+
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .precio-dia {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F2F2F2;
+    font-family: 'Istok Web';
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    border-radius: 50px;
+    padding: 0px 50px;
+}
+
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .datos-fecha{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    font-family: 'Istok Web';
+    width: 100%;
+    margin-top: 10px;
+}
+
+.contenedor-rendimiento .main-1-rendimento .datos-rendimiento .datos-fecha .dato{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F2F2;
+    font-family: 'Istok Web';
+    width: 32%;
+    height: 30px;
+    border-radius: 50px;
+
+
+}
+
+/*---------------------RADAR --------------*/
+
+
+.contenedor-rendimiento .main-1-rendimento .radar{
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+    align-items: center;
+    /* background-color: #c8c8c8; */
+    font-family: 'Istok Web';
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    color: #000;
+    border-radius: 15px;
+    margin-left: 5px;
+}
+
+.contenedor-rendimiento .main-1-rendimento .radar .encabezado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #ffffff; */
+    font-family: 'Istok Web';
+    width: 100%;
+    padding: 0px 50px;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+
+
+.contenedor-rendimiento .main-1-rendimento .radar .encabezado .puntuacion {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #F2F2F2;
+    height: 35px;
+    width: 30%;
+    border-radius: 50px;
+}
+
+
+.contenedor-rendimiento .main-1-rendimento .radar .botones {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #ffffff; */
+    font-family: 'Istok Web';
+    width: 100%;
+    padding: 0px 50px;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+
+
+.contenedor-rendimiento .main-1-rendimento .radar .botones .btAgregar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F2F2;
+    height: 30px;
+    width: 20%;
+    border-radius: 50px;
+    color: #445760BF;
+    font-size: 14px;
+    cursor:pointer;
+    z-index: 150;
+}
+
+.contenedor-rendimiento .main-1-rendimento .radar .botones .btEditar{
+    border: none;
+    background-color: transparent;
+    color: #B1B1B1;
+    cursor: pointer;
+    z-index: 150;
+}
+
+.contenedor-rendimiento .main-1-rendimento .radar .radar-container{
+width: 100%;
+height: 100%;
+    max-width: 600px;
+    margin-top: -50px;
+    padding: 20px;
+    /* background-color: aqua; */
+}
+
+.contenedor-rendimiento .main-1-rendimento .radar .radar-container .radar-chart {
+    /* position: relative; */
+    width: 100%;
+    height: 100%;
+    /* background-color: antiquewhite; */
+    /* padding-bottom: 100%; */
+}
+
+.contenedor-rendimiento .main-1-rendimento .radar .notas{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: initial;
+    width: 80%;
+    height: 20%;
+    /* background-color: aqua; */
+}
+.contenedor-rendimiento .main-1-rendimento .radar .notas .nota{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 15%;
+    min-width: 115px;
+    height: 30px;
+    background-color: #F2F2F2;
+    border-radius: 50px;
+    margin: 5px;
+    padding: 0px 10px;
+}
+
+/*-------- contenedor 2 -----*/
+
+.vista-rendimiento .contenedor-rendimiento .main-2-partida {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    font-family: 'Istok Web';
+    width: 60%;
+    height: 100%;
+    padding: 5px;
+    color: #000;
+    border-radius: 15px;
+    margin-left: 5px;
+    overflow: hidden;
+}
+
+/*------------------- SECCION DE COMPRAS RALIZADAS ------------------*/
+
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    min-height: 75px;
+    max-height: 80px;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0px 30px;
+    position: relative;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .buscador {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    min-width: 250px;
+    height: 35px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    border: #CFCFCF 1px solid;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .buscador input {
+    background-color: transparent;
+    border: none;
+    border-radius: 50px 0px 0px 50px;
+    width: 100%;
+    height: 35px;
+    padding-left: 25px;
+    color: #000;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .buscador button {
+    background-color: transparent;
+    border: none;
+    border-radius: 0px 50px 50px 0px;
+    width: 70px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0px 2px 0px;
+    color: #BFBFBF;
+}
+
+
+/*------ seccion donde va el rango de fecha --------------------- */
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .Rango-fecha {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 55px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 0px 20px;
+    margin-right: 10px;
+    z-index: 899;
+}
+
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .Rango-fecha .calendario-b {
+    display: flex;
+    border-radius: 50px;
+    border: none;
+    width: 150px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+    background-color: rgba(238, 238, 238, 1);
+    color: rgb(130, 130, 130);
+    font-family: 'Istok Web';
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .Rango-fecha button {
+    display: flex;
+    border-radius: 50px;
+    border: none;
+    width: 100px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+    background-color: rgba(81, 81, 81, 1);
+    color: #ffffff;
+    font-family: 'Istok Web';
+}
+
+
+
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .Rango-fecha2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 15%;
+    height: 55px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 0px 20px;
+    margin-right: 10px;
+    z-index: 899;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .Rango-fecha2 select {
+    background-color: #EEEEEE;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    height: 30px;
+    width: 250px;
+    padding: 0px 20px;
+
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .titulo .Rango-fecha2 button {
+    background-color: #515151;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    height: 30px;
+    width: 100px;
+    padding: 0px 20px;
+    margin-left: 15px;
+}
+
+/*-------------------*/
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+    border-radius: 15px;
+    padding: 10px 10px 10px 10px;
+    background-color: #f2f2f2;
+    font-family: "Istok Web";
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+    /* Ensure content does not overflow */
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .encabezado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    padding: 0px 0px 0px 10px;
+    /* background-color: #FFF; */
+    border-radius: 15px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .encabezado .productor {
+    flex: 1;
+    padding-left: 30px;
+
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .datos .dato .productor {
+    display: flex;
+    flex: 1;
+    padding-left: 30px;
+    justify-content: row;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .encabezado span,
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .datos .dato span {
+    flex: 1;
+    text-align: start;
+    padding-left: 7px;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .datos {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 99%;
+    min-height: 350px;
+    /* max-height: 50%px; */
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: auto;
+    position: relative;
+    padding: 0px 15px 0px 15px;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .datos .dato {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    padding: 0px 5px 0px 0px;
+    background-color: transparent;
+    border-bottom: #CFCFCF 1px solid;
+    margin-bottom: 10px;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .datos .dato .botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95px;
+    height: 32px;
+    padding-right: 20px;
+    flex-shrink: 0;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .datos .dato .editar {
+    display: flex;
+    width: 40px;
+    height: 30px;
+    border-radius: 15px 0px 0px 15px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(177, 127, 74, 1);
+    font-size: 1px;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .datos .dato .eliminar {
+    display: flex;
+    width: 40px;
+    height: 30px;
+    border-radius: 0px 15px 15px 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: rgba(40, 20, 0, 1);
+    font-size: 1px;
+}
+
+.vista-rendimiento .contenedor-rendimiento  .main-2-partida .tabla .totalcompra {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-height: 80px;
+    padding: 0px 50px;
+    background-color: #FFF;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+}
+
+
+/*------------------------------ ESTILI PARA RADAR -----------------------------*/
+/* .radar-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.radar-chart {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+}
+
+.radar-chart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+} */

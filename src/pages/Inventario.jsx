@@ -555,10 +555,10 @@ function Inventario() {
                       <span>Fecha ingreso en bodega</span>
                       <span>Observacion</span>
                     </div>
-                    <div className="datos">
+                    <div className="datos-pergaminoT">
                       {result.length > 0 ? (
                         result.map((item, index) => (
-                          <div className="dato" key={index}>
+                          <div className="datoPerg" key={index}>
                             <span className="productor">
                               Partida <h3> #{item.partida}</h3> -{" "}
                               {new Date(item.fecha).toLocaleDateString(
