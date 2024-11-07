@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import GenerarReporte from "../components/PDF/ResumenAcopio";
 import ExcelGenerator from "../components/EXCEL/ResumenAcopioExcel";
 import "../styles/Productores.css";
+import IngresarGastoBeneficio from "../components/mod/IngresarGastoBeneficio";
 
 function CostoProduccion() {
   const URL = import.meta.env.VITE_URL;
@@ -19,6 +20,7 @@ function CostoProduccion() {
   const [procesos, setProcesos] = useState([]);
   const [procesoSeleccionado, setProcesoSeleccionado] = useState(1);
   const [gasto_beneficio, setGastoBeneficio] = useState([]);
+  const [estadoModal1, cambiarEstadoModal1] = useState(false);
 
   console.log(procesoSeleccionado);
 
@@ -112,6 +114,11 @@ function CostoProduccion() {
     );
   }
 
+  const costoPromedio = costosProduccion.reduce(
+    (acc, item) => acc + item.costoQuintal,
+    0
+  );
+
   //------------------- ESCUCHAR DATOS EN TIEMPO REAL ---------------------
   // useEffect(() => {
   //   ResumenAcopio();
@@ -152,8 +159,18 @@ function CostoProduccion() {
   useEffect(() => {
     if (procesoSeleccionado) {
       costosdeProduccion();
+      obtenerprocesos();
+      gastoBeneficio();
     }
   }, [procesoSeleccionado]);
+
+  //------------------- MODAL ---------------------
+  const handleCloseModal1 = () => {
+    costosdeProduccion();
+    obtenerprocesos();
+    gastoBeneficio();
+    cambiarEstadoModal1(!estadoModal1);
+  };
 
   return (
     <>
@@ -213,11 +230,15 @@ function CostoProduccion() {
                     onChange={(e) => setFecha2(e.target.value)}
                     value={fecha2}
                   /> */}
-                  <button type="button" onClick={""}>
-                    Aceptar
+                  <button
+                    type="button"
+                    onClick={() => cambiarEstadoModal1(!estadoModal1)}
+                  >
+                    Ingresar
                   </button>
                 </div>
                 <div className="Rango-fecha2">
+                  <h4>Proceso:</h4>
                   <select
                     name="proceso"
                     id="proceso"
@@ -232,8 +253,9 @@ function CostoProduccion() {
                   </select>
                 </div>
                 <div className="Rango-fecha2">
-                  <ExcelGenerator data={""} head={""} />
-                  <GenerarReporte data={""} head={""} />
+                  <span>Costo promedio:</span>
+                  <h3>Q. {formatNumber(costoPromedio)}</h3>
+                  {/* <GenerarReporte data={""} head={""} /> */}
                 </div>
               </div>
               <div className="main-datos">
@@ -241,11 +263,11 @@ function CostoProduccion() {
                   <div className="totalcompra"></div>
                   <div className="tabla">
                     <div className="titulo">
-                      <h3>Compras realizadas</h3>
+                      <h3>Costo por partida registrada</h3>
                       <div className="buscador">
                         <input
                           type="text"
-                          placeholder="Buscar productor"
+                          placeholder="Buscar partida"
                           onChange={searcher}
                         />
                         <button>
@@ -272,7 +294,7 @@ function CostoProduccion() {
                       {result.length > 0 ? (
                         result.map((item, index) => (
                           <div className="dato" key={index}>
-                            <span>{item.partida}</span>
+                            <span>Partida # {item.partida}</span>
 
                             <span className="productor">
                               {new Date(item.fecha_bodega).toLocaleDateString(
@@ -291,7 +313,9 @@ function CostoProduccion() {
                               {Number(item.costoTotalMaduro).toLocaleString()}
                             </span>
                             <span>{item.beneficio}</span>
-                            <span>{item.costoTotalBeneficio}</span>
+                            <span>
+                              {formatNumber(item.costoTotalBeneficio)}
+                            </span>
                             <span>
                               Q. {Number(item.costoQuintal).toLocaleString()}
                             </span>
@@ -319,6 +343,11 @@ function CostoProduccion() {
             </>
           )}
         </div>
+        <IngresarGastoBeneficio
+          estado={estadoModal1}
+          cambiarEstado={handleCloseModal1}
+          titulo="Ingresar gasto beneficio"
+        />
       </div>
     </>
   );

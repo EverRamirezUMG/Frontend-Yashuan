@@ -25,6 +25,7 @@ function Inicio() {
   const [ventas, setVentas] = useState([]);
   const [venta, setVenta] = useState([]);
   const [totales, setTotales] = useState("");
+  const [muestras, setMuestras] = useState([]);
 
   const [partidaSeleccionada, setPartidaSeleccionada] = useState(null);
 
@@ -217,6 +218,13 @@ function Inicio() {
           Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
         },
       });
+      const totalesmuestra = await fetch(`${URL}muestras/totales`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
       if (!ventas.ok) {
         throw new Error("Error en la solicitud");
       }
@@ -225,11 +233,13 @@ function Inicio() {
       const cantidadData = await cantidad.json();
       const totalesData = await totales.json();
       const precioData = await precio.json();
+      const totalesMuestra = await totalesmuestra.json();
 
       setVentas(pergaminoData);
       setCantidad(cantidadData);
       setTotales(totalesData);
       setPrecio(precioData);
+      setMuestras(totalesMuestra);
     } catch (error) {
       console.log(error);
     }
@@ -417,35 +427,46 @@ function Inicio() {
               </div>
 
               <div className="detalle-venta">
-                <div className="contenedorV">
-                  {ventas.length > 0 ? (
-                    ventas.slice(0, 3).map((item, index) => (
-                      <div className="venta" key={index}>
-                        <h4>{item.id}</h4>
-                        <h5>
-                          {" "}
-                          {new Date(item.fecha).toLocaleDateString("es-ES", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                          })}
-                        </h5>
-                        <h5> {item.nombre}</h5>
-                        <h5>{item.pesoneto} qq</h5>
-                        <h5>{item.proceso}</h5>
-                        <h5>Q. {formatNumber(item.total)}</h5>
-                      </div>
-                    ))
-                  ) : (
-                    <p>No hay datos</p>
-                  )}
+                <div className="tabla">
+                  <div className="encabezado-venta">
+                    <h4>Id</h4>
+                    <br />
+                    <h4>Fecha</h4>
+                    <h4>Cliente</h4>
+                    <h4>Peso</h4>
+                    <h4>Proceso</h4>
+                    <h4>Total</h4>
+                  </div>
+                  <div className="contenedorV">
+                    {ventas.length > 0 ? (
+                      ventas.slice(0, 3).map((item, index) => (
+                        <div className="venta" key={index}>
+                          <h4>{item.id}</h4>
+                          <h5>
+                            {" "}
+                            {new Date(item.fecha).toLocaleDateString("es-ES", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })}
+                          </h5>
+                          <h5> {item.nombre}</h5>
+                          <h5>{item.pesoneto} qq</h5>
+                          <h5>{item.proceso}</h5>
+                          <h5>Q. {formatNumber(item.total)}</h5>
+                        </div>
+                      ))
+                    ) : (
+                      <p>No hay datos</p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="totales">
                 <div className="subtotal">
                   <div className="item">
                     <p>muestras</p>
-                    <h2>15.2</h2>
+                    <h2>{muestras?.muestras_enviadas || 0}</h2>
                     <p>Enviadas</p>
                   </div>
                   <div className="contI">

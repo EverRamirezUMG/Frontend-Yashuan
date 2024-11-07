@@ -303,7 +303,7 @@ function Fletes() {
               <div className="main-muestras">
                 <section className="main-muestras-ingresadas">
                   <div className="titulo">
-                    <h3>Fletes registrdos</h3>
+                    <h3>Fletes registrados</h3>
                     <div className="rango-fecha">
                       <p>Rango:</p>
                       <input
@@ -350,12 +350,12 @@ function Fletes() {
                     />
                     <div className="Rango-fecha2">
                       {/* <ExcelGenerator data={pergamino} head={""} /> */}
-                      <GenerarReporte data={clientes} head={""} />
+                      {/* <GenerarReporte data={clientes} head={""} />
                       <button
                         onClick={() => cambiarEstadoModal1(!estadoModal1)}
                       >
                         Registrar +
-                      </button>
+                      </button> */}
                     </div>
                   </div>
 

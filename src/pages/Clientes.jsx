@@ -13,6 +13,7 @@ import ExcelGenerator from "../components/EXCEL/ResumenAcopioExcel";
 import "../styles/Muestras.css";
 import VerMuestra from "../components/mod/VerMuestra";
 import IngresarCliente from "../components/mod/IngresarCliente";
+import VerCliente from "../components/mod/VerCliente";
 
 function Clientes() {
   const URL = import.meta.env.VITE_URL;
@@ -23,7 +24,7 @@ function Clientes() {
   const [id, setID] = useState([]);
   const [precio, setPrecio] = useState([]);
   const [clientes, setClientes] = useState([]);
-  const [muestra, setMuestra] = useState([]);
+  const [cliente, setCliente] = useState([]);
   const [cantidad, setCantidad] = useState([]);
   const [partidaSeleccionada, setPartidaSeleccionada] = useState(null);
   const [estadoModal1, cambiarEstadoModal1] = useState(false);
@@ -90,7 +91,7 @@ function Clientes() {
       setCantidad(cantidadData);
       setTotales(totalesData);
       setPrecio(precioData);
-      setMuestra(muestraData);
+      setCliente(muestraData);
     } catch (err) {
       console.error(err);
     }
@@ -98,7 +99,7 @@ function Clientes() {
 
   const obtenerMuestra = async (id) => {
     try {
-      const response = await fetch(`${URL}muestras/${id}`, {
+      const response = await fetch(`${URL}clientes/cliente/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -111,7 +112,7 @@ function Clientes() {
       }
 
       const data = await response.json();
-      setMuestra(data);
+      setCliente(data);
     } catch (err) {
       console.error(err);
     }
@@ -435,64 +436,47 @@ function Clientes() {
                         <p>No hay datos</p>
                       )}
 
-                      <VerMuestra
+                      <VerCliente
                         estado={estadoModal2}
                         cambiarEstado={handleCloseModal2}
-                        idpartida={partidaSeleccionada}
-                        titulo={muestra?.nombre}
-                        total={muestra?.total * 100}
-                        direccion={muestra?.direccion || "Ciudad"}
-                        fecha={new Date(muestra?.fecha).toLocaleDateString(
-                          "es-ES",
-                          {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                          }
-                        )}
+                        idpartida={cliente?.id}
+                        titulo={cliente?.nombre}
                       >
                         <div className="modal">
                           <div className="modal-header">
-                            <h3>Detalle de la muestra</h3>
+                            <h3>Datos del cliente</h3>
                           </div>
                           <div className="modal-body">
                             <div className="modal-body-1">
-                              <h4>Producto</h4>
-                              <p>{muestra?.proceso}</p>
+                              <h4>Telefono:</h4>
+                              <p>{cliente?.telefono}</p>
                             </div>
                             <div className="modal-body-1">
-                              <h4>Partida</h4>
-                              <p>{muestra?.partida}</p>
-                            </div>
-
-                            <div className="modal-body-1">
-                              <h4>Peso</h4>
-                              <p>{muestra?.peso * 100} Lbs.</p>
-                            </div>
-                            <div className="modal-body-1">
-                              <h4>Cantidad</h4>
-                              <p>{muestra?.cantidad}</p>
+                              <h4>Correo:</h4>
+                              <p>{cliente?.email}</p>
                             </div>
 
                             <div className="modal-body-1">
-                              <h4>Total</h4>
-                              <p>{muestra?.total * 100} Lbs.</p>
+                              <h4>DPI: </h4>
+                              <p>{cliente?.dpi}</p>
                             </div>
                             <div className="modal-body-1">
-                              <h4>Envio</h4>
-                              <p>Q. {formatNumber(muestra?.envio)}</p>
+                              <h4>Fechas de registro:</h4>
+                              <p>{cliente?.fecha}</p>
                             </div>
+
                             <div className="modal-body-1">
-                              <h4>Dirección</h4>
-                              <p>{muestra?.direccion}</p>
+                              <h4>Muestras enviadas:</h4>
+                              <p>{cliente?.muestras}</p>
                             </div>
+
                             <div className="modal-body-1">
-                              <h4>Observacion</h4>
-                              <p>{muestra?.observacion}</p>
+                              <h4>Compras realizadas:</h4>
+                              <p>{cliente?.compras}</p>
                             </div>
                           </div>
                         </div>
-                      </VerMuestra>
+                      </VerCliente>
                     </div>
                   </div>
                 </section>

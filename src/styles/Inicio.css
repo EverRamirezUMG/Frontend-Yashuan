@@ -360,26 +360,47 @@ width: 157px;
 .grid-container .main2 .ventas .detalle-venta .contenedorV{
     display: flex;
     flex-direction: column;
-    justify-content:end;
+    justify-content:initial;
     width: 100%;
     height: 100%;
     padding-top: 10px;
     /* align-items: start; */
     padding: 20px 10px 10px 10px;
 border-radius: 10px;
-    background: #F2F2F2;
+    background: #ffffff;
 }
 
-.grid-container .main2 .ventas .detalle-venta .contenedorV .venta{
+.grid-container .main2 .ventas .detalle-venta  .tabla{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height:80%;
+    width: 100%;
+    padding: 30px 10px 10px 10px;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    
+}
+.grid-container .main2 .ventas .detalle-venta .tabla .encabezado-venta{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.grid-container .main2 .ventas .detalle-venta  .tabla .contenedorV .venta{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 30px;
     width: 100%;
-    padding: 10px 30px 0px 30px;
+    padding: 5px 30px 10px 30px;
  margin-bottom: 2px;
     background-color: rgb(255, 255, 255);
+    border-bottom: 1px solid #cfcfcf;
 }
 
 .grid-container .main2 .ventas .totales{

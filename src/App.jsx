@@ -15,10 +15,12 @@ import Resumen from "./pages/Resumen";
 import Productores from "./pages/Productores";
 import Inventario from "./pages/Inventario";
 import CostoProduccion from "./pages/CostoProduccion";
+import Fletes from "./pages/Fletes";
+import Mantenimiento from "./pages/MAntenimiento";
 import Muestras from "./pages/Muestras";
 import Ventas from "./pages/Ventas";
 import Clientes from "./pages/Clientes";
-import Fletes from "./pages/Fletes";
+import { Man } from "@mui/icons-material";
 
 function App() {
   return (
@@ -41,6 +43,10 @@ function App() {
           <Route path="/Admin/Ventas/Clientes" element={<Clientes />} />
           <Route path="/Admin/CostoProduccion" element={<CostoProduccion />} />
           <Route path="/Admin/CostoProduccion/Flete" element={<Fletes />} />
+          <Route
+            path="/Admin/CostoProduccion/Mantenimiento"
+            element={<Mantenimiento />}
+          />
           <Route path="/Admin/Usuario" element={<Usuario />} />
           <Route path="/Admin/Usuario/Inactivo" element={<UsuarioInactivo />} />
           <Route path="/Admin/Usuario/Perfil" element={<MiPerfil />} />

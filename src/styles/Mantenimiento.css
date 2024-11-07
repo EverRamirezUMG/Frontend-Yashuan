@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+.vista-mantenimiento {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ---------version escritorio--------- */
+
+@media(min-width: 1201px) {
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.vista-mantenimiento .contenedor-mantenimiento {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    text-align: center;
+    font-family: 'Istok Web';
+    font-size: 1, 2rem;
+    /* height: 100%; */
+    width: 100%;
+    background-color: #F2F2F2;
+    transition: 0.3s all ease-out;
+    margin-left: 250px;
+    margin-top: 88px;
+    padding: 10px;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 15px;
+    font-family: 'Istok Web';
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    color: #000;
+    margin: 5px;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #ffffff; */
+    font-family: 'Istok Web';
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    color: #000;
+    z-index: 1;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido h1 {
+    color: #000;
+    font-size: 100px;
+}
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido h3 {
+    color: #000;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido img{
+    position: relative;
+    width: 300px;
+    height: auto;
+    margin-top: -200px;
+    left: calc(3% - 0px);
+    top: 80px;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .titulos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+}
+
+
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    padding: 10px 10px 20px 10px;
+    background-color: #f2f2f2;
+    font-family: "Istok Web";
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+    /* Ensure content does not overflow */
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .encabezado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    padding: 0px 0px 0px 10px;
+    /* background-color: #FFF; */
+    border-radius: 15px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .encabezado .productor {
+    flex: 1;
+    padding-left: 30px;
+
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .datos .dato .productor {
+    display: flex;
+    flex: 1;
+    padding-left: 30px;
+    justify-content: row;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .encabezado span,
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .datos .dato span {
+    flex: 1;
+    text-align: start;
+    padding-left: 7px;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .datos {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    /* max-height: 50%px; */
+    background-color: #FFF;
+    border-radius: 10px;
+    overflow: auto;
+    position: relative;
+    padding: 0px 15px 0px 15px;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .datos .dato {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    padding: 0px 5px 0px 0px;
+    background-color: transparent;
+    border-bottom: #CFCFCF 1px solid;
+    margin-bottom: 10px;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .datos .dato .botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+    height: 32px;
+    padding-right: 20px;
+    flex-shrink: 0;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .datos .dato .Detalle {
+    display: flex;
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    font-size: 12px;
+    color: #000;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .datos .dato .eliminar {
+    display: flex;
+    width: 40px;
+    height: 30px;
+    border-radius: 0px 15px 15px 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: rgba(40, 20, 0, 1);
+    font-size: 1px;
+}
+
+.vista-mantenimiento .contenedor-mantenimiento .main-pricipal .contenido .tabla .totalcompra {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-height: 80px;
+    padding: 0px 50px;
+    background-color: #FFF;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+}
