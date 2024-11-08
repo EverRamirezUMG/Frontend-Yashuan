@@ -428,7 +428,7 @@ function Productores() {
                                   Pagar{" "}
                                 </button>
                               )}
-
+                              {/* 
                               <button className="editar">
                                 <span className="material-symbols-outlined">
                                   edit
@@ -438,7 +438,7 @@ function Productores() {
                                 <span className="material-symbols-outlined">
                                   delete
                                 </span>
-                              </button>
+                              </button> */}
                             </div>
                           </div>
                         ))

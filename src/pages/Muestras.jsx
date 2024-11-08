@@ -390,7 +390,7 @@ function Muestras() {
                     />
                     <div className="Rango-fecha2">
                       {/* <ExcelGenerator data={pergamino} head={""} /> */}
-                      <GenerarReporte data={muestras} head={""} />
+                      {/* <GenerarReporte data={muestras} head={""} /> */}
                       <button
                         onClick={() => cambiarEstadoModal1(!estadoModal1)}
                       >

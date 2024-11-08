@@ -11,6 +11,9 @@ import "../styles/Ventas.css";
 import IngresarVenta from "../components/mod/IngresarVenta";
 import VerVenta from "../components/mod/VerVenta";
 import IngresarEnvio from "../components/mod/IngresarEnvio";
+import ComprobanteVenta from "../components/PDF/ComprobanteVenta";
+import VerEnvio from "../components/mod/VerEnvio";
+import GenerarEnvio from "../components/PDF/GenerarEnvio";
 
 function Ventas() {
   const URL = import.meta.env.VITE_URL;
@@ -433,7 +436,7 @@ function Ventas() {
 
                     <div className="Rango-fecha2">
                       {/* <ExcelGenerator data={pergamino} head={""} /> */}
-                      <GenerarReporte data={ventas} head={""} />
+                      {/* <GenerarReporte data={ventas} head={""} /> */}
                       <button
                         onClick={() => cambiarEstadoModal1(!estadoModal1)}
                       >
@@ -615,11 +618,16 @@ function Ventas() {
                                 {venta?.observacion ? venta.observacion : "N/A"}
                               </p>
                             </div>
+                            {parseFloat(venta?.pago) >=
+                            parseFloat(venta?.total) ? (
+                              <ComprobanteVenta data={venta} />
+                            ) : null}
+                            {/* <ComprobanteVenta data={venta} /> */}
                           </div>
                         </div>
                       </VerVenta>
 
-                      <VerVenta
+                      <VerEnvio
                         estado={estadoModalVerEnvio}
                         cambiarEstado={handleCloseModalVerEnvio}
                         idpartida={Envio?.venta}
@@ -689,9 +697,9 @@ function Ventas() {
                               <p>{Envio?.placa ? Envio?.placa : "N/A"}</p>
                             </div>
                           </div>
-                          <button> Imprimir</button>
+                          <GenerarEnvio data={Envio} />
                         </div>
-                      </VerVenta>
+                      </VerEnvio>
                     </div>
                   </div>
                 </section>

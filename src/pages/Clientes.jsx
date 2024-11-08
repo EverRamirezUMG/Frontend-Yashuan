@@ -351,7 +351,7 @@ function Clientes() {
                     />
                     <div className="Rango-fecha2">
                       {/* <ExcelGenerator data={pergamino} head={""} /> */}
-                      <GenerarReporte data={clientes} head={""} />
+                      {/* <GenerarReporte data={clientes} head={""} /> */}
                       <button
                         onClick={() => cambiarEstadoModal1(!estadoModal1)}
                       >
@@ -393,7 +393,7 @@ function Clientes() {
                             </span>
 
                             <div className="botones">
-                              <button
+                              {/* <button
                                 className="Detalle"
                                 onClick={() => {
                                   setID(item.id);
@@ -403,7 +403,7 @@ function Clientes() {
                                 <span class="material-symbols-outlined">
                                   edit
                                 </span>
-                              </button>
+                              </button> */}
                               <button
                                 className="Detalle"
                                 onClick={() => {

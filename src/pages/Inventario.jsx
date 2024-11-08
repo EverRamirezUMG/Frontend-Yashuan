@@ -120,12 +120,6 @@ function Inventario() {
   const totalTara = filas.reduce((acc, fila) => acc + fila.tara, 0) / 100;
   const totalNeto = filas.reduce((acc, fila) => acc + fila.pesoNeto, 0) / 100;
 
-  console.log(partidaSeleccionada);
-  console.log(procesoSeleccionado);
-  console.log(totalBruto);
-  console.log(totalTara);
-  console.log(observacion);
-
   //--------------- INGRESO DE CAFE PERGAMINO A BODEGA ----------------
   const ingresarPergamino = async () => {
     try {
@@ -369,8 +363,9 @@ function Inventario() {
                             <option value={null}>Seleccione una partida</option>
                             {partida.map((p, index) => (
                               <option key={index} value={p.id}>
-                                Partida #{p.partida} -{" "}
-                                {new Date(p.fecha).toLocaleDateString("es-ES")}
+                                P #{p.partida} -{" "}
+                                {new Date(p.fecha).toLocaleDateString("es-ES")}{" "}
+                                -Maduro: {p.maduro} qq
                               </option>
                             ))}
                           </select>
@@ -543,7 +538,7 @@ function Inventario() {
 
                     <div className="Rango-fecha2">
                       {/* <ExcelGenerator data={pergamino} head={""} /> */}
-                      <GenerarReporte data={pergamino} head={""} />
+                      {/* <GenerarReporte data={pergamino} head={""} /> */}
                     </div>
                   </div>
 

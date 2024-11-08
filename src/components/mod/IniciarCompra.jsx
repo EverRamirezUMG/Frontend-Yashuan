@@ -138,24 +138,25 @@ export const IniciarCompra = ({ children, estado, cambiarEstado, titulo }) => {
                       <div className="entrada">
                         <label>Partida: </label>
                         <input
-                          {...register("partida", {
-                            required: "Este campo es requerido",
-                            pattern: {
-                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
-                              message: "El valor no debe ser nulo ni menor a 0",
-                            },
-                          })}
+                          {...register("partida")}
                           type="number"
-                          step="0.01"
                           id="partida"
                           placeholder="Partida"
-                        ></input>
+                          onBlur={(e) => {
+                            if (!e.target.value) {
+                              const partidaValue = parseInt(partida?.partida);
+                              e.target.value = !isNaN(partidaValue)
+                                ? partidaValue + 1
+                                : 1;
+                            }
+                          }}
+                        />
+                        {errors.partida && (
+                          <p className="error-message">
+                            {errors.partida.message}
+                          </p>
+                        )}
                       </div>
-                      {errors.partida && (
-                        <p className="error-message">
-                          {errors.partida.message}
-                        </p>
-                      )}
                     </div>
 
                     <div className="itemProv">

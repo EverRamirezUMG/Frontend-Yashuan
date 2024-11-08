@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import swal from "sweetalert2";
-import "./styles/IngresarVenta.css";
+import "./styles/IngresarEnvio.css";
 import { useForm } from "react-hook-form";
 import LogCatacion from "../../assets/Logo-Yashuan.png";
 
@@ -153,7 +153,7 @@ const IngresarEnvio = ({
         <Overlay>
           <ContenedorModal>
             <EncabezadoModal>
-              <div className="encabezado-ingresar-venta">
+              <div className="encabezado-ingresar-envio">
                 <img
                   src={LogCatacion}
                   alt="logo"
@@ -161,7 +161,7 @@ const IngresarEnvio = ({
                   style={{ width: "250px", height: "auto" }}
                 />
                 <h3>{titulo}</h3>
-                <p> Para venta: {datos?.id}</p>
+                <p> Venta: {datos?.id}</p>
                 <h3>Cliente: {datos?.nombre}</h3>
                 <p>ID: {datos?.fk_cliente}</p>
               </div>
@@ -169,27 +169,27 @@ const IngresarEnvio = ({
             <BotonCerrar onClick={() => cambiarEstadoEnvio(false)}>
               <span className="material-symbols-outlined">close</span>
             </BotonCerrar>
-            <div className="contenedor-ingresar-venta">
-              <form className="venta-form" id="FormularioP" onSubmit={onSubmit}>
-                <div className="datos-muestra">
-                  <div className="itemProv">
-                    <div className="entrada">
+            <div className="contenedor-ingresar-envio">
+              <form className="envio-form" id="FormularioP" onSubmit={onSubmit}>
+                <div className="datos-envio">
+                  <div className="itemEnv">
+                    <div className="entrada-titulo">
                       <p>Tipo de cafe:</p>
                       <h3>{datos?.proceso}</h3>
                     </div>
-                    <div className="entrada">
+                    <div className="entrada-titulo">
                       <p>Bultos:</p>
                       <h3>{datos?.tara * 100}</h3>
                     </div>
-                    <div className="entrada">
+                    <div className="entrada-titulo">
                       <p>Peso bruto:</p>
                       <h3>{datos?.pesobruto} qq.</h3>
                     </div>
-                    <div className="entrada">
+                    <div className="entrada-titulo">
                       <p>Tara:</p>
                       <h3>{datos?.tara} qq.</h3>
                     </div>
-                    <div className="entrada">
+                    <div className="entrada-titulo">
                       <p>Peso neto:</p>
                       <h3>{datos?.pesoneto} qq.</h3>
                     </div>
@@ -220,7 +220,7 @@ const IngresarEnvio = ({
                       })}
                       type="text"
                       id="lugar"
-                      placeholder="Lugar"
+                      placeholder="Direccion"
                     />
                   </div>
                   {errors.lugar && (

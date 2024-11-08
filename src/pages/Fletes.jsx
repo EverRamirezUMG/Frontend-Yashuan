@@ -211,8 +211,10 @@ function Fletes() {
     result = clientes.filter(
       (datos) =>
         datos.id.toString().includes(search) ||
-        datos.email.toLowerCase().includes(search.toLowerCase()) ||
-        datos.nombre.toLowerCase().includes(search.toLowerCase())
+        datos.comprobante.toLowerCase().includes(search.toLowerCase()) ||
+        datos.nombre.toLowerCase().includes(search.toLowerCase()) ||
+        datos.vehiculo.toLowerCase().includes(search.toLowerCase()) ||
+        datos.aliaas.toLowerCase().includes(search.toLowerCase())
     );
   }
 
@@ -333,7 +335,7 @@ function Fletes() {
                     <div className="buscador">
                       <input
                         type="text"
-                        placeholder="Buscar partida, proceso o cliente"
+                        placeholder="Buscar productor, comprobante o vehiculo"
                         onChange={searcher}
                       />
                       <button>
@@ -362,7 +364,7 @@ function Fletes() {
                   <div className="tabla">
                     <div className="encabezado">
                       <span>ID</span>
-                      <span>Cliente</span>
+                      <span>Productor</span>
                       <span>Comprobante</span>
                       <span>Peso</span>
                       <span>Precio / qq.</span>

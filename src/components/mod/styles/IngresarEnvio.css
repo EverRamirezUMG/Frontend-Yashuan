@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+
+
+body {
+    background-color: #b1b1b1;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 700,
+        'GRAD' 250,
+        'opsz' 48
+}
+
+.bodyProv {
+    display: flex;
+    justify-self: center;
+    font-family: 'Istok Web';
+
+}
+
+
+
+/*-------- ESTILO FORMULARIO MODAL NUEVO USUARIO -----------------------*/
+
+.contenedor-ingresar-envio {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.encabezado-ingresar-envio {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    font-size: 14px;
+
+}
+
+ .encabezado-ingresar-envio .icono{
+position: absolute;
+top: 0;
+left: 0;
+
+    width: auto;
+    height: 100px;
+    position: relative;
+    /* background-color: aqua; */
+}
+.contenedor-ingresar-envio .envio-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+}
+
+
+
+.contenedor-ingresar-envio .envio-form .datos-envio {
+display: flex;
+flex-direction: column;
+justify-content: initial;
+align-items: center;    
+/* background-color: blueviolet; */
+padding: 10px;
+width: 100%;
+height: auto;
+margin-bottom: 10px;
+}
+
+.contenedor-ingresar-envio .envio-form .datos-envio .itemEnv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+    height: auto;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    margin-top: -10px;
+    padding: 10px 30px; 
+}
+.contenedor-ingresar-envio .envio-form .datos-envio .itemEnv .entrada-titulo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 25px;
+    /* background-color: #ffffff; */
+    border-radius: 5px;
+    padding:0px 10px;
+    font-size: 14px;
+}
+
+.contenedor-ingresar-envio .envio-form  select{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color:#EEEEEE;
+    color: #000000;
+    border: none;
+}
+.contenedor-ingresar-envio .envio-form .datos-envio  .itemProv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+    height: 40px;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.contenedor-ingresar-envio .envio-form .datos-envio .itemProv .entrada{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 14px;
+}
+.contenedor-ingresar-envio .envio-form .datos-envio .grupo .itemProv .error-message{
+    color: red;
+    font-size: 12px;
+    font-weight: bolder;
+    margin-left: 5px;
+    z-index: 99;
+    text-align: center;
+}
+.contenedor-ingresar-envio .envio-form .datos-envio .grupo .itemProv input {
+    border: none;
+    border-radius: 5px;
+    border: #85858568 0.1px solid;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    background-color: #ffffff;
+    /* margin-bottom: 10px; */
+    margin-left: 5px;
+    color: #000000;
+}
+
+
+
+
+
+
+
+
+
+.contenedor-ingresar-envio .envio-form  .itemProv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 80%;
+    height: 40px;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.contenedor-ingresar-envio .envio-form  .itemProv .entrada {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.contenedor-ingresar-envio .envio-form  .itemProv .error-message {
+    color: red;
+    font-size: 12px;
+    font-weight: bolder;
+    margin-left: 5px;
+    z-index: 99;
+    text-align: center;
+}
+
+.contenedor-ingresar-envio .envio-form  .itemProv input {
+    border: none;
+    border-radius: 5px;
+    border: #85858568 0.1px solid;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    background-color: #ffffff;
+    color: #000000;
+    /* margin-bottom: 10px; */
+    margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.contenedor-ingresar-envio .envio-form .bonotesNewProv {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin: 20px;
+}
+
+.contenedor-ingresar-envio .envio-form .bonotesNewProv .btcancelari {
+    border: none;
+    width: 140px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #5E5E5E;
+    color: #ffffff;
+    margin-right: 5px;
+}
+
+.contenedor-ingresar-envio .envio-form  .bonotesNewProv .btGuardari {
+    border: none;
+    width: 140px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #683C11;
+    color: #ffffff;
+    margin-left: 5px;
+}
+
+/*----------FIN FORMULARIO MODAL NUEVO USUARIO -------------------------*/
+
+/*-----------------------ALERTA--------------------------*/
+.btCancelar {
+    border: none;
+    width: 120px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #5E5E5E;
+    color: #ffffff;
+    margin-left: 5px;
+}
+
+.btEliminar {
+    border: none;
+    width: 120px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #FF8A00;
+    color: #ffffff;
+    margin-right: 5px;
+}
+
+.titulo-pop {
+    font-size: 24px;
+}
+
+.text-pop {
+    font-size: 10px;
+}
+
+.icon-pop {
+    border: #5E5E5E solid 5px;
+}
+
+/*----------------------------------FIN ALERTAS-----------------------------------*/

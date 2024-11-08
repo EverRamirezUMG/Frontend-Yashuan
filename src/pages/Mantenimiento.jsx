@@ -138,6 +138,7 @@ function Mantenimiento() {
   };
   const handleCloseModalProcesoActualizar = () => {
     datoProcesos();
+    setIDproceso(null);
     setActualizarProceso(!actualizarProceso);
   };
 
@@ -154,7 +155,7 @@ function Mantenimiento() {
       setActualizarProceso(false);
     }
   }, [IDproceso]);
-
+  console.log(IDproceso);
   return (
     <>
       <div className="vista-mantenimiento">
@@ -286,6 +287,7 @@ function Mantenimiento() {
               estado={actualizarProceso}
               cambiarEstado={handleCloseModalProcesoActualizar}
               titulo="Registrar proceso"
+              id={IDproceso}
             />
           </section>
 

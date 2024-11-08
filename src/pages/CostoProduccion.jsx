@@ -114,10 +114,10 @@ function CostoProduccion() {
     );
   }
 
-  const costoPromedio = costosProduccion.reduce(
-    (acc, item) => acc + item.costoQuintal,
-    0
-  );
+  const costoPromedio = costosProduccion.length
+    ? costosProduccion.reduce((acc, item) => acc + item.costoQuintal, 0) /
+      costosProduccion.length
+    : 0;
 
   //------------------- ESCUCHAR DATOS EN TIEMPO REAL ---------------------
   // useEffect(() => {

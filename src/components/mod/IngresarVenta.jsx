@@ -5,6 +5,7 @@ import "./styles/IngresarVenta.css";
 import { useForm } from "react-hook-form";
 import LogCatacion from "../../assets/Logo-Yashuan.png";
 import IngresarCliente from "./IngresarCliente";
+import Swal from "sweetalert2";
 
 const IngresarVenta = ({
   children,
@@ -16,11 +17,17 @@ const IngresarVenta = ({
   const token = localStorage.getItem("token");
   const URL = import.meta.env.VITE_URL;
   const usuario = localStorage.getItem("codigo");
-  console.log(usuario);
   const [paridas, setPartidas] = useState([]);
   const [procesos, setProcesos] = useState([]);
   const [clientes, setClientes] = useState([]);
   const [estadoModalCliente, cambiarEstadoModalCliente] = useState(false);
+  const [peso, setPeso] = useState(0);
+  const [tara, setTara] = useState(0);
+  const [filas, setFilas] = useState([]);
+
+  const totalBruto = filas.reduce((acc, fila) => acc + fila.pesoBruto, 0) / 100;
+  const totalTara = filas.reduce((acc, fila) => acc + fila.tara, 0) / 100;
+  const totalNeto = filas.reduce((acc, fila) => acc + fila.pesoNeto, 0) / 100;
 
   const {
     handleSubmit,
@@ -30,7 +37,7 @@ const IngresarVenta = ({
   } = useForm();
 
   const onSubmit = handleSubmit(async (formData) => {
-    const data = { ...formData, usuario };
+    const data = { ...formData, usuario, peso: totalBruto, tara: totalTara };
     try {
       const response = await fetch(`${URL}ventas/ingresar`, {
         method: "POST",
@@ -47,6 +54,7 @@ const IngresarVenta = ({
         throw new Error(errorData.message || "Error desconocido");
       }
 
+      setFilas([]);
       cambiarEstado(false);
       swal.fire({
         title: "Datos ingresados!",
@@ -147,10 +155,40 @@ const IngresarVenta = ({
     }
   }, [estado, reset]); // Asegúrate de incluir 'reset' en las dependencias
 
+  const agregarFila = () => {
+    if (!peso || peso < 1) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Debe ingresar un peso valido.",
+      });
+      return;
+    }
+    if (tara < 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "La tara no puede ser menor que 0.",
+      });
+      return;
+    }
+    const pesoNeto = peso - (tara || 0);
+    const nuevaFila = {
+      pesoBruto: peso,
+      tara: tara || 0,
+      pesoNeto: pesoNeto,
+    };
+    setFilas([...filas, nuevaFila]);
+    setPeso(null);
+    setTara(null);
+  };
+
   const handleCloseModalCliente = () => {
     listaPartidas();
+    setFilas([]);
     cambiarEstadoModalCliente(!estadoModalCliente);
   };
+
   return (
     <>
       {estado && (
@@ -173,7 +211,7 @@ const IngresarVenta = ({
             <IngresarCliente
               estado={estadoModalCliente}
               cambiarEstado={handleCloseModalCliente}
-              titulo="Registrar clietne"
+              titulo="Registrar cliente"
             />
             <div className="contenedor-ingresar-venta">
               <form className="venta-form" id="FormularioP" onSubmit={onSubmit}>
@@ -194,14 +232,14 @@ const IngresarVenta = ({
                     </select>
                     <button
                       className="agregar"
+                      type="button" // Cambiado a "button"
                       onClick={() =>
                         cambiarEstadoModalCliente(!estadoModalCliente)
                       }
                     >
-                      <span class="material-symbols-outlined">add</span>
+                      <span className="material-symbols-outlined">add</span>
                     </button>
                   </div>
-
                   {errors.cliente && (
                     <p className="error-message">{errors.cliente.message}</p>
                   )}
@@ -235,52 +273,6 @@ const IngresarVenta = ({
 
                     <div className="itemProv">
                       <div className="entrada">
-                        <label htmlFor="peso">Peso: </label>
-                        <input
-                          {...register("peso", {
-                            pattern: {
-                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
-                              message: "El valor no debe ser nulo ni menor a 0",
-                            },
-                          })}
-                          type="number"
-                          step="0.01"
-                          id="peso"
-                          placeholder="quintales"
-                        />
-                      </div>
-                      {errors.peso && (
-                        <p className="error-message">{errors.peso.message}</p>
-                      )}
-                    </div>
-                  </div>
-                  <div className="grupo">
-                    <div className="itemProv">
-                      <div className="entrada">
-                        <label>Tara: </label>
-                        <input
-                          {...register("tara", {
-                            required: "Este campo es requerido",
-                            pattern: {
-                              value: /^(?!0$)\d+(\.\d{1,2})?$/,
-                              message: "El valor no debe ser nulo ni menor a 0",
-                            },
-                          })}
-                          type="number"
-                          step="0.01"
-                          id="tara"
-                          placeholder="Bultos"
-                        ></input>
-                      </div>
-                      {errors.cantidad && (
-                        <p className="error-message">
-                          {errors.cantidad.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="itemProv">
-                      <div className="entrada">
                         <label>Anticipo: </label>
                         <input
                           {...register("anticipo", {
@@ -290,27 +282,7 @@ const IngresarVenta = ({
                           step="0.01"
                           id="anticipo"
                           placeholder="Costo Q."
-                        ></input>
-                      </div>
-                      {errors.cantidad && (
-                        <p className="error-message">
-                          {errors.cantidad.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="itemProv">
-                      <div className="entrada">
-                        <label>Pago: </label>
-                        <input
-                          {...register("pago", {
-                            setValueAs: (value) => (value === "" ? 0 : value),
-                          })}
-                          type="number"
-                          step="0.01"
-                          id="envio"
-                          placeholder="Q."
-                        ></input>
+                        />
                       </div>
                       {errors.cantidad && (
                         <p className="error-message">
@@ -320,6 +292,112 @@ const IngresarVenta = ({
                     </div>
                   </div>
                 </div>
+
+                <div className="datoProductor">
+                  <div className="pesaje">
+                    <div className="datopesaje">
+                      <div className="datoP">
+                        <p>Peso</p>
+                        <input
+                          type="number"
+                          value={peso || ""}
+                          onChange={(e) => {
+                            const value = e.target.value
+                              ? Number(e.target.value)
+                              : 0;
+                            setPeso(value);
+                          }}
+                          placeholder="Libras"
+                        />
+                      </div>
+                      <div className="datoP">
+                        <p>Tara</p>
+                        <input
+                          type="number"
+                          value={tara || ""}
+                          onChange={(e) => {
+                            const value = e.target.value
+                              ? Number(e.target.value)
+                              : 0;
+                            setTara(value);
+                          }}
+                          placeholder="Bultos"
+                        />
+                      </div>
+                      <button className="borrar" onClick={() => setFilas([])}>
+                        <span className="material-symbols-outlined">
+                          delete
+                        </span>
+                      </button>
+
+                      <button
+                        type="button" // Cambiado a "button"
+                        className="agregar"
+                        onClick={agregarFila}
+                      >
+                        Agregar
+                      </button>
+                    </div>
+
+                    <div className="encabezado">
+                      <span>No.</span>
+                      <span>Peso bruto</span>
+                      <span>Tara</span>
+                      <span>Peso neto</span>
+                      <span>Acción</span>
+                    </div>
+
+                    <div className="pesajesD">
+                      {filas.map((fila, index) => (
+                        <div className="datoP" key={index}>
+                          <span>{index + 1}</span>
+                          <span>{fila.pesoBruto / 100}</span>
+                          <span>{fila.tara}</span>
+                          <span>{fila.pesoNeto / 100}</span>
+                          <button
+                            className="eliminar"
+                            onClick={() =>
+                              setFilas(filas.filter((_, i) => i !== index))
+                            }
+                          >
+                            <span className="material-symbols-outlined">
+                              delete
+                            </span>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="totalesP">
+                      <span>Total</span>
+                      <span>{totalBruto}</span>
+                      <span>{(totalTara * 100).toFixed(0)}</span>
+                      <span>{totalNeto}</span>
+                      <span></span>
+                    </div>
+                  </div>
+
+                  <div className="totales"></div>
+                </div>
+
+                <div className="itemProv">
+                  <div className="entrada">
+                    <label>Pago: </label>
+                    <input
+                      {...register("pago", {
+                        setValueAs: (value) => (value === "" ? 0 : value),
+                      })}
+                      type="number"
+                      step="0.01"
+                      id="envio"
+                      placeholder="Q."
+                    />
+                  </div>
+                  {errors.cantidad && (
+                    <p className="error-message">{errors.cantidad.message}</p>
+                  )}
+                </div>
+
                 <div className="itemProv">
                   <div className="entrada">
                     <input
@@ -330,6 +408,7 @@ const IngresarVenta = ({
                     />
                   </div>
                 </div>
+
                 <div className="bonotesNewProv">
                   <div>
                     <button
@@ -372,7 +451,7 @@ const Overlay = styled.div`
 `;
 
 const ContenedorModal = styled.div`
-  width: 500px;
+  width: 600px;
   min-height: 100px;
   background: #f5f5f5;
   position: relative;

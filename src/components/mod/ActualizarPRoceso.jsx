@@ -3,18 +3,12 @@ import styled from "styled-components";
 import swal from "sweetalert2";
 import "./styles/IngresarMuestra.css";
 import { useForm } from "react-hook-form";
-import LogCatacion from "../../assets/nuevo-cliente.png";
 
-const ActualizarProceso = ({
-  children,
-  estado,
-  cambiarEstado,
-  idpartida,
-  titulo,
-}) => {
+const ActualizarProceso = ({ estado, cambiarEstado, id, titulo }) => {
   const token = localStorage.getItem("token");
   const URL = import.meta.env.VITE_URL;
-
+  const [procesos, setProcesos] = useState([]);
+  const idproceso = id;
   const {
     handleSubmit,
     register,
@@ -22,10 +16,36 @@ const ActualizarProceso = ({
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit(async (data) => {
+  const obtenerProcesos = async () => {
     try {
-      const response = await fetch(`${URL}procesos/ingresarproceso`, {
-        method: "POST",
+      const response = await fetch(`${URL}procesos/proceso/${idproceso}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error desconocido");
+      }
+
+      const data = await response.json();
+      setProcesos(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    obtenerProcesos();
+  }, []);
+
+  const onSubmit = handleSubmit(async (data) => {
+    //  onSave({ proceso: proceso, id: id });
+    try {
+      const response = await fetch(`${URL}procesos/actualizar/${id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -103,8 +123,12 @@ const ActualizarProceso = ({
                       })}
                       type="text"
                       id="color"
-                      placeholder="Nombre del proceso"
-                    ></input>
+                      defaultValue={procesos?.proceso}
+                      onChange={(e) =>
+                        setProcesos({ ...procesos, proceso: e.target.value })
+                      }
+                      placeholder={procesos?.proceso || "Ingrese el proceso"}
+                    />
                   </div>
                   {errors.proceso && (
                     <p className="error-message">{errors.proceso.message}</p>
