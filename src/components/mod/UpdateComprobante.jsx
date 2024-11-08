@@ -78,7 +78,11 @@ const UpdateComprobante = ({
   }, [URL, token]);
 
   const onChangeData = (e) => {
-    setComprobanteUP({ ...comprobanteUP, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setComprobanteUP({
+      ...comprobanteUP,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
   const handleSubmit = async (e) => {
