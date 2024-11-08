@@ -16,7 +16,7 @@ import Productores from "./pages/Productores";
 import Inventario from "./pages/Inventario";
 import CostoProduccion from "./pages/CostoProduccion";
 import Fletes from "./pages/Fletes";
-import Mantenimiento from "./pages/MAntenimiento";
+import Mantenimiento from "./pages/Mantenimiento";
 import Muestras from "./pages/Muestras";
 import Ventas from "./pages/Ventas";
 import Clientes from "./pages/Clientes";
