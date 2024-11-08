@@ -154,14 +154,14 @@ function Login() {
               >
                 Iniciar sesión
               </button>
-              <button
+              {/* <button
                 className="registrar"
                 id="btn-login"
                 type="button"
                 onClick={() => navigate("/Registrarse")}
               >
                 Registrarse
-              </button>
+              </button> */}
             </div>
           </form>
         </div>
