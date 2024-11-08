@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { Encabezado, NavBar } from "../components";
+import NavBar from "../components/NavBarDesk";
+import Encabezado from "../components/Encabezado";
 import { Navigate } from "react-router-dom";
 import swal from "sweetalert2";
 import "../styles/Usuario.css";

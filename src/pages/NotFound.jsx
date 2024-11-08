@@ -1,5 +1,6 @@
 import React from "react";
-import { Encabezado, NavBar } from "../components";
+import NavBar from "../components/NavBarDesk";
+import Encabezado from "../components/Encabezado";
 import { Navigate, useNavigate } from "react-router-dom";
 import { NavBarMovil } from "../components/NavBarMovil";
 import Log2 from "../assets/warning2.png";

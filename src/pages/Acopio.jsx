@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Encabezado, NavBar } from "../components";
+import NavBar from "../components/NavBarDesk";
+import Encabezado from "../components/Encabezado";
 import "../styles/Acopio.css";
 import Swal from "sweetalert2";
 import { IniciarCompra } from "../components/mod/IniciarCompra";

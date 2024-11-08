@@ -1,4 +1,5 @@
-import { Encabezado, NavBar } from "../components";
+import NavBar from "../components/NavBarDesk";
+import Encabezado from "../components/Encabezado";
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import ChartDias from "../components/chart/chart1";

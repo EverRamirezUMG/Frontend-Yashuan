@@ -31,3 +31,5 @@ export const Encabezado = ({ titulo }) => {
     </>
   );
 };
+
+export default Encabezado;
