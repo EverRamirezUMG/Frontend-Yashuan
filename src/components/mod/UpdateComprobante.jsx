@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import swal from "sweetalert2";
-import "./styles/Updatecomprobantes.css";
+// import "./styles/Updatecomprobantes.css";
 
 const UpdateComprobante = ({
   children,
