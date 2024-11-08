@@ -247,13 +247,17 @@ function Inicio() {
   };
 
   useEffect(() => {
-    ResumenAcopio();
-    disponibilidadPergamino();
-    obtenerPartida();
-    obtenerVentas();
-    const interval = setInterval(() => {}, 5000);
+    const fetchData = () => {
+      ResumenAcopio();
+      disponibilidadPergamino();
+      obtenerPartida();
+      obtenerVentas();
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 300000); // 300000 ms = 5 minutes
     return () => clearInterval(interval);
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     if (partidas.length > 0) {
