@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest --watchAll",
-       "start": "serve dist -s -L -p $PORT"
+       "start": "serve dist  $PORT"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
