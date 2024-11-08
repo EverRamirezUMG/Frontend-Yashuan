@@ -34,7 +34,11 @@ function Mantenimiento() {
 
   const datoVehiculos = async () => {
     try {
-      const response = await fetch(`${URL}vehiculos`);
+      const response = await fetch(`${URL}vehiculos`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       setVehiculos(data);
     } catch (error) {
@@ -104,7 +108,11 @@ function Mantenimiento() {
   //-------------- obtene proceos ------------------------------
   const datoProcesos = async () => {
     try {
-      const response = await fetch(`${URL}procesos`);
+      const response = await fetch(`${URL}procesos`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       setProcesos(data);
     } catch (error) {
@@ -115,7 +123,11 @@ function Mantenimiento() {
   //-------------------------- obtener precios ---------------------
   const datoPrecios = async () => {
     try {
-      const response = await fetch(`${URL}procesos/precio`);
+      const response = await fetch(`${URL}procesos/precio`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       setPrecio(data);
     } catch (error) {

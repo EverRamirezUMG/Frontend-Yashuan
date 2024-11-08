@@ -147,6 +147,7 @@ function Productores() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
           },
         }
       );

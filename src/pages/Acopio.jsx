@@ -317,6 +317,7 @@ export const Acopio = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
           },
         }
       );
@@ -374,7 +375,7 @@ export const Acopio = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
         },
         body: JSON.stringify({
           id_productor: codigoProductor,

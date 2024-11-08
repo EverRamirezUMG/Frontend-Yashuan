@@ -10,6 +10,8 @@ export const IngresarCostoBeneficio = ({
   titulo,
 }) => {
   const URL = import.meta.env.VITE_URL;
+  const token = localStorage.getItem("token");
+  const codigo = localStorage.getItem("codigo");
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
@@ -45,6 +47,7 @@ export const IngresarCostoBeneficio = ({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });

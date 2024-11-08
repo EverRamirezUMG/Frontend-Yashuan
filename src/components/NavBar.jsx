@@ -127,7 +127,7 @@ export const NavBar = () => {
                       </div>
                     </button>
                   ) : null}
-                  {ResumenTemporada === "true" ? (
+                  {/* {ResumenTemporada === "true" ? (
                     <button
                       type="button"
                       className={`navA ${
@@ -143,7 +143,7 @@ export const NavBar = () => {
                         <span> Temporada</span>
                       </div>
                     </button>
-                  ) : null}
+                  ) : null} */}
                 </div>
               )}
             </div>
@@ -298,7 +298,7 @@ export const NavBar = () => {
                       <span> Cliente </span>
                     </div>
                   </button>
-
+                  {/* 
                   <button
                     type="button"
                     className={`navA ${
@@ -309,7 +309,7 @@ export const NavBar = () => {
                     <div className="Reportes">
                       <span> Envío</span>
                     </div>
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>
