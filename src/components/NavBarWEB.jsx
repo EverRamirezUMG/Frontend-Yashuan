@@ -16,8 +16,8 @@ export const NavBarWEB = () => {
             </div>
             <div className="paginaWEB">
               <button className="paginaBT"> Inicio </button>
-              <button className="paginaBT"> ¿Quienes somos?</button>
-              <button className="paginaBT"> contactenos </button>
+              {/* <button className="paginaBT"> ¿Quienes somos?</button> */}
+              {/* <button className="paginaBT"> contactenos </button> */}
               <br />
               <br />
             </div>
