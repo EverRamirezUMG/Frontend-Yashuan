@@ -285,6 +285,15 @@ function Inicio() {
     }).format(number);
   };
 
+  useEffect(() => {
+    ResumenAcopio();
+    const interval = setInterval(() => {
+      ResumenAcopio();
+      disponibilidadPergamino();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [token]);
+
   return (
     <>
       <div className="vista">

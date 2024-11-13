@@ -774,7 +774,7 @@ color: #BFBFBF;
     height: 32px;
     /* padding-right: 20px; */
     flex-shrink: 0;
-    color: #ffffff;
+    color: #000000;
 }
 
 .Contenedor .main2 .cont2 .tabla .datos .dato .editar {

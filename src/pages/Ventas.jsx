@@ -7,7 +7,7 @@ import { NavBarMovil } from "../components/NavBarMovil";
 import { TailSpin } from "react-loader-spinner";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
-import GenerarReporte from "../components/PDF/ResumenAcopio";
+import ReporteVentas from "../components/PDF/ResumenVentas";
 import "../styles/Ventas.css";
 import IngresarVenta from "../components/mod/IngresarVenta";
 import VerVenta from "../components/mod/VerVenta";
@@ -439,7 +439,7 @@ function Ventas() {
 
                     <div className="Rango-fecha2">
                       {/* <ExcelGenerator data={pergamino} head={""} /> */}
-                      {/* <GenerarReporte data={ventas} head={""} /> */}
+                      <ReporteVentas data={ventas} head={totales} />
                       <button
                         onClick={() => cambiarEstadoModal1(!estadoModal1)}
                       >

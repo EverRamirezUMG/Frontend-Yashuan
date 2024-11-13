@@ -20,6 +20,7 @@ import Mantenimiento from "./pages/Mantenimiento";
 import Muestras from "./pages/Muestras";
 import Ventas from "./pages/Ventas";
 import Clientes from "./pages/Clientes";
+import MantenimientoProductores from "./pages/MProductores";
 import { Man } from "@mui/icons-material";
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
           <Route path="/Admin/Acopio" element={<Acopio />} />
           <Route path="/Admin/Acopio/Resumen" element={<Resumen />} />
           <Route path="/Admin/Acopio/Productores" element={<Productores />} />
+          <Route
+            path="/Admin/Acopio/Mantenimiento"
+            element={<MantenimientoProductores />}
+          />
           <Route path="/Admin/Inventario" element={<Inventario />} />
           <Route path="/Admin/Ventas/Muestra" element={<Muestras />} />
           <Route path="/Admin/Ventas" element={<Ventas />} />

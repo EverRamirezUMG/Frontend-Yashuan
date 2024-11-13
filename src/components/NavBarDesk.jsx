@@ -210,7 +210,23 @@ export const NavBar = () => {
                     }
                   >
                     <div className="Reportes">
-                      <span> Productores </span>
+                      <span>Pagos</span>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`navA ${
+                      location.pathname === "/Admin/Acopio/Mantenimiento"
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      handleButtonClick("/Admin/Acopio/Mantenimiento")
+                    }
+                  >
+                    <div className="Reportes">
+                      <span>Productores </span>
                     </div>
                   </button>
                 </div>

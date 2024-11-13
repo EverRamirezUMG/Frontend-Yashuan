@@ -242,7 +242,7 @@ const Permisos = ({ estado3, cambiarEstado3, titulo2, idEdit }) => {
                       />
                     </div>
                   </div>
-
+                  {/* 
                   <div className="modulo">
                     <h4>Página WEB</h4>
                     <div className="itemPermiso">
@@ -252,7 +252,7 @@ const Permisos = ({ estado3, cambiarEstado3, titulo2, idEdit }) => {
                         onToggle={(value) => handleChange("paginaweb", value)}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <div className="bonotesNewUser">
                     <div>
                       <button

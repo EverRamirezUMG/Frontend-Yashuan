@@ -24,11 +24,15 @@ const IngresarVenta = ({
   const [peso, setPeso] = useState(0);
   const [tara, setTara] = useState(0);
   const [filas, setFilas] = useState([]);
+  const [precioVenta, setPrecioVenta] = useState(0);
+  const [idproceso, setIdproceso] = useState(1);
 
   const totalBruto = filas.reduce((acc, fila) => acc + fila.pesoBruto, 0) / 100;
   const totalTara = filas.reduce((acc, fila) => acc + fila.tara, 0) / 100;
   const totalNeto = filas.reduce((acc, fila) => acc + fila.pesoNeto, 0) / 100;
 
+  console.log(precioVenta);
+  console.log(idproceso);
   const {
     handleSubmit,
     register,
@@ -37,7 +41,13 @@ const IngresarVenta = ({
   } = useForm();
 
   const onSubmit = handleSubmit(async (formData) => {
-    const data = { ...formData, usuario, peso: totalBruto, tara: totalTara };
+    const data = {
+      ...formData,
+      usuario,
+      peso: totalBruto,
+      tara: totalTara,
+      proceso: idproceso,
+    };
     try {
       const response = await fetch(`${URL}ventas/ingresar`, {
         method: "POST",
@@ -134,6 +144,38 @@ const IngresarVenta = ({
     }
   };
 
+  const precio = async (idproceso) => {
+    try {
+      const response = await fetch(`${URL}ventas/precio/${idproceso}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error desconocido");
+      }
+
+      const data = await response.json();
+      setPrecioVenta(data.precio);
+    } catch (error) {
+      swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        showConfirmButton: true,
+        customClass: {
+          confirmButton: "btEliminar",
+          cancelButton: "btCancelar",
+          popup: "popus-eliminado",
+          title: "titulo-pop",
+          container: "contenedor-alert",
+        },
+      });
+    }
+  };
+
   register("usuario", { value: usuario });
 
   useEffect(() => {
@@ -187,6 +229,16 @@ const IngresarVenta = ({
     listaPartidas();
     setFilas([]);
     cambiarEstadoModalCliente(!estadoModalCliente);
+  };
+
+  useEffect(() => {
+    if (idproceso) {
+      precio(idproceso);
+    }
+  }, [idproceso]);
+
+  const handleProcesoChange = (event) => {
+    setIdproceso(event.target.value);
   };
 
   return (
@@ -252,9 +304,11 @@ const IngresarVenta = ({
                         <select
                           name="proceso"
                           id="proceso"
-                          {...register("proceso", {
-                            required: "Este campo es requerido",
-                          })}
+                          value={idproceso}
+                          onChange={handleProcesoChange}
+                          // {...register("proceso", {
+                          //   required: "Este campo es requerido",
+                          // })}
                         >
                           <option value={0}>Seleccionar proceso</option>
                           {procesos.map((proceso) => (
@@ -375,6 +429,7 @@ const IngresarVenta = ({
                       <span>{totalNeto}</span>
                       <span></span>
                     </div>
+                    <p>total a pagar: {precioVenta * totalNeto || 0}</p>
                   </div>
 
                   <div className="totales"></div>

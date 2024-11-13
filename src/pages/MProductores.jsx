@@ -5,39 +5,40 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { NavBarMovil } from "../components/NavBarMovil";
 import { TailSpin } from "react-loader-spinner";
-import "react-datepicker/dist/react-datepicker.css";
-import ChartDias from "../components/chart/chart1";
-import PieResumenAcopio from "../components/chart/Pie-resumen-acopio";
 import Swal from "sweetalert2";
-import GenerarReporte from "../components/PDF/ResumenAcopio";
-import ExcelGenerator from "../components/EXCEL/ResumenAcopioExcel";
-import "../styles/Muestras.css";
-import VerMuestra from "../components/mod/VerMuestra";
-import IngresarCliente from "../components/mod/IngresarCliente";
+import VerCliente from "../components/mod/VerCliente";
+import UpdateCliente from "../components/mod/UpdateClienet";
+import UpdateProductor from "../components/mod/UpdateProductor";
+import IngresarProductor from "../components/mod/IngresarProductor";
+import "../styles/Clientes.css";
 
-function Fletes() {
+function MantenimientoProductores() {
   const URL = import.meta.env.VITE_URL;
   const token = localStorage.getItem("token");
   const [disponibilidad, setDisponibilidad] = useState([]);
   const [fecha1, setFecha1] = useState("");
   const [fecha2, setFecha2] = useState("");
   const [id, setID] = useState([]);
-  const [fletes, setFletes] = useState([]);
+  const [idcliente, setIDcliente] = useState([]);
+  const [idEliminar, setIDEliminar] = useState([]);
+  const [precio, setPrecio] = useState([]);
+  const [clientes, setProductores] = useState([]);
+  const [cliente, setCliente] = useState([]);
+  const [cantidad, setCantidad] = useState([]);
+  const [partidaSeleccionada, setPartidaSeleccionada] = useState(null);
   const [estadoModal1, cambiarEstadoModal1] = useState(false);
   const [estadoModal2, cambiarEstadoModal2] = useState(false);
-  const [vehiculoseleccionado, setVehiculoSeleccionado] = useState(null);
-  const [vehiculos, setVehiculos] = useState({});
+  const [estadoModalActualizar, cambiarEstadoModalActualizar] = useState(false);
 
   const [totales, setTotales] = useState("");
 
-  console.log(totales?.total);
   if (!token) {
     return <Navigate to="/Admin" />;
   }
 
   const datos = async () => {
     try {
-      const clientes = await fetch(`${URL}fletes`, {
+      const productores = await fetch(`${URL}productores`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +46,28 @@ function Fletes() {
         },
       });
 
-      const totales = await fetch(`${URL}fletes/totales`, {
+      const muestra = await fetch(`${URL}muestras`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+      const cantidad = await fetch(`${URL}inventario/stock`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+      const totales = await fetch(`${URL}muestras/totales`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+      const precio = await fetch(`${URL}muestras/precio`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -53,28 +75,33 @@ function Fletes() {
         },
       });
 
-      if (!clientes.ok) {
+      if (!productores.ok) {
         throw new Error("Error en la solicitud");
       }
 
-      const clientesData = await clientes.json();
-
+      const productoresData = await productores.json();
+      const cantidadData = await cantidad.json();
       const totalesData = await totales.json();
+      const precioData = await precio.json();
+      const muestraData = await muestra.json();
 
-      setFletes(clientesData);
+      setProductores(productoresData);
+      setCantidad(cantidadData);
       setTotales(totalesData);
+      setPrecio(precioData);
+      setCliente(muestraData);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const obtenervehiculos = async (id) => {
+  const obtenerMuestra = async (id) => {
     try {
-      const response = await fetch(`${URL}acopio/vehiculo`, {
+      const response = await fetch(`${URL}clientes/cliente/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -83,12 +110,11 @@ function Fletes() {
       }
 
       const data = await response.json();
-      setVehiculos(data);
+      setCliente(data);
     } catch (err) {
       console.error(err);
     }
   };
-
   //--------------- INGRESO DE CAFE PERGAMINO A BODEGA ----------------
 
   //---------------------- DISPONIBILIDAD DE PERGAMINO ---------------------
@@ -124,14 +150,13 @@ function Fletes() {
   useEffect(() => {
     disponibilidadPergamino();
     datos();
-    obtenervehiculos();
   }, []);
 
   //--------------------- COMPRA POR RANGO DE FECHA ---------------------
-  const rangoFletes = async () => {
+  const rangoPergamino = async () => {
     try {
       const response = await fetch(
-        `${URL}fletes/rango?fecha1=${encodeURIComponent(
+        `${URL}clientes/fecha?fecha1=${encodeURIComponent(
           fecha1
         )}&fecha2=${encodeURIComponent(fecha2)}`,
         {
@@ -143,7 +168,7 @@ function Fletes() {
         }
       );
       const totales = await fetch(
-        `${URL}fletes/totalesrango?fecha1=${encodeURIComponent(
+        `${URL}muestras/rtotal?fecha1=${encodeURIComponent(
           fecha1
         )}&fecha2=${encodeURIComponent(fecha2)}`,
         {
@@ -162,7 +187,7 @@ function Fletes() {
       const data = await response.json();
       const total = await totales.json();
 
-      setFletes(data);
+      setProductores(data);
       setTotales(total);
     } catch (err) {
       Swal.fire({
@@ -170,6 +195,29 @@ function Fletes() {
         title: "Error en la solicitud",
         text: err.message,
       });
+    }
+  };
+
+  const elimiarcliente = async (idEliminar) => {
+    try {
+      const response = await fetch(`${URL}productores/eliminar/${idEliminar}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      datos();
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -182,20 +230,36 @@ function Fletes() {
   //----metodo de filtrado de busqueda-----
   let result = [];
   if (!search) {
-    result = fletes;
+    result = clientes;
   } else {
-    result = fletes.filter(
+    result = clientes.filter(
       (datos) =>
-        datos.id_vehiculo.toString().includes(search) ||
-        datos.comprobante.toLowerCase().includes(search.toLowerCase()) ||
-        datos.nombre.toLowerCase().includes(search.toLowerCase()) ||
-        datos.vehiculo.toLowerCase().includes(search.toLowerCase()) ||
-        datos.aliaas.toLowerCase().includes(search.toLowerCase())
+        datos.id.toString().includes(search) ||
+        datos.email.toLowerCase().includes(search.toLowerCase()) ||
+        datos.nombre.toLowerCase().includes(search.toLowerCase())
     );
   }
-
-  const handleVehiculoChange = (event) => {
-    setVehiculoSeleccionado(event.target.value);
+  const mostrarAlertaEliminar = (id) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esto",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        elimiarcliente(id);
+        Swal.fire({
+          icon: "success",
+          title: "Cliente eliminado",
+          text: "Cliente eliminado correctamente",
+        });
+        datos();
+      }
+    });
   };
 
   //------------------- ESCUCHAR DATOS EN TIEMPO REAL ---------------------
@@ -236,7 +300,20 @@ function Fletes() {
   const handleCloseModal2 = () => {
     cambiarEstadoModal2(!estadoModal2);
     setID(null);
+    datos();
   };
+  const handleCloseModalActualizar = () => {
+    cambiarEstadoModalActualizar(!estadoModalActualizar);
+    setIDcliente(null);
+    datos();
+  };
+
+  const handleCloseEliminar = () => {
+    elimiarcliente();
+    setID(null);
+    datos();
+  };
+
   useEffect(() => {
     const fetchMuestra = async () => {
       if (id) {
@@ -252,59 +329,13 @@ function Fletes() {
     }
   }, [estadoModal1]);
 
-  const obtenerDatos = async () => {
-    try {
-      const response = await fetch(
-        `${URL}fletes/flete/${vehiculoseleccionado}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const total = await fetch(
-        `${URL}fletes/vehiculo/${vehiculoseleccionado}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
-
-      const data = await response.json();
-      const totalData = await total.json();
-      setTotales(totalData);
-
-      setFletes(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    // Verifica si vehiculoSeleccionado es un string no vacío
-    if (vehiculoseleccionado) {
-      obtenerDatos();
-    } else {
-      datos();
-    }
-  }, [vehiculoseleccionado]);
-
   return (
     <>
-      <div className="vista-muestras">
+      <div className="vista-clinetes">
         <NavBar />
         <NavBarMovil />
-        <Encabezado titulo="Fletes" />
-        <div className="container-muestras">
+        <Encabezado titulo="Productores registrados" />
+        <div className="container-clientes">
           {loading ? (
             <div
               className="loader"
@@ -328,11 +359,11 @@ function Fletes() {
             </div>
           ) : (
             <>
-              <div className="main-muestras">
-                <section className="main-muestras-ingresadas">
+              <div className="main-clientes">
+                <section className="main-clientes-registrados">
                   <div className="titulo">
-                    {/* <h3>Fletes registrados</h3> */}
-                    <div className="rango-fecha">
+                    <h3>Productores registrdos</h3>
+                    {/* <div className="rango-fecha">
                       <p>Rango:</p>
                       <input
                         type="date"
@@ -354,15 +385,14 @@ function Fletes() {
                         onChange={(e) => setFecha2(e.target.value)}
                         value={fecha2}
                       />
-                      <button type="button" onClick={rangoFletes}>
+                      <button type="button" onClick={rangoPergamino}>
                         Aceptar
                       </button>
-                    </div>
-                    <p>Total: Q. {parseFloat(totales?.total) * -1 || 0}</p>
+                    </div> */}
                     <div className="buscador">
                       <input
                         type="text"
-                        placeholder="Buscar comprobante o vehiculo"
+                        placeholder="Buscar cliente, correo o ID"
                         onChange={searcher}
                       />
                       <button>
@@ -371,58 +401,44 @@ function Fletes() {
                         </span>
                       </button>
                     </div>
-
+                    <IngresarProductor
+                      estado={estadoModal1}
+                      cambiarEstado={handleCloseModal1}
+                      idpartida={partidaSeleccionada}
+                      titulo="Registrar Productor"
+                    />
                     <div className="Rango-fecha2">
-                      <select
-                        name="vehiculo"
-                        id="vehiculo"
-                        value={vehiculoseleccionado}
-                        onChange={handleVehiculoChange}
+                      <button
+                        onClick={() => cambiarEstadoModal1(!estadoModal1)}
                       >
-                        <option value="">Todos los vehículos</option>
-                        {vehiculos.length > 0 ? (
-                          vehiculos.map((vehiculo, index) => (
-                            <option key={index} value={vehiculo.codigo}>
-                              {vehiculo.alias || vehiculo.vehiculo}
-                            </option>
-                          ))
-                        ) : (
-                          <option value={null}>
-                            No hay vehículos disponibles
-                          </option>
-                        )}
-                      </select>
+                        Registrar +
+                      </button>
                     </div>
                   </div>
 
                   <div className="tabla">
                     <div className="encabezado">
-                      <span>ID</span>
-                      <span>Productor</span>
-                      <span>Comprobante</span>
-                      <span>Peso</span>
-                      <span>Precio / qq.</span>
-                      <span>Flete</span>
-                      <span>ID vehiculo</span>
-                      <span>Vehiculo</span>
-                      <span>fecha</span>
+                      <span> ID </span>
+                      <span></span>
+                      <span>Cliente</span>
+                      <span></span>
+                      <span>Telefono</span>
+                      <span></span>
+                      <span>fecha de creacion</span>
+                      <span></span>
+
+                      <span>Accion</span>
                     </div>
                     <div className="datos">
                       {result.length > 0 ? (
                         result.map((item, index) => (
                           <div className="dato" key={index}>
-                            <span> {item.id}</span>
+                            <span> {item.pk_productor}</span>
                             <span>{item.nombre}</span>
-                            <span>{item.comprobante}</span>
-                            <span>{item.peso_neto}</span>
-                            <span>{item.precio_por_quintal} </span>
-                            <span>{item.flete * -1} </span>
-                            <span>{item.id_vehiculo} </span>
-                            <span>{item.aliaas || item.vehiculo} </span>
-
+                            <span>{item.telefono || "N/A"}</span>
                             <span>
                               {" "}
-                              {new Date(item.fecha).toLocaleDateString(
+                              {new Date(item.fecha_creacion).toLocaleDateString(
                                 "es-ES",
                                 {
                                   day: "numeric",
@@ -431,13 +447,14 @@ function Fletes() {
                                 }
                               )}
                             </span>
-
-                            {/* <div className="botones">
+                            <div className="botones">
                               <button
-                                className="Detalle"
+                                className="actualizar"
                                 onClick={() => {
-                                  setID(item.id);
-                                  cambiarEstadoModal2(!estadoModal2);
+                                  setIDcliente(item.pk_productor);
+                                  cambiarEstadoModalActualizar(
+                                    !estadoModalActualizar
+                                  );
                                 }}
                               >
                                 <span class="material-symbols-outlined">
@@ -445,6 +462,17 @@ function Fletes() {
                                 </span>
                               </button>
                               <button
+                                className="actualizar"
+                                onClick={() => {
+                                  setID(item.pk_productor);
+                                  mostrarAlertaEliminar(item.pk_productor);
+                                }}
+                              >
+                                <span class="material-symbols-outlined">
+                                  delete
+                                </span>
+                              </button>
+                              {/* <button
                                 className="Detalle"
                                 onClick={() => {
                                   setID(item.id);
@@ -452,29 +480,71 @@ function Fletes() {
                                 }}
                               >
                                 Ver
-                              </button>
-                            </div> */}
-                            {/* <span>
-                              Q. {Number(item.total).toLocaleString()}
-                            </span>
-                            <span>Q. {Number(item.pago).toLocaleString()}</span> */}
-                            {/* <div className="botones">
-                              <button className="editar">
-                              <span className="material-symbols-outlined">
-                                edit
-                              </span>
-                            </button>
-                            <button className="eliminar">
-                              <span className="material-symbols-outlined">
-                                delete
-                              </span>
-                            </button>
-                            </div> */}
+                              </button> */}
+                            </div>
                           </div>
                         ))
                       ) : (
                         <p>No hay datos</p>
                       )}
+                      <UpdateProductor
+                        estado2={estadoModalActualizar}
+                        cambiarEstado2={handleCloseModalActualizar}
+                        id={idcliente}
+                        titulo2={"Actualizar Productor"}
+                      />
+
+                      <VerCliente
+                        estado={estadoModal2}
+                        cambiarEstado={handleCloseModal2}
+                        idpartida={cliente?.id}
+                        titulo={cliente?.nombre}
+                      >
+                        <div className="modal">
+                          <div className="modal-header">
+                            <h3>Datos del cliente</h3>
+                          </div>
+                          <div className="modal-body">
+                            <div className="modal-body-1">
+                              <h4>Telefono:</h4>
+                              <p>{cliente?.telefono}</p>
+                            </div>
+                            <div className="modal-body-1">
+                              <h4>Correo:</h4>
+                              <p>{cliente?.email}</p>
+                            </div>
+
+                            <div className="modal-body-1">
+                              <h4>DPI: </h4>
+                              <p>{cliente?.dpi}</p>
+                            </div>
+                            <div className="modal-body-1">
+                              <h4>Fechas de registro:</h4>
+                              <p>
+                                {" "}
+                                {new Date(cliente?.fecha).toLocaleDateString(
+                                  "es-ES",
+                                  {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric",
+                                  }
+                                )}
+                              </p>
+                            </div>
+
+                            <div className="modal-body-1">
+                              <h4>Muestras enviadas:</h4>
+                              <p>{cliente?.muestras}</p>
+                            </div>
+
+                            <div className="modal-body-1">
+                              <h4>Compras realizadas:</h4>
+                              <p>{cliente?.compras}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </VerCliente>
                     </div>
                   </div>
                 </section>
@@ -486,4 +556,4 @@ function Fletes() {
     </>
   );
 }
-export default Fletes;
+export default MantenimientoProductores;

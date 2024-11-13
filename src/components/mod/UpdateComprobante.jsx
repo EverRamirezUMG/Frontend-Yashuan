@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import swal from "sweetalert2";
+import "./styles/ActualizarComprobante.css";
 // import "./styles/Updatecomprobantes.css";
 
 const UpdateComprobante = ({

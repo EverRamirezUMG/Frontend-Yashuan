@@ -109,6 +109,25 @@ function Productores() {
       console.error(err);
     }
   };
+
+  const pagospendientes = async () => {
+    try {
+      const response = await fetch(URL + `resumen/pago`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
+        },
+      });
+
+      const datos = await response.json();
+
+      setCompra(datos); // Verifica la estructura aquí
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const resumen_total = async () => {
     try {
       const resumenTotal = await fetch(
@@ -136,69 +155,6 @@ function Productores() {
     resumen_acopio();
     resumen_total();
   }, []);
-
-  //--------------------- COMPRA POR RANGO DE FECHA ---------------------
-  const rangoCompras = async () => {
-    try {
-      const response = await fetch(
-        `${URL}resumen/compras?fecha1=${encodeURIComponent(
-          fecha1
-        )}&fecha2=${encodeURIComponent(fecha2)}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
-          },
-        }
-      );
-
-      const resumen = await fetch(
-        `${URL}resumen/resumen?fecha1=${encodeURIComponent(
-          fecha1
-        )}&fecha2=${encodeURIComponent(fecha2)}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
-          },
-        }
-      );
-
-      const total = await fetch(
-        `${URL}resumen/total?fecha1=${encodeURIComponent(
-          fecha1
-        )}&fecha2=${encodeURIComponent(fecha2)}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
-
-      const data = await response.json();
-      const resResumen = await resumen.json();
-      const resTotal = await total.json();
-      setCompra(data);
-      setResumen(resResumen);
-      setResumenAcopio(resTotal);
-    } catch (err) {
-      console.error(err);
-
-      Swal.fire({
-        icon: "error",
-        title: "Error en la solicitud",
-        text: err.message,
-      });
-    }
-  };
 
   //------------------ BUSQUEDA INTELIGENTE------------ */
   const [search, setSearch] = useState("");
@@ -251,28 +207,34 @@ function Productores() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (idcomprobante) {
-      PagarConsignado();
-      compras();
-      ResumenAcopio();
-      resumen_acopio();
-      resumen_total();
-      rangoCompras();
-      setIdcomprobante("");
-      setCompraSeleccionada(false);
-    }
-  }, [idcomprobante]);
+  // useEffect(() => {
+  //   if (idcomprobante) {
+  //     PagarConsignado();
+  //     compras();
+  //     ResumenAcopio();
+  //     resumen_acopio();
+  //     resumen_total();
+  //     rangoCompras();
+  //     setIdcomprobante("");
+  //     setCompraSeleccionada(false);
+  //   }
+  // }, [idcomprobante]);
+
+  // useEffect(() => {
+  //   if (listaCompra.length > 0) {
+  //     setCompraSeleccionada(listaCompra[0].idcompra);
+  //   }
+  // }, [listaCompra]);
 
   useEffect(() => {
     if (compraSeleccionada) {
-      setFecha2("");
-      setFecha1("");
       PagarConsignado();
       resumen_acopio();
       resumen_total();
       compras();
       setIdcomprobante();
+    } else {
+      pagospendientes();
     }
   }, [compraSeleccionada]);
 
@@ -311,39 +273,16 @@ function Productores() {
           ) : (
             <>
               <div className="main-encabezado-p">
-                <div className="Rango-fecha">
-                  <p>Rango:</p>
-                  <input
-                    type="date"
-                    className="calendario-b"
-                    max={new Date().toISOString().split("T")[0]}
-                    onChange={(e) => {
-                      setFecha1(e.target.value);
-                      if (new Date(e.target.value) > new Date(fecha2)) {
-                        setFecha2("");
-                      }
-                    }}
-                    value={fecha1}
-                  />
-                  <input
-                    type="date"
-                    className="calendario-b"
-                    min={fecha1}
-                    max={new Date().toISOString().split("T")[0]}
-                    onChange={(e) => setFecha2(e.target.value)}
-                    value={fecha2}
-                  />
-                  <button type="button" onClick={rangoCompras}>
-                    Aceptar
-                  </button>
-                </div>
                 <div className="Rango-fecha2">
                   <select
                     name="compras"
                     id="compras"
                     onChange={handleCompraChange}
                   >
-                    <option value="">Ultima compra</option>
+                    <option value="" disabled>
+                      Ultima compra
+                    </option>
+
                     {listaCompra.map((compra, index) => (
                       <option key={index} value={compra.idcompra}>
                         {new Date(compra.fecha).toLocaleDateString("es-ES", {
@@ -354,6 +293,7 @@ function Productores() {
                         })}
                       </option>
                     ))}
+                    <option value="">Pago pendiente</option>
                   </select>
                   <button onClick={compras}>Cargar</button>
                 </div>
