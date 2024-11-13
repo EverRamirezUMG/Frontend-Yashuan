@@ -5,16 +5,13 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { NavBarMovil } from "../components/NavBarMovil";
 import { TailSpin } from "react-loader-spinner";
-import "react-datepicker/dist/react-datepicker.css";
-import ChartDias from "../components/chart/chart1";
-import PieResumenAcopio from "../components/chart/Pie-resumen-acopio";
 import Swal from "sweetalert2";
 import GenerarReporte from "../components/PDF/ResumenAcopio";
 import ExcelGenerator from "../components/EXCEL/ResumenAcopioExcel";
-import "../styles/Muestras.css";
-import VerMuestra from "../components/mod/VerMuestra";
 import IngresarCliente from "../components/mod/IngresarCliente";
 import VerCliente from "../components/mod/VerCliente";
+import UpdateCliente from "../components/mod/UpdateClienet";
+import "../styles/Clientes.css";
 
 function Clientes() {
   const URL = import.meta.env.VITE_URL;
@@ -23,6 +20,8 @@ function Clientes() {
   const [fecha1, setFecha1] = useState("");
   const [fecha2, setFecha2] = useState("");
   const [id, setID] = useState([]);
+  const [idcliente, setIDcliente] = useState([]);
+  const [idEliminar, setIDEliminar] = useState([]);
   const [precio, setPrecio] = useState([]);
   const [clientes, setClientes] = useState([]);
   const [cliente, setCliente] = useState([]);
@@ -30,6 +29,7 @@ function Clientes() {
   const [partidaSeleccionada, setPartidaSeleccionada] = useState(null);
   const [estadoModal1, cambiarEstadoModal1] = useState(false);
   const [estadoModal2, cambiarEstadoModal2] = useState(false);
+  const [estadoModalActualizar, cambiarEstadoModalActualizar] = useState(false);
 
   const [totales, setTotales] = useState("");
 
@@ -37,8 +37,6 @@ function Clientes() {
     return <Navigate to="/Admin" />;
   }
 
-  console.log(id);
-  console.log(clientes);
   const datos = async () => {
     try {
       const clientes = await fetch(`${URL}clientes`, {
@@ -201,6 +199,29 @@ function Clientes() {
     }
   };
 
+  const elimiarcliente = async (idEliminar) => {
+    try {
+      const response = await fetch(`${URL}clientes/desactivar/${idEliminar}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      datos();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   //------------------ BUSQUEDA INTELIGENTE------------ */
   const [search, setSearch] = useState("");
   const searcher = (e) => {
@@ -219,6 +240,28 @@ function Clientes() {
         datos.nombre.toLowerCase().includes(search.toLowerCase())
     );
   }
+  const mostrarAlertaEliminar = (id) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esto",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        elimiarcliente(id);
+        Swal.fire({
+          icon: "success",
+          title: "Cliente eliminado",
+          text: "Cliente eliminado correctamente",
+        });
+        datos();
+      }
+    });
+  };
 
   //------------------- ESCUCHAR DATOS EN TIEMPO REAL ---------------------
   // useEffect(() => {
@@ -258,7 +301,20 @@ function Clientes() {
   const handleCloseModal2 = () => {
     cambiarEstadoModal2(!estadoModal2);
     setID(null);
+    datos();
   };
+  const handleCloseModalActualizar = () => {
+    cambiarEstadoModalActualizar(!estadoModalActualizar);
+    setIDcliente(null);
+    datos();
+  };
+
+  const handleCloseEliminar = () => {
+    elimiarcliente();
+    setID(null);
+    datos();
+  };
+
   useEffect(() => {
     const fetchMuestra = async () => {
       if (id) {
@@ -276,11 +332,11 @@ function Clientes() {
 
   return (
     <>
-      <div className="vista-muestras">
+      <div className="vista-clinetes">
         <NavBar />
         <NavBarMovil />
         <Encabezado titulo="Clientes" />
-        <div className="container-muestras">
+        <div className="container-clientes">
           {loading ? (
             <div
               className="loader"
@@ -304,8 +360,8 @@ function Clientes() {
             </div>
           ) : (
             <>
-              <div className="main-muestras">
-                <section className="main-muestras-ingresadas">
+              <div className="main-clientes">
+                <section className="main-clientes-registrados">
                   <div className="titulo">
                     <h3>Clientes registrdos</h3>
                     <div className="rango-fecha">
@@ -337,7 +393,7 @@ function Clientes() {
                     <div className="buscador">
                       <input
                         type="text"
-                        placeholder="Buscar partida, proceso o cliente"
+                        placeholder="Buscar cliente, correo o ID"
                         onChange={searcher}
                       />
                       <button>
@@ -353,8 +409,6 @@ function Clientes() {
                       titulo="Registrar clietne"
                     />
                     <div className="Rango-fecha2">
-                      {/* <ExcelGenerator data={pergamino} head={""} /> */}
-                      {/* <GenerarReporte data={clientes} head={""} /> */}
                       <button
                         onClick={() => cambiarEstadoModal1(!estadoModal1)}
                       >
@@ -382,7 +436,6 @@ function Clientes() {
                             <span>{item.telefono}</span>
                             <span>{item.email}</span>
                             <span>{item.dpi} </span>
-
                             <span>
                               {" "}
                               {new Date(item.fecha).toLocaleDateString(
@@ -394,19 +447,31 @@ function Clientes() {
                                 }
                               )}
                             </span>
-
                             <div className="botones">
-                              {/* <button
-                                className="Detalle"
+                              <button
+                                className="actualizar"
                                 onClick={() => {
-                                  setID(item.id);
-                                  cambiarEstadoModal2(!estadoModal2);
+                                  setIDcliente(item.id);
+                                  cambiarEstadoModalActualizar(
+                                    !estadoModalActualizar
+                                  );
                                 }}
                               >
                                 <span class="material-symbols-outlined">
                                   edit
                                 </span>
-                              </button> */}
+                              </button>
+                              <button
+                                className="actualizar"
+                                onClick={() => {
+                                  setID(item.id);
+                                  mostrarAlertaEliminar(item.id);
+                                }}
+                              >
+                                <span class="material-symbols-outlined">
+                                  delete
+                                </span>
+                              </button>
                               <button
                                 className="Detalle"
                                 onClick={() => {
@@ -417,27 +482,17 @@ function Clientes() {
                                 Ver
                               </button>
                             </div>
-                            {/* <span>
-                              Q. {Number(item.total).toLocaleString()}
-                            </span>
-                            <span>Q. {Number(item.pago).toLocaleString()}</span> */}
-                            {/* <div className="botones">
-                              <button className="editar">
-                              <span className="material-symbols-outlined">
-                                edit
-                              </span>
-                            </button>
-                            <button className="eliminar">
-                              <span className="material-symbols-outlined">
-                                delete
-                              </span>
-                            </button>
-                            </div> */}
                           </div>
                         ))
                       ) : (
                         <p>No hay datos</p>
                       )}
+                      <UpdateCliente
+                        estado2={estadoModalActualizar}
+                        cambiarEstado2={handleCloseModalActualizar}
+                        id={idcliente}
+                        titulo2={"Actualizar cliente"}
+                      />
 
                       <VerCliente
                         estado={estadoModal2}
@@ -465,7 +520,17 @@ function Clientes() {
                             </div>
                             <div className="modal-body-1">
                               <h4>Fechas de registro:</h4>
-                              <p>{cliente?.fecha}</p>
+                              <p>
+                                {" "}
+                                {new Date(cliente?.fecha).toLocaleDateString(
+                                  "es-ES",
+                                  {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric",
+                                  }
+                                )}
+                              </p>
                             </div>
 
                             <div className="modal-body-1">

@@ -98,7 +98,7 @@ const IngresarVenta = ({
           Authorization: `Bearer ${token}`,
         },
       });
-      const clientes = await fetch(`${URL}muestras/clientes`, {
+      const clientes = await fetch(`${URL}clientes`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

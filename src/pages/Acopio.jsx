@@ -10,6 +10,7 @@ import UpdateComprobante from "../components/mod/UpdateComprobante";
 import { Navigate, useNavigate } from "react-router-dom";
 import GenerarComprobante from "../components/PDF/GenerarComprobante";
 import swal from "sweetalert2";
+import { NavBarMovil } from "../components/NavBarMovil";
 
 export const Acopio = () => {
   const URL = import.meta.env.VITE_URL;
@@ -590,6 +591,8 @@ export const Acopio = () => {
     <>
       <div className="vista">
         <NavBar />
+        <NavBarMovil />
+
         <Encabezado titulo="Acopio" />
         <div className="Contenedor">
           <div className="main1">

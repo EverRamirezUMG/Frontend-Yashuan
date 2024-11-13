@@ -86,6 +86,96 @@
     display: none;
 }
 }
+
+@media(max-width: 1200px) {
+    .Bodydiv {
+        width: 100vw;
+        height: 88px;
+        flex-shrink: 0;
+        position: fixed;
+        z-index: 1000;
+        margin-left: 250px;
+        background: #ffffff;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .Bodydiv .header {
+        width: 85%;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 1px;
+    }
+
+    .Bodydiv .header .info {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        color: #000000;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    .Bodydiv .header .info .modulo {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 250px;
+        color: #000000;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        padding-left: 25px;
+
+    }
+
+    .Bodydiv .header .info .usuario {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+        width: 500px;
+        color: #000000;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        /* padding: 10px; */
+        margin-right: 50px;
+        /* background-color: aqua; */
+    }
+
+    .Bodydiv .header .info .usuario .Perfil {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+        color: #000000;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        /* padding: 10px; */
+        /* margin-right: 90px; */
+    }
+
+    .Bodydiv .header .info .usuario .Perfil img {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        margin: 5px 0px 5px 0px;
+        position: relative;
+        object-fit: cover;
+        left: calc(0% - 0px);
+        box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.35);
+        padding: 3px;
+    }
+
+    .Bodydiv .header .info .modulo img {
+        display: none;
+    }
+}
+
 @media(max-width: 600px) {
 .Bodydiv .header .info .usuario .Perfil img{
     display: none;
