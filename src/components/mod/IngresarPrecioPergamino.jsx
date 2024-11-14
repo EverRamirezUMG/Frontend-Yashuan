@@ -18,7 +18,11 @@ const IngresarPrecioPergamino = ({
 
   const datoProcesos = async () => {
     try {
-      const response = await fetch(`${URL}procesos`);
+      const response = await fetch(`${URL}procesos`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       setProcesos(data);
     } catch (error) {
