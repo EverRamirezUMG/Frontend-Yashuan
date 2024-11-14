@@ -207,18 +207,18 @@ function Productores() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   if (idcomprobante) {
-  //     PagarConsignado();
-  //     compras();
-  //     ResumenAcopio();
-  //     resumen_acopio();
-  //     resumen_total();
-  //     rangoCompras();
-  //     setIdcomprobante("");
-  //     setCompraSeleccionada(false);
-  //   }
-  // }, [idcomprobante]);
+  useEffect(() => {
+    if (idcomprobante) {
+      PagarConsignado();
+      compras();
+      ResumenAcopio();
+      resumen_acopio();
+      resumen_total();
+
+      setIdcomprobante("");
+      setCompraSeleccionada(false);
+    }
+  }, [idcomprobante]);
 
   // useEffect(() => {
   //   if (listaCompra.length > 0) {
