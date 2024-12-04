@@ -501,9 +501,10 @@ border-radius: 10px;
         font-size: 1, 2rem;
         height: auto;
         width: 100%;
-        /* background-color: #F2F2F2; */
-        background-color: #3cff00;
+        background-color: #F2F2F2;
+        /* background-color: #3cff00; */
         transition: 0.3s all ease-out;
+        margin: 0px;
     }
 
 
@@ -848,7 +849,13 @@ border-radius: 10px;
         height: 100%;
     }
 
-
+.grid-container .main2 .ventas .detalle-venta .encabezado-venta {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
 
     .grid-container .main2 .ventas .detalle-venta .contenedorV {
         display: flex;

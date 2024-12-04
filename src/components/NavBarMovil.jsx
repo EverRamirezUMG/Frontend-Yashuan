@@ -31,9 +31,9 @@ export const NavBarMovil = () => {
           <button
             type="button"
             className={`navM ${
-              location.pathname === "/Admin/Acopio" ? "active" : ""
+              location.pathname === "/Admin/Acopio/Resumen" ? "active" : ""
             }`}
-            onClick={() => handleButtonClick("/Admin/Acopio")}
+            onClick={() => handleButtonClick("/Admin/Acopio/Resumen")}
           >
             <div className="ReportesM">
               <span className="material-symbols-outlined">balance</span>

@@ -3,7 +3,7 @@
 .vista-resumen {
     display:flex;
     width: 99vw;
-    height: 100vh;
+    height: 100%;
     position: block;
 }
 
@@ -469,4 +469,474 @@ display: flex;
     margin-top: 10px;
     margin-bottom: 10px;
 }
+}
+
+
+@media(max-width: 600px) {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* --------------------------- CONTENDEOR PRINCIPAL -------------------*/
+    .vista-resumen .container-resumen {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: initial;
+        border-radius: 4px;
+        text-align: center;
+        font-family: 'Istok Web';
+        font-size: 1, 2rem;
+        height: 100%;
+        width: 100%;
+        background-color: #F2F2F2;
+        transition: 0.3s all ease-out;
+        margin-top: 88px;
+        padding: 10px;
+    }
+
+    /*------------------------ CONTNEDOR ENCABEZADO ---------------------------*/
+    .vista-resumen .container-resumen .main-encabezado {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 5vh;
+        max-height: 60px;
+        background-color: #F2F2F2;
+        /* padding: 0px 20px; */
+        border-radius: 15px;
+        margin-bottom: 7px;
+        position: relative;
+        color: #000;
+
+    }
+
+    .vista-resumen .container-resumen .main-encabezado .Rango-fecha {
+        display: none;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 55px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 0px 20px;
+        margin-right: 10px;
+        z-index: 899;
+    }
+
+    .vista-resumen .container-resumen .main-encabezado .Rango-fecha2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 55px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 0px;
+        margin-right: 10px;
+        z-index: 899;
+    }
+
+    .vista-resumen .container-resumen .main-encabezado .Rango-fecha2 select {
+        background-color: #EEEEEE;
+        color: #000;
+        border: none;
+        border-radius: 50px;
+        height: 30px;
+        width: 200px;
+        padding: 0px 20px;
+
+    }
+
+    .vista-resumen .container-resumen .main-encabezado .Rango-fecha2 button {
+        background-color: #515151;
+        color: #ffffff;
+        border: none;
+        border-radius: 50px;
+        height: 30px;
+        width: 100px;
+        padding: 0px 20px;
+        margin-left: 15px;
+    }
+
+    .vista-resumen .container-resumen .main-encabezado .Rango-fecha .calendario-b {
+        display: flex;
+        border-radius: 50px;
+        border: none;
+        width: 150px;
+        height: 35px;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 20px;
+        background-color: rgba(238, 238, 238, 1);
+        color: rgb(130, 130, 130);
+        font-family: 'Istok Web';
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .vista-resumen .container-resumen .main-encabezado .Rango-fecha button {
+        display: flex;
+        border-radius: 50px;
+        border: none;
+        width: 100px;
+        height: 35px;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 20px;
+        background-color: rgba(81, 81, 81, 1);
+        color: #ffffff;
+        font-family: 'Istok Web';
+    }
+
+    /*---------------------------- CONTENEDOR DE DATOS DE COMPRAS */
+    .vista-resumen .container-resumen .main-datos {
+        display: flex;
+        flex-direction: column;
+        width: 99%;
+        height: 100%;
+        margin-bottom: 60px;
+        position: relative;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* background-color: #ffffff; */
+        font-family: 'Istok Web';
+        width: 100%;
+        height: 98%;
+        padding: 5px;
+        color: #000;
+        background-color: #fff;
+        margin: 10px;
+        border-radius: 15PX;
+    }
+
+    /* -------------------------- grafica -------------------------*/
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio {
+        display: flex;
+        flex-direction: column;
+        justify-content: initial;
+        align-items: center;
+        background-color: #ffffff;
+        font-family: 'Istok Web';
+        width: 80%;
+        height: 100%;
+        padding: 5px;
+        color: #000;
+        z-index: 1;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .grafica-pie {
+        width: 80%;
+        height: auto;
+        max-height: 400px;
+        margin-left: 0%;
+        margin-top: -5px;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .grafica-pie .chart-container {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        min-width: 320px;
+        min-height: 280px;
+        position: relative;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        /* background-color: aqua; */
+        height: auto;
+        position: relative;
+        margin-top: -45px;
+    }
+
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje .indicadores {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 35px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background: #F2F2F2;
+        margin-top: 10px;
+        border-radius: 5px;
+        padding: 0px 20px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje .pesajes {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 120px;
+        margin-top: 5px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje .pesajes .pesaje-dato {
+        width: 31%;
+        height: 100px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: #F2F2F2;
+        margin: 5px;
+        padding: 10px;
+        font-family: 'Istok Web';
+        font-style: normal;
+
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio .dato-pesaje .total {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 98%;
+        height: 65px;
+        border-radius: 10px;
+        background: #F2F2F2;
+        margin: 5px;
+        font-family: 'Istok Web';
+        font-style: normal;
+        padding: 20px;
+    }
+
+
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio h1 {
+        color: #000;
+        font-size: 100px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio h3 {
+        color: #000;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-acopio .resumen-acpio img {
+        position: relative;
+        width: 300px;
+        height: auto;
+        margin-top: -200px;
+        left: calc(3% - 0px);
+        top: 80px;
+    }
+
+
+    /*------------------- SECCION DE COMPRAS RALIZADAS ------------------*/
+
+
+    .vista-resumen .container-resumen .main-datos .main-compras {
+        display: flex;
+        flex-direction: column;
+        justify-content: initial;
+        align-items: center;
+        background-color: #ffffff;
+        font-family: 'Istok Web';
+        width: 78%;
+        height: 98%;
+        padding: 5px;
+        margin: 10px 0px 10px 0px;
+        color: #000;
+        border-radius: 15PX;
+    }
+
+
+
+    .vista-resumen .container-resumen .main-datos .main-compras .titulo {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        min-height: 75px;
+        max-height: 80px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 30px;
+        position: relative;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .titulo .buscador {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 400px;
+        height: 35px;
+        background-color: #f2f2f2;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        border: #CFCFCF 1px solid;
+    }
+
+
+
+    .vista-resumen .container-resumen .main-datos .main-compras .titulo .buscador input {
+        background-color: transparent;
+        border: none;
+        border-radius: 50px 0px 0px 50px;
+        width: 330px;
+        height: 35px;
+        padding-left: 25px;
+        color: #000;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .titulo .buscador button {
+        background-color: transparent;
+        border: none;
+        border-radius: 0px 50px 50px 0px;
+        width: 70px;
+        height: 35px;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 0px 2px 0px;
+        color: #BFBFBF;
+    }
+
+
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        height: 90%;
+        border-radius: 15px;
+        padding: 10px 10px 0px 10px;
+        background-color: #f2f2f2;
+        font-family: "Istok Web";
+        font-size: 14px;
+        position: relative;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .encabezado {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 35px;
+        padding: 0px 0px 0px 10px;
+        /* background-color: #FFF; */
+        border-radius: 15px;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .encabezado .productor {
+        flex: 2.5;
+        padding-left: 30px;
+    }
+
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato .productor {
+        flex: 2.5;
+        padding-left: 30px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .encabezado span,
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato span {
+        flex: 1;
+        text-align: start;
+        padding-left: 7px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .datos {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        min-height: 350px;
+        /* max-height: 50%px; */
+        background-color: #FFF;
+        border-radius: 10px;
+        overflow: auto;
+        position: relative;
+        padding: 0px 15px 0px 15px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 35px;
+        padding: 0px 5px 0px 0px;
+        background-color: transparent;
+        border-bottom: #CFCFCF 1px solid;
+        margin-bottom: 10px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato .botones {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 95px;
+        height: 32px;
+        padding-right: 20px;
+        flex-shrink: 0;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato .editar {
+        display: flex;
+        width: 40px;
+        height: 30px;
+        border-radius: 15px 0px 0px 15px;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(177, 127, 74, 1);
+        font-size: 1px;
+    }
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .datos .dato .eliminar {
+        display: flex;
+        width: 40px;
+        height: 30px;
+        border-radius: 0px 15px 15px 0px;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background-color: rgba(40, 20, 0, 1);
+        font-size: 1px;
+    }
+
+
+    .vista-resumen .container-resumen .main-datos .main-compras .tabla .totalcompra {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        max-height: 80px;
+        padding: 0px 50px;
+        background-color: #FFF;
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 }

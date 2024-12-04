@@ -182,13 +182,14 @@
 }
     .Bodydiv{
         display: flex;
-        width: 100vw;
+        width: 100%;
         height: 70px;
         position: fixed;
         align-items: center;
         z-index: 1000;
         background: #370101;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        margin-left: 0px;
     }
     .Bodydiv .header{
         width:85%;
@@ -225,10 +226,12 @@
     }
 
   .Bodydiv .header .info .modulo img{
+    margin-left: 0px;
         width: auto;
         height: 50px;
-  position: relative;
-  left: calc(20% - 25px);
+  /* position: relative; */
+  /* left: calc(20% - 25px); */
+  z-index: 201;
   }
 
     .Bodydiv .header .info .usuario h5{
